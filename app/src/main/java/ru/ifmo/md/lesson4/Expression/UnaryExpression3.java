@@ -1,6 +1,6 @@
 package ru.ifmo.md.lesson4.Expression;
 
-import ru.ifmo.md.lesson4.Expression.Exceptions.CalculationException;
+import ru.ifmo.md.lesson4.CalculationException;
 
 public abstract class UnaryExpression3 implements Expression3 {
     protected Expression3 exp;

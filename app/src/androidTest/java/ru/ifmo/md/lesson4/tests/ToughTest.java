@@ -9,7 +9,7 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import ru.ifmo.md.lesson4.CalculationEngineFactory;
-import ru.ifmo.md.lesson4.Expression.Exceptions.CalculationException;
+import ru.ifmo.md.lesson4.CalculationException;
 import ru.ifmo.md.lesson4.Expression.Parser.ParsingException;
 
 @Config(emulateSdk = 18)

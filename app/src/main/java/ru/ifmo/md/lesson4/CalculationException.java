@@ -1,4 +1,4 @@
-package ru.ifmo.md.lesson4.Expression.Exceptions;
+package ru.ifmo.md.lesson4;
 
 public class CalculationException extends Exception {
     public CalculationException(String message) {

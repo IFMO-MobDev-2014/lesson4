@@ -1,6 +1,6 @@
 package ru.ifmo.md.lesson4.Expression;
 
-import ru.ifmo.md.lesson4.Expression.Exceptions.CalculationException;
+import ru.ifmo.md.lesson4.CalculationException;
 
 public class UnaryMinus extends UnaryExpression3 {
 

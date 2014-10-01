@@ -1,6 +1,9 @@
 package ru.ifmo.md.lesson4.Expression.Parser;
 
 public class ParsingException extends Exception {
+    private Integer errPos;
+    private String expected;
+
     public ParsingException(String msg) {
         super(msg);
     }
@@ -12,5 +15,7 @@ public class ParsingException extends Exception {
                         "Invalid symbol \"" + exp.charAt(errPos) + "\",\n\t" +
                         expected + " expected."
         );
+        this.errPos = errPos;
+        this.expected = expected;
     }
 }

@@ -1,3 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">My Application</string>
+
+    <string name="app_name">fLf Calculator</string>
+    <string name="calc_exception">Error during calculation</string>
+
+    <string name="parsing_exception">Error during expression parsing</string>
+    <string name="title_activity_calculator">fLf Calculator</string>
+
 </resources>
