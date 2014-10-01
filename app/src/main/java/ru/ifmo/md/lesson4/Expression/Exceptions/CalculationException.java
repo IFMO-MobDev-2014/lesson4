@@ -1,0 +1,7 @@
+package ru.ifmo.md.lesson4.Expression.Exceptions;
+
+public class CalculationException extends Exception {
+    public CalculationException(String message) {
+        super(message);
+    }
+}
