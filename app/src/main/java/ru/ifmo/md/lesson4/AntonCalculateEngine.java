@@ -168,6 +168,11 @@ public class AntonCalculateEngine implements CalculationEngine {
             processOp(st, op.removeLast());
         }
 
+        if (st.isEmpty()) {
+            // ok, special case
+            return 0.0;
+        }
+
         return st.removeLast();
     }
 }

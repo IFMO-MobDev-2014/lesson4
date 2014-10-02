@@ -91,6 +91,7 @@ public class DummyTest {
         expectToFailOn("3.14zza");
         expectToFailOn("andrewzta");
 
+        shouldNotFailOn("");
         shouldNotFailOn("9.");
         shouldNotFailOn("7-.1");
         shouldNotFailOn("(--3)");
