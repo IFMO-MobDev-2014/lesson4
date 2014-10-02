@@ -42,7 +42,7 @@ public class CalculatorActivity extends Activity {
             try {
                 double result = engine.calculate(expression);
                 setExpression(Double.toString(result));
-                errorState = false;
+                errorState = Double.isInfinite(result) || Double.isNaN(result);
             } catch (CalculationException e) {
                 setExpression("Error");
                 errorState = true;
