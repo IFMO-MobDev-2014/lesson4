@@ -10,12 +10,14 @@ import org.robolectric.annotation.Config;
 
 import java.util.Random;
 
-import ru.ifmo.md.lesson4.CalculationEngineFactory;
+import ru.ifmo.md.lesson4.CalculationEngine;
 import ru.ifmo.md.lesson4.CalculationException;
+import ru.ifmo.md.lesson4.MyCalculationEngine;
 
 @Config(emulateSdk = 18)
 @RunWith(RobolectricTestRunner.class)
 public class MyTest {
+    CalculationEngine calculationEngine = new MyCalculationEngine();
     Random rnd = new Random();
 
     @Before
@@ -23,13 +25,12 @@ public class MyTest {
     }
 
     // made to avoid precision problems and x.xE-x notation
-    private Double getSafeDouble(){
+    private Double getSafeDouble() {
         double d = rnd.nextDouble();
         d *= 100000;
         d = Math.round(d);
         d /= 100000;
-        while( d != 0.0 && Math.round(d) == 0)
-        {
+        while (d != 0.0 && Math.round(d) == 0) {
             d *= 10;
         }
         return d;
@@ -38,17 +39,17 @@ public class MyTest {
     @Test
     public void testWhoppingComplex() {
         try {
-            Assert.assertEquals(10d, CalculationEngineFactory.defaultEngine().calculate("5+5"));
+            Assert.assertEquals(10d, calculationEngine.calculate("5+5"));
         } catch (CalculationException e) {
             Assert.fail("Exception happened " + e);
         }
 
-        for(int i = 0; i < 10; ++i) {
+        for (int i = 0; i < 10; ++i) {
             double a = getSafeDouble();
             double b = getSafeDouble();
             try {
 
-                Assert.assertEquals(a + b, CalculationEngineFactory.defaultEngine().calculate(Double.toString(a) + " +" + Double.toString(b)));
+                Assert.assertEquals(a + b, calculationEngine.calculate(Double.toString(a) + " +" + Double.toString(b)));
             } catch (CalculationException e) {
                 Assert.fail("Exception happened " + e + Double.toString(a) + " " + Double.toString(b));
             }
@@ -57,8 +58,8 @@ public class MyTest {
             double a = getSafeDouble();
             double b = getSafeDouble();
             double c = getSafeDouble();
-            Assert.assertEquals(-(-(5 + 16 * a * b) + c) + 11, CalculationEngineFactory.defaultEngine()
-                    .calculate("-(-(-\t\t-5 + 16   *"+Double.toString(a)+"*"+Double.toString(b)+") + 1 * "+Double.toString(c)+") -(((-11)))"));
+            Assert.assertEquals(-(-(5 + 16 * a * b) + c) + 11, calculationEngine.calculate("-(-(-\t\t-5 + 16 " +
+                    "  *" + Double.toString(a) + "*" + Double.toString(b) + ") + 1 * " + Double.toString(c) + ") -(((-11)))"));
         } catch (CalculationException e) {
             Assert.fail("Exception happened " + e);
         }
@@ -76,18 +77,16 @@ public class MyTest {
     }
 
 
-
     @Test
-    public void randomTests(){
+    public void randomTests() {
         Expr test;
 
         for (int i = 0; i < 30; ++i) {
             test = genExpression(0);
             try {
-                if(test.answer != CalculationEngineFactory.defaultEngine().calculate(test.expr))
-                {
+                if (test.answer != calculationEngine.calculate(test.expr)) {
                     Assert.fail(test.answer.toString() + "   " +
-                            CalculationEngineFactory.defaultEngine().calculate(test.expr) + "   " + test.expr);
+                            calculationEngine.calculate(test.expr) + "   " + test.expr);
                 }
 
             } catch (CalculationException e) {
@@ -99,21 +98,18 @@ public class MyTest {
     }
 
 
-
-    private Expr genExpression(int depth){
+    private Expr genExpression(int depth) {
         Expr e;
         double t = getSafeDouble();
-        for(int i = 0; i < rnd.nextInt(4); ++i)
-        {
+        for (int i = 0; i < rnd.nextInt(4); ++i) {
             t *= 10;
         }
         e = new Expr(Double.toString(t), t);
 
-        if(depth < 3){
+        if (depth < 3) {
             int tmp = rnd.nextInt(6);
             Expr e1 = genExpression(depth + 1);
-            if(tmp == 5 || tmp == 6)
-            {
+            if (tmp == 5 || tmp == 6) {
                 e.answer = e1.answer;
                 e.expr = e1.expr;
             } else {
@@ -125,7 +121,7 @@ public class MyTest {
                         break;
                     case 1:
                         e.answer = e1.answer - e2.answer;
-                        e.expr = "(" + e1.expr  + ")-(" + e2.expr + ")";
+                        e.expr = "(" + e1.expr + ")-(" + e2.expr + ")";
                         break;
                     case 2:
                         e.answer = e1.answer * e2.answer;
@@ -139,7 +135,7 @@ public class MyTest {
             }
         }
 
-        if(e.expr != "") {
+        if (!e.expr.equals("")) {
             for (int i = 0; i < rnd.nextInt(3); ++i) {
                 if (rnd.nextBoolean()) {
                     e.expr = "(" + e.expr + ")";
@@ -154,7 +150,6 @@ public class MyTest {
         return e;
 
     }
-
 
 
 }
