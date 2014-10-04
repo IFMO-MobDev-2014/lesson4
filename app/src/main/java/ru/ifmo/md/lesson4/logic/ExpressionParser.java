@@ -62,6 +62,18 @@ public final class ExpressionParser {
                             nextNumber += currentChar();
                             position++;
                         }
+                        if (currentChar() == 'E') {
+                            nextNumber += currentChar();
+                            position++;
+                            if (currentChar() == '+' || currentChar() == '-') {
+                                nextNumber += currentChar();
+                                position++;
+                            }
+                            while (Character.isDigit(currentChar())) {
+                                nextNumber += currentChar();
+                                position++;
+                            }
+                        }
                     }
                     return Token.NUM;
                 }

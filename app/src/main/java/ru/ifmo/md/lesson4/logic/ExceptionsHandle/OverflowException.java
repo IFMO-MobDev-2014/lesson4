@@ -5,6 +5,6 @@ package ru.ifmo.md.lesson4.logic.ExceptionsHandle;
  */
 public class OverflowException extends EvaluationException {
     public OverflowException() {
-        super("overflow during evaluation");
+        super("Infinity");
     }
 }

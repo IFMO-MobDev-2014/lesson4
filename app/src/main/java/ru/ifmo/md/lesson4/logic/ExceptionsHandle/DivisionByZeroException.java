@@ -5,7 +5,7 @@ package ru.ifmo.md.lesson4.logic.ExceptionsHandle;
  */
 public class DivisionByZeroException extends EvaluationException {
     public DivisionByZeroException() {
-        super("Division by zero occured");
+        super("Division by zero occurred");
     }
 
     public DivisionByZeroException(String s) {

@@ -14,7 +14,6 @@ public class IntelligentCalculateEngine implements CalculationEngine {
 
     @Override
     public double calculate(String expression) throws CalculationException {
-        Log.d("calculate()", "expression = " + expression);
         ExpressionParser parser = new ExpressionParser();
         Expression inputExpression;
         double result = 0;
