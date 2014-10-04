@@ -6,8 +6,8 @@ import java.util.Stack;
  * Created by vi34 on 04.10.14.
  */
 public class MyCalculationEngine implements CalculationEngine{
-    static Stack<Character> oper = new Stack<Character>();
-    static Stack<Double> st = new Stack<Double>();
+    Stack<Character> oper = new Stack<Character>();
+    Stack<Double> st = new Stack<Double>();
 
     @Override
     public double calculate(String expression) throws CalculationException {
@@ -19,13 +19,9 @@ public class MyCalculationEngine implements CalculationEngine{
                     oper.push('(');
                     unary = true;
                 } else if (c == ')') {
-                    while (oper.peek() != '(' && oper.peek() != '|'
-                            && oper.peek() != 'L') {
+                    while (oper.peek() != '(') {
                         execute(oper.peek());
                         oper.pop();
-                    }
-                    if (oper.peek() == '|' || oper.peek() == 'L') {
-                        execute(oper.peek());
                     }
                     oper.pop();
                     unary = false;
@@ -68,35 +64,45 @@ public class MyCalculationEngine implements CalculationEngine{
             execute(oper.peek());
             oper.pop();
         }
-        return st.peek();
+        double result = st.peek();
+        st.pop();
+        if(st.isEmpty()) {
+            return result;
+        } else {
+            throw new CalculationException("Missing Operations");
+        }
     }
 
-    private static void execute(char op) {
+    private void execute(char op) throws CalculationException{
+        if (st.isEmpty())
+        {
+            throw new CalculationException("Missing arguments");
+        }
+        Double top = st.peek();
+        st.pop();
         if (op != '!') {
-            double top1 = st.peek();
-            st.pop();
+            if (st.isEmpty())
+            {
+                throw new CalculationException("Missing arguments");
+            }
             double top2 = st.peek();
             st.pop();
             switch (op) {
                 case '-':
-                    st.push(top2 - top1);
+                    st.push(top2 - top);
                     break;
                 case '+':
-                    st.push(top2 + top1);
+                    st.push(top2 + top);
                     break;
                 case '*':
-                    st.push(top2 * top1);
+                    st.push(top2 * top);
                     break;
                 case '/':
-                    st.push(top2 / top1);
+                    st.push(top2 / top);
                     break;
             }
         } else {
-            Double top = st.peek();
-            st.pop();
-            if (op == '!') {
                 st.push(top * -1);
-            }
         }
     }
 
