@@ -9,4 +9,5 @@ public class CalculationEngineFactory {
     public static CalculationEngine defaultEngine() {
         return new DummyCalculateEngine();
     }
+
 }

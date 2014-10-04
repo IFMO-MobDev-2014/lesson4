@@ -1,3 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">My Application</string>
+
+    <string name="app_name">Calculator</string>
+    <string name="title_activity_main">Calculator</string>
+    <string name="empty_expression">Type your expression</string>
+    <string name="button0">0</string>
+    <string name="button00">00</string>
+    <string name="button1">1</string>
+    <string name="button2">2</string>
+    <string name="button3">3</string>
+    <string name="button4">4</string>
+    <string name="button5">5</string>
+    <string name="button6">6</string>
+    <string name="button7">7</string>
+    <string name="button8">8</string>
+    <string name="button9">9</string>
+    <string name="clearText">C</string>
+    <string name="deleteText">D</string>
+    <string name="operationPlus">+</string>
+    <string name="operationMinus">-</string>
+    <string name="operationMultiply">*</string>
+    <string name="operationDivide">/</string>
+    <string name="buttonPoint">.</string>
+    <string name="bracketOpen">(</string>
+    <string name="bracketClose">)</string>
+    <string name="operationPower">^</string>
+    <string name="buttonCalculate">=</string>
+
 </resources>
