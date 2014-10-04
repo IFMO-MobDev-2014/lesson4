@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -39,22 +40,33 @@ public class MyActivity extends Activity {
         double result;
         EditText inputText = (EditText) findViewById(R.id.editText);
         TextView txt = (TextView) findViewById(R.id.textView);
+        Button btn = (Button) view;
         CalculationEngine calculationEngine = CalculationEngineFactory.defaultEngine();
 
         expression = inputText.getText().toString();
-        try {
-            result = calculationEngine.calculate(expression);
-            txt.setText(Double.toString(result));
-        } catch (CalculationException e) {
-            e.printStackTrace();
-            txt.setText("ERROR: " + e.getMessage());
-        } catch (Exception e) {
-            e.printStackTrace();
-            txt.setText("ERROR!!!");
-            Log.e("adf","ASFFAF");
-        }
+        if(btn.getText().equals("c")){
+            expression = "";
+        }else if (btn.getText().equals("←")) {
+           expression = expression.substring(0,expression.length() - 1);
+        } else if(btn.getText().equals("=") && !expression.equals("")) {
+            try {
+                result = calculationEngine.calculate(expression);
+                txt.setText(Double.toString(result));
+            } catch (CalculationException e) {
+                e.printStackTrace();
+                txt.setText("ERROR: " + e.getMessage());
+            } catch (Exception e) {
+                e.printStackTrace();
+                txt.setText("ERROR!!!");
+                Log.e("adf", "ASFFAF");
+            }
 
-        txt.invalidate();
+            txt.invalidate();
+        } else {
+            expression += btn.getText();
+        }
+        inputText.setText(expression);
+        inputText.invalidate();
 
     }
 }
