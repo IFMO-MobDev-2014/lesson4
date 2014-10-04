@@ -3,20 +3,22 @@ package ru.ifmo.md.lesson4;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 
-public class BaseButtonsFragment extends Fragment {
+
+public class AdvancedButtonsFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
 
-    public static BaseButtonsFragment newInstance() {
-        BaseButtonsFragment fragment = new BaseButtonsFragment();
+    public static AdvancedButtonsFragment newInstance() {
+        AdvancedButtonsFragment fragment = new AdvancedButtonsFragment();
         return fragment;
     }
-    public BaseButtonsFragment() {
+    public AdvancedButtonsFragment() {
+        // Required empty public constructor
     }
 
     @Override
@@ -27,12 +29,12 @@ public class BaseButtonsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_base_buttons, container, false);
+        return inflater.inflate(R.layout.fragment_advanced_buttons, container, false);
     }
 
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onButtonClicked(uri);
+            mListener.onFragmentInteraction(uri);
         }
     }
 
@@ -53,9 +55,8 @@ public class BaseButtonsFragment extends Fragment {
         mListener = null;
     }
 
-
     public interface OnFragmentInteractionListener {
-        public void onButtonClicked(Uri uri);
+        public void onFragmentInteraction(Uri uri);
     }
 
 }
