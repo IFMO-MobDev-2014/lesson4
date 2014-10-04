@@ -19,7 +19,15 @@ public class MyCalculationEngine implements CalculationEngine{
                     oper.push('(');
                     unary = true;
                 } else if (c == ')') {
+                    if(oper.isEmpty())
+                    {
+                        throw new CalculationException("Missing brackets");
+                    }
                     while (oper.peek() != '(') {
+                        if(oper.isEmpty())
+                        {
+                            throw new CalculationException("Missing brackets");
+                        }
                         execute(oper.peek());
                         oper.pop();
                     }

@@ -2,7 +2,6 @@ package ru.ifmo.md.lesson4;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -47,21 +46,24 @@ public class MyActivity extends Activity {
         if(btn.getText().equals("c")){
             expression = "";
         }else if (btn.getText().equals("←")) {
-           expression = expression.substring(0,expression.length() - 1);
-        } else if(btn.getText().equals("=") && !expression.equals("")) {
-            try {
-                result = calculationEngine.calculate(expression);
-                txt.setText(Double.toString(result));
-            } catch (CalculationException e) {
-                e.printStackTrace();
-                txt.setText("ERROR: " + e.getMessage());
-            } catch (Exception e) {
-                e.printStackTrace();
-                txt.setText("ERROR!!!");
-                Log.e("adf", "ASFFAF");
+            if(expression.length() > 0) {
+                expression = expression.substring(0, expression.length() - 1);
             }
+        } else if(btn.getText().equals("=")) {
+            if(!expression.equals("")) {
+                try {
+                    result = calculationEngine.calculate(expression);
+                    txt.setText(Double.toString(result));
+                } catch (CalculationException e) {
+                    e.printStackTrace();
+                    txt.setText("ERROR: " + e.getMessage());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    txt.setText("ERROR!!!");
+                }
 
-            txt.invalidate();
+                txt.invalidate();
+            }
         } else {
             expression += btn.getText();
         }
