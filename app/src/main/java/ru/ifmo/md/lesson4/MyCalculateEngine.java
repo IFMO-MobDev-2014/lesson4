@@ -1,7 +1,7 @@
 package ru.ifmo.md.lesson4;
 
 /**
- * Created by User on 02.10.2014.
+ * Created by Snopi on 02.10.2014.
  */
 public class MyCalculateEngine implements CalculationEngine {
     @Override

@@ -1,7 +1,7 @@
 package ru.ifmo.md.lesson4;
 
 /**
- * Created by User on 01.10.2014.
+ * Created by Snopi on 01.10.2014.
  */
 public interface Expr {
     public double evaluate();

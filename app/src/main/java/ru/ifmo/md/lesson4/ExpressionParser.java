@@ -49,16 +49,23 @@ public class ExpressionParser {
 
     private static Expr parseAtom() throws CalculationException {
         i++;
+        if (i >= expression.length()) {
+            throw new CalculationException("...");
+        }
         char c = expression.charAt(i);
-        if (Character.isDigit(c)) {
+        if (Character.isDigit(c) || c == '.') {
             int dots = 0;
             int indBegin = i;
-            while (i < expression.length() && (Character.isDigit(expression.charAt(i)) || expression.charAt(i) == '.')) {
+            while (i < expression.length()
+                    && (Character.isDigit(expression.charAt(i))
+                    || expression.charAt(i) == '.' || expression.charAt(i) == 'E')) {
                 if (expression.charAt(i) == '.') {
                     dots++;
                     if (dots > 1) {
                         throw new CalculationException("too many dots in double");
                     }
+                } else if (expression.substring(i).startsWith("E-")) {
+                    i++;
                 }
                 i++;
             }
@@ -66,7 +73,7 @@ public class ExpressionParser {
             try {
                 ans = Double.parseDouble(expression.substring(indBegin, i));
             } catch (NumberFormatException e) {
-                throw new CalculationException();
+                throw new CalculationException(e.toString());
             }
             i--;
             return new Operations.Constant(ans);
@@ -74,7 +81,7 @@ public class ExpressionParser {
             Expr result = parseExpr(parseTerm(parseAtom()));
             i++;
             if (i >= expression.length() || expression.charAt(i) != ')') {
-                throw new CalculationException();
+                throw new CalculationException("Mismatched parentheses");
             }
             return result;
         } else if (c == '-') {
@@ -92,9 +99,9 @@ public class ExpressionParser {
             throw new CalculationException("There is nothing to calculate");
         }
         Expr result = parseExpr(parseTerm(parseAtom()));
-        /*if (i < expression.length()) {
-            throw new CalculationException();
-        }*/
+        if (i < expression.length()) {
+            throw new CalculationException("Bad expression");
+        }
         return result;
     }
 }
