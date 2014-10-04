@@ -43,6 +43,7 @@ public class Operations {
         public UnaryPlus(Expr arg) {
             this.arg = arg;
         }
+
         @Override
         public double evaluate() {
             return arg.evaluate();

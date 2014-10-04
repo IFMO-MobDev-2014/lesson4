@@ -16,9 +16,6 @@ public class TestGen {
         return x.first;
     }
 
-    //+-*/(unary +)(unary -)
-    // 012345-
-    // 0011223
     private double randomDouble() {
         return (random.nextInt() + random.nextDouble())
                 * (random.nextBoolean() ? -1 : 1);
