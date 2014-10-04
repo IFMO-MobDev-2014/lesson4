@@ -44,6 +44,7 @@ public class Calculator implements CalculationEngine {
             if (tok == '*') {
                 result *= factor();
             } else { // '/'
+                // TODO: division by zero ?
                 result /= factor();
             }
 
@@ -52,14 +53,15 @@ public class Calculator implements CalculationEngine {
         return result;
     }
 
-    // factor = ["-"] factor | number | "(" expression ")" .
+    // factor = ["[-+]"] factor | number | "(" expression ")" .
     private double factor() throws CalculationException {
         double result;
         char tok = lex.peekToken();
 
         if (lex.accept('-')) { // unary minus
-            tok = lex.nextToken();
             result = -factor();
+        } else if (lex.accept('+')) { // unary plus
+            result = factor();
         } else if (lex.accept('(')) { // expression
             result = expression();
             if (!lex.accept(')')) {
@@ -75,6 +77,9 @@ public class Calculator implements CalculationEngine {
 
     // number = { "[0-9]" } [ "." { "[0-9]" } ]
     private double number() throws CalculationException {
+        if (lex.accept((char) 0x221E)) { // infinity
+            return Double.POSITIVE_INFINITY;
+        }
         char tok = lex.peekToken();
         double result = 0.0;
         boolean hasDigits = false;
@@ -84,7 +89,7 @@ public class Calculator implements CalculationEngine {
             tok = lex.nextChar();
             hasDigits = true;
         }
-        if(lex.accept('.')) {
+        if (lex.accept('.')) {
             double multiplier = 1.0;
             tok = lex.peekToken();
             while (tok >= '0' && tok <= '9') {
@@ -94,7 +99,7 @@ public class Calculator implements CalculationEngine {
                 hasDigits = true;
             }
         }
-        if(!hasDigits) {
+        if (!hasDigits) {
             // either "." or not a number
             throw new CalculationException();
         }

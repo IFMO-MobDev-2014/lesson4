@@ -46,7 +46,7 @@ public class Lexer {
     }
 
     public boolean accept(char tok) {
-        if(peekToken() == tok) {
+        if (peekToken() == tok) {
             nextToken();
             return true;
         }
