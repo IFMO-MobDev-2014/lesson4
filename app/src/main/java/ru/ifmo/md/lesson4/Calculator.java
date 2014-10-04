@@ -8,7 +8,13 @@ public class Calculator implements CalculationEngine {
 
     public double calculate(String expression) throws CalculationException {
         lex = new Lexer(expression);
+        lex.skipWhitespace();
         double result = expression();
+        lex.skipWhitespace();
+        if (lex.hasMoreTokens()) {
+            // unexpected!
+            throw new CalculationException();
+        }
         lex = null; // free memory
         return result;
     }
@@ -68,21 +74,29 @@ public class Calculator implements CalculationEngine {
 
 
     // number = { "[0-9]" } [ "." { "[0-9]" } ]
-    private double number(int sign) throws CalculationException {
+    private double number() throws CalculationException {
         char tok = lex.peekToken();
         double result = 0.0;
+        boolean hasDigits = false;
         while (tok >= '0' && tok <= '9') {
             result *= 10;
             result += (double) (tok - '0');
             tok = lex.nextChar();
+            hasDigits = true;
         }
         if(lex.accept('.')) {
             double multiplier = 1.0;
+            tok = lex.peekToken();
             while (tok >= '0' && tok <= '9') {
                 multiplier *= 10;
                 result += ((double) (tok - '0')) / multiplier;
                 tok = lex.nextChar();
+                hasDigits = true;
             }
+        }
+        if(!hasDigits) {
+            // either "." or not a number
+            throw new CalculationException();
         }
         lex.skipWhitespace();
         return result;
