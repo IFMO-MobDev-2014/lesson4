@@ -54,7 +54,12 @@ public class CalculatorActivity extends Activity {
             if (curExpr.isEmpty()) {
                 result.setText("");
             } else {
-                result.setText("=" + fmt.format(calc.calculate(curExpr)));
+                double num = calc.calculate(curExpr);
+                if(Double.isNaN(num)) {
+                    result.setText("NaN");
+                } else {
+                    result.setText("=" + fmt.format(num));
+                }
             }
         } catch (CalculationException e) {
             result.setText("ERROR");
