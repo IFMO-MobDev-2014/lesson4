@@ -21,5 +21,6 @@
     <string name="point">.</string>
     <string name="add">+</string>
     <string name="smile">:)</string>
+    <string name="invalid_expression">Invalid expression</string>
 
 </resources>
