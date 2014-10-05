@@ -20,22 +20,12 @@ public class CalculatorMainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (savedInstanceState != null) {
-            expression = savedInstanceState.getString("calcExpression");
-        }
 
-        if (expression == null)
-            expression = "";
+        expression = "";
 
         setContentView(R.layout.activity_calculator_main);
 
         textView = (TextView) findViewById(R.id.textView);
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle savedInstanceState) {
-        super.onSaveInstanceState(savedInstanceState);
-        savedInstanceState.putString("calcExpression", expression);
     }
 
     private String expression;
