@@ -67,7 +67,7 @@ public class CalculatorMainActivity extends Activity {
                 badResult = true;
                 textView.setText(R.string.calc_error);
                 expression = "";
-                Toast.makeText(this, ex.getMessage(), Toast.LENGTH_SHORT);
+                Toast.makeText(this, ex.getMessage(), Toast.LENGTH_SHORT).show();
             }
             return;
         } else {
