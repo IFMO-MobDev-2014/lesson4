@@ -18,9 +18,10 @@
         android:maxLines="1"
         android:textSize="@dimen/huge_text"/>
 
-    <FrameLayout
+    <fragment android:name="ru.ifmo.md.lesson4.LandscapeFragment"
+        android:id="@+id/fragment"
+        android:layout_weight="4"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/fragmentContainer"/>
+        android:layout_height="0dp" />
 
 </LinearLayout>
