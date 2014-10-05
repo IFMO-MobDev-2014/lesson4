@@ -1,9 +1,14 @@
 package ru.ifmo.md.lesson4;
 
 import android.app.Activity;
+import android.graphics.Color;
+import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.text.InputType;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,6 +27,7 @@ public class MainActivity extends Activity {
     ArrayList<Button> buttons = new ArrayList<Button>();
     EditText editText;
     String s = "";
+    CountDownTimer mTimer = null;
 
     @Override
     public Object onRetainNonConfigurationInstance() {
@@ -45,10 +51,7 @@ public class MainActivity extends Activity {
         if (savedObject != null) {
             s = (String)savedObject;
             editText.setText("");
-        } else {
-
         }
-
 
         TableLayout layout = (TableLayout)findViewById(R.id.table);
         for (int i = 0; i < layout.getChildCount(); i++) {
@@ -108,16 +111,56 @@ public class MainActivity extends Activity {
 
         final Button eraseButton = (Button)findViewById(R.id.eraseButton);
         eraseButton.setText("<-");
-        eraseButton.setOnClickListener(new View.OnClickListener() {
+//        eraseButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                int position = editText.getSelectionStart();
+//                if (position == 0) {
+//                    return;
+//                }
+//                s = s.substring(0, position - 1) + s.substring(position);
+//                editText.setText(s);
+//                editText.setSelection(position - 1);
+//            }
+//        });
+
+        final Rect rect = new Rect(0, 0, 0, 0);
+        eraseButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View view) {
-                int position = editText.getSelectionStart();
-                if (position == 0) {
-                    return;
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    rect.set(view.getLeft(), view.getTop(), view.getRight(), view.getBottom());
+                    System.out.println("TRARAR");
+//                    eraseButton.setBackgroundResource(android.R.drawable.btn_dropdown);
+                    mTimer = new CountDownTimer(9999999, 100) {
+                        @Override
+                        public void onTick(long l) {
+                            int position = editText.getSelectionStart();
+                            if (position == 0) {
+                                return;
+                            }
+                            s = s.substring(0, position - 1) + s.substring(position);
+                            editText.setText(s);
+                            editText.setSelection(position - 1);
+                        }
+                        @Override
+                        public void onFinish() {
+
+                        }
+                    };
+                    mTimer.start();
+                    return true;
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_MOVE) {
+                    if (!rect.contains(view.getLeft() + (int)motionEvent.getX(),
+                                       view.getTop() + (int)motionEvent.getY())) {
+                        mTimer.cancel();
+                        return true;
+                    }
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    mTimer.cancel();
+                    return true;
                 }
-                s = s.substring(0, position - 1) + s.substring(position);
-                editText.setText(s);
-                editText.setSelection(position - 1);
+                return false;
             }
         });
     }
