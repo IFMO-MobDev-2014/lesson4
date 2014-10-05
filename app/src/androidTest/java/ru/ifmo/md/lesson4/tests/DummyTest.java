@@ -44,6 +44,7 @@ public class DummyTest extends TestCase {
         }
     }
 
+    @Test
     public void testParser() {
         expectFail("");
         expectFail("(");
@@ -98,12 +99,16 @@ public class DummyTest extends TestCase {
         expectNotFail("-1-2-3+4");
         expectNotFail("555555");
         expectNotFail("(2392)*(292)+(8392)-(-----5)");
-}
-
-    public void testInfinityAndDivisionByZero() {
-
     }
 
+    @Test
+    public void testInfinityAndDivisionByZero() {
+        expectFail("1/0");
+        expectFail("1.0/0");
+        expectFail("1/(1-1)");
+    }
+
+    @Test
     public void testCorrectArithmetic() {
         expectEq("-5", -5);
         expectEq("5", 5);

@@ -2,6 +2,7 @@ package ru.ifmo.md.lesson4;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.InputType;
@@ -42,9 +43,10 @@ public class MainActivity extends Activity {
 
     public void onButtonClick(View v) {
         Button button = (Button)v;
-        if (button.getId() == R.id.C)
+        if (button.getId() == R.id.C) {
             input.setText("");
-        else if (button.getId() == R.id.delete) {
+            result.setText("");
+        } else if (button.getId() == R.id.delete) {
             String str = input.getText().toString();
             int begin = input.getSelectionStart();
             int end = input.getSelectionEnd();
@@ -56,6 +58,7 @@ public class MainActivity extends Activity {
                 str = str.substring(0, begin - 1) + str.substring(end, str.length());
                 input.setText(str);
                 input.setSelection(begin - 1);
+                result.setText("");
             }
         } else if (button.getId() == R.id.equal) {
             String expr = input.getText().toString();
@@ -63,13 +66,15 @@ public class MainActivity extends Activity {
             int end = input.getSelectionEnd();
             try {
                 double res = calculatorEngine.calculate(expr);
-                result.setText(Double.toString(res));
+                result.setText(String.format("%.4f", res));
             } catch (DivisionByZeroException e) {
                 result.setText(messageError(e.getMessage(), "red"));
                 input.setText(messageError(expr, e.getBeginOfError(), e.getEndOfError(), "red"));
             } catch (UnexpectedExpressionException e) {
-                result.setText(messageError(e.getMessage(), "red"));
-                input.setText(messageError(expr, e.getBeginOfError(), e.getEndOfError(), "red"));
+                if (!input.getText().toString().isEmpty()) {
+                    result.setText(messageError(e.getMessage(), "red"));
+                    input.setText(messageError(expr, e.getBeginOfError(), e.getEndOfError(), "red"));
+                }
             } catch (UnpairedBracketException e) {
                 result.setText(messageError(e.getMessage(), "red"));
                 input.setText(messageError(expr, e.getUnpairedIndex(), e.getUnpairedIndex() + 1, "red"));
@@ -85,6 +90,7 @@ public class MainActivity extends Activity {
             str = str.substring(0, begin) + button.getText() + str.substring(end, str.length());
             input.setText(str);
             input.setSelection(begin + 1);
+            result.setText("");
         }
     }
 

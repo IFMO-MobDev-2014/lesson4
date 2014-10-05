@@ -6,16 +6,16 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="74dp"
         android:layout_weight="1.97">
         <EditText
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:id="@+id/inputExpr"
             android:layout_weight="1.19"
             android:inputType=""
             android:longClickable="false"
-            android:layout_height="wrap_content"
             android:background="#368771ba"
             android:layout_marginLeft="@dimen/activity_margin"
             android:layout_marginRight="@dimen/activity_margin"
@@ -23,12 +23,13 @@
             android:textSize="@dimen/size_of_text"/>
 
         <TextView
-            android:layout_width="fill_parent"
-            android:id="@+id/result"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/size_of_result_field"
+            android:id="@+id/result"
             android:layout_margin="@dimen/activity_margin"
             android:background="#368771ba"
-            android:textSize="@dimen/size_of_text"/>
+            android:textSize="@dimen/size_of_text"
+            android:editable="false" />
 
     </LinearLayout>
 
