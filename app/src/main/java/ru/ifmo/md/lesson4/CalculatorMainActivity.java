@@ -7,6 +7,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.text.DecimalFormat;
+import java.text.Format;
 
 
 public class CalculatorMainActivity extends Activity {
@@ -66,19 +70,20 @@ public class CalculatorMainActivity extends Activity {
                     else
                         textView.setText(R.string.calc_negative_infinity);
                 } else {
-                    expression = result + "";
+                    expression = new DecimalFormat("#.##########").format(result); // to prevent operator+ from making that E thing
                     textView.setText(expression);
                 }
             } catch (CalculationException ex) {
                 badResult = true;
                 textView.setText(R.string.calc_error);
                 expression = "";
+                Toast.makeText(this, ex.getMessage(), Toast.LENGTH_SHORT);
             }
             return;
         } else {
             expression += txt.charAt(0);
         }
 
-        textView.setText(expression.toCharArray(), 0, expression.length());
+        textView.setText(expression);
     }
 }

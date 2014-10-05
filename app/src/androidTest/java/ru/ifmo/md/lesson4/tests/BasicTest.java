@@ -42,6 +42,7 @@ public class BasicTest {
         expectEqual("9.", 9.0);
         expectEqual("1/0", Double.POSITIVE_INFINITY);
         expectEqual("0/0", Double.NaN);
+        expectEqual("99999999999999999999999999999999999999999999999999", 99999999999999999999999999999999999999999999999999.0);
     }
 
     @Test
@@ -59,6 +60,10 @@ public class BasicTest {
         expectFail("(7+(7+3)");
         expectFail("9-");
         expectFail("(6)(8)");
+        expectFail("(4)9");
+        expectFail("(4).");
+        expectFail(".(4)");
+        expectFail("5(4)");
         expectFail("1-1(4)");
         expectFail("3)");
         expectFail("(3");

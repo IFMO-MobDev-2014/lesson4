@@ -224,7 +224,12 @@ public class ExpressionParser implements CalculationEngine {
         if (outStk.empty())
             return 0.0;
 
-        return outStk.pop();
+        double rv = outStk.pop();
+
+        if(!outStk.empty())
+            throw new CalculationException("Malformed expression");
+
+        return rv;
     }
 
     public static double parse(String a) throws CalculationException {
