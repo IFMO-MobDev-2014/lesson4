@@ -3,14 +3,14 @@ package ru.ifmo.md.lesson4;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 
-
 public class AdvancedButtonsFragment extends Fragment {
+
     private OnFragmentInteractionListener mListener;
 
     public static AdvancedButtonsFragment newInstance() {
@@ -32,9 +32,9 @@ public class AdvancedButtonsFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_advanced_buttons, container, false);
     }
 
-    public void onButtonPressed(Uri uri) {
+    public void onButtonPressed(int id) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            mListener.onButtonClicked(id);
         }
     }
 
@@ -56,7 +56,7 @@ public class AdvancedButtonsFragment extends Fragment {
     }
 
     public interface OnFragmentInteractionListener {
-        public void onFragmentInteraction(Uri uri);
+        public void onButtonClicked(int id);
     }
 
 }

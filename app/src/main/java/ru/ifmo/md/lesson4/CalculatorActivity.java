@@ -10,11 +10,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Window;
 
 
 public class CalculatorActivity extends FragmentActivity
-        implements BaseButtonsFragment.OnFragmentInteractionListener {
+    implements BaseButtonsFragment.OnFragmentInteractionListener,
+               AdvancedButtonsFragment.OnFragmentInteractionListener {
     private int mOrientation;
     private ViewPager mViewPager;
     private PagerAdapter mAdapter;
@@ -33,33 +35,56 @@ public class CalculatorActivity extends FragmentActivity
 
     private void setupViews() {
         mOrientation = getResources().getConfiguration().orientation;
-        if (mOrientation == Configuration.ORIENTATION_PORTRAIT) {
-            mViewPager = (ViewPager) findViewById(R.id.viewPager);
-            mAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager());
-            mViewPager.setAdapter(mAdapter);
+        mViewPager = (ViewPager) findViewById(R.id.viewPager);
+        int pages;
+        switch (mOrientation) {
+            case Configuration.ORIENTATION_PORTRAIT:
+                pages = 2;
+                break;
+            case Configuration.ORIENTATION_LANDSCAPE:
+                pages = 1;
+                break;
+            default:
+                pages = 2;
+                break;
         }
-
+        mAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager(), pages);
+        mViewPager.setAdapter(mAdapter);
     }
 
     @Override
-    public void onButtonClicked(Uri uri) {
-
+    public void onButtonClicked(int id) {
+        Log.d("TAG", "" + id);
     }
 
     private class MyFragmentPagerAdapter extends FragmentPagerAdapter {
+        private int mPages;
 
-        public MyFragmentPagerAdapter(FragmentManager fm) {
+        public MyFragmentPagerAdapter(FragmentManager fm, int pages) {
             super(fm);
+            mPages = pages;
         }
 
         @Override
         public Fragment getItem(int position) {
-            return BaseButtonsFragment.newInstance();
+            switch (mPages) {
+                case 1:
+                    return BaseButtonsFragment.newInstance();
+                case 2:
+                    switch (position) {
+                        case 0:
+                            return BaseButtonsFragment.newInstance();
+                        case 1:
+                            return AdvancedButtonsFragment.newInstance();
+                    }
+                default:
+                    return null;
+            }
         }
 
         @Override
         public int getCount() {
-            return 1;
+            return mPages;
         }
     }
 

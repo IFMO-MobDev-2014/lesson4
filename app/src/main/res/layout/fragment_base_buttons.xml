@@ -19,25 +19,25 @@
 
             <Button
                 android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:id="@+id/button_7"
                 android:text="@string/button_7"/>
             <Button
                 android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:id="@+id/button_8"
                 android:text="@string/button_8"/>
             <Button
                 android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:id="@+id/button_9"
                 android:text="@string/button_9"/>
             <Button
                 android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:id="@+id/button_divide"
                 android:text="@string/button_divide"/>
@@ -53,25 +53,25 @@
 
             <Button
                 android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:id="@+id/button_4"
                 android:text="@string/button_4"/>
             <Button
                 android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:id="@+id/button_5"
                 android:text="@string/button_5"/>
             <Button
                 android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:id="@+id/button_6"
                 android:text="@string/button_6"/>
             <Button
                 android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:id="@+id/button_multiply"
                 android:text="@string/button_multiply"/>
@@ -87,25 +87,25 @@
 
             <Button
                 android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:id="@+id/button_1"
                 android:text="@string/button_1"/>
             <Button
                 android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:id="@+id/button_2"
                 android:text="@string/button_2"/>
             <Button
                 android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:id="@+id/button_3"
                 android:text="@string/button_3"/>
             <Button
                 android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:id="@+id/button_minus"
                 android:text="@string/button_minus"/>
@@ -121,25 +121,25 @@
 
             <Button
                 android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:id="@+id/button_point"
                 android:text="@string/button_point"/>
             <Button
                 android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:id="@+id/button_0"
                 android:text="@string/button_0"/>
             <Button
                 android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:id="@+id/button_equals"
                 android:text="@string/button_equals"/>
             <Button
                 android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:id="@+id/button_plus"
                 android:text="@string/button_plus"/>

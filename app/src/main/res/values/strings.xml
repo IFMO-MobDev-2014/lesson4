@@ -22,5 +22,17 @@
     <string name="button_0">0</string>
     <string name="button_equals">=</string>
     <string name="button_plus">+</string>
+    <string name="button_sin">sin</string>
+    <string name="button_cos">cos</string>
+    <string name="button_tan">tan</string>
+    <string name="button_ln">ln</string>
+    <string name="button_log">log</string>
+    <string name="button_fact">!</string>
+    <string name="button_pi">π</string>
+    <string name="button_exp">e</string>
+    <string name="button_power">^</string>
+    <string name="button_op_bracket">(</string>
+    <string name="button_cl_bracket">)</string>
+    <string name="button_sqrt">√</string>
 
 </resources>

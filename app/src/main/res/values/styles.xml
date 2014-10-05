@@ -2,7 +2,7 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
-        <item name="android:buttonStyle">@style/MyButton</item>
+        <!--<item name="android:buttonStyle">@style/MyButton</item>-->
     </style>
 
     <style name="MyButton" parent="@android:style/Widget.Button">
