@@ -89,9 +89,13 @@ public class ExpressionParser {
         } catch (ParseException e) {
             throw new CalculationException();
         }
-        nextToken();
+        try {
+            nextToken();
+        } catch (Exception e) {
+            throw new CalculationException();
+        }
         if (token != EOI)
-            throw new ParseException("End of input expected, but " + token + " found");
+            throw new CalculationException();
         return result;
 
     }
