@@ -75,7 +75,7 @@ public class Calculator implements CalculationEngine {
     }
 
 
-    // number = { "[0-9]" } [ "." { "[0-9]" } ]
+    // number = { "[0-9]" } [ "." { "[0-9]" } ] [ "E" integer ]
     private double number() throws CalculationException {
         if (lex.accept((char) 0x221E)) { // infinity
             return Double.POSITIVE_INFINITY;
@@ -99,12 +99,38 @@ public class Calculator implements CalculationEngine {
                 hasDigits = true;
             }
         }
+        if (lex.accept('E')) {
+            long exp = integer();
+            result *= Math.pow(10, exp);
+        }
         if (!hasDigits) {
             // either "." or not a number
             throw new CalculationException();
         }
         lex.skipWhitespace();
         return result;
+    }
+
+    // integer = ["-"] { "[0-9]" }
+    private long integer() throws CalculationException {
+        long sign = 1;
+        if (lex.accept('-')) {
+            sign = -1;
+        }
+        char tok = lex.peekToken();
+        long result = 0;
+        boolean hasDigits = false;
+        while (tok >= '0' && tok <= '9') {
+            result *= 10;
+            result += tok - '0';
+            tok = lex.nextChar();
+            hasDigits = true;
+        }
+        if (!hasDigits) {
+            // expected integer
+            throw new CalculationException();
+        }
+        return sign * result;
     }
 
 }
