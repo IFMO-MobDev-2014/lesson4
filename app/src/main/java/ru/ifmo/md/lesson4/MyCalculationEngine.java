@@ -72,7 +72,14 @@ public class MyCalculationEngine implements CalculationEngine{
             execute(oper.peek());
             oper.pop();
         }
-        double result = st.peek();
+        double result;
+
+        if(st.isEmpty()){
+            throw new CalculationException("Missing arguments");
+        } else {
+            result = st.peek();
+        }
+
         st.pop();
         if(st.isEmpty()) {
             return result;
