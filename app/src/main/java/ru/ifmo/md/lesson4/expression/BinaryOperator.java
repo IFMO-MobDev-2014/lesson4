@@ -1,9 +1,6 @@
 package ru.ifmo.md.lesson4.expression;
 
-import java.util.Map;
-
 public abstract class BinaryOperator implements Expression {
-    //TODO: javadoc
     protected final Expression left, right;
     protected final String operationName;
 

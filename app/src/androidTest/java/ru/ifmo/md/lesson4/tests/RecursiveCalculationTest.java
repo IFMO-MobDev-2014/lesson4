@@ -52,6 +52,8 @@ public class RecursiveCalculationTest {
         expectSuccess(3125d, "5^5");
         expectSuccess(-5d, "-5");
         expectSuccess(5d, "--5");
+        expectSuccess(5d, "+5");
+        expectSuccess(5d, "++5");
     }
 
     @Test
@@ -98,6 +100,8 @@ public class RecursiveCalculationTest {
         expectSuccess(5d, "5/5*5");
         expectSuccess(15625d, "5*5^5");
         expectSuccess(15625d, "5^5*5");
+        expectSuccess(-5d, "-+5");
+        expectSuccess(-5d, "+-5");
     }
 
     @Test

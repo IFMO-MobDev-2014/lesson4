@@ -1,9 +1,5 @@
 package ru.ifmo.md.lesson4;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Random;
-
 import ru.ifmo.md.lesson4.expression.*;
 
 public class RecursiveCalculator implements CalculationEngine {
@@ -61,6 +57,8 @@ public class RecursiveCalculator implements CalculationEngine {
         switch (c) {
             case '-':
                 return new UnaryMinus(parseFactor());
+            case '+':
+                return new UnaryPlus(parseFactor());
             case '(':
                 result = parseFormula();
                 skipWhitespaces();
@@ -130,31 +128,4 @@ public class RecursiveCalculator implements CalculationEngine {
         }
         return parsedExpression.calculate();
     }
-
-    public static void main(String[] args) {
-        final int tests = 10;
-        Random rnd = new Random();
-        for (int test = 0; test < tests; test++) {
-            final int numbersCount = 9;
-            ArrayList<Integer> numbers = new ArrayList<>();
-            ArrayList<Integer> revNumbers = new ArrayList<>();
-            for (int i = 0; i < numbersCount; i++) {
-                int t = rnd.nextInt(10) + 1;
-                numbers.add(t);
-                revNumbers.add(t);
-            }
-            Collections.shuffle(revNumbers);
-            StringBuilder expressionString = new StringBuilder();
-            expressionString.append(numbers.get(0)).append("/").append(revNumbers.get(0));
-            for (int i = 1; i < numbersCount; i++) {
-                expressionString.append("*").append(numbers.get(i)).append("/").append(revNumbers.get(i));
-            }
-            try {
-                System.out.println(CalculationEngineFactory.defaultEngine().calculate(expressionString.toString()));
-            } catch (CalculationException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
 }

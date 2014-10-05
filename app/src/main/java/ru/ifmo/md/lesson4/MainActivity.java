@@ -58,6 +58,7 @@ public class MainActivity extends Activity {
         setOnClickListener(findViewById(R.id.buttonDivide), "/");
         setOnClickListener(findViewById(R.id.buttonLeftBracket), "(");
         setOnClickListener(findViewById(R.id.buttonRightBracket), ")");
+        setOnClickListener(findViewById(R.id.buttonDot), ".");
         findViewById(R.id.eraseButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

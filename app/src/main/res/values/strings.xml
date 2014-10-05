@@ -25,4 +25,5 @@
     <string name="button_empty"/>
     <string name="button_left_bracket">(</string>
     <string name="button_right_bracket">)</string>
+    <string name="button_dot">.</string>
 </resources>

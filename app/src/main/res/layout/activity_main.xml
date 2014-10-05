@@ -4,14 +4,28 @@
     android:layout_height="fill_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <TextView
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="fill_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/expressionText"
-        android:layout_weight="2.5"
-        android:textSize="30sp"
-        android:phoneNumber="false"
-        />
+        android:layout_height="fill_parent"
+        android:layout_weight="2.5">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/expressionText"
+            android:textSize="30sp"
+            android:phoneNumber="false"
+            android:layout_weight="1"/>
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/erase_button"
+            android:id="@+id/eraseButton"
+            android:layout_weight="0.1"/>
+    </LinearLayout>
 
     <TableLayout
         android:layout_width="fill_parent"
@@ -59,9 +73,9 @@
             <Button
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="@string/erase_button"
-                android:id="@+id/eraseButton"
+                android:layout_height="fill_parent"
+                android:text="@string/button_dot"
+                android:id="@+id/buttonDot"
                 android:layout_weight="1"/>
 
         </TableRow>
@@ -148,18 +162,16 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="@string/button_zero"
-                android:id="@+id/buttonZero"
-                android:layout_weight="1"
-                android:singleLine="false"/>
+                android:text="@string/button_divide"
+                android:id="@+id/buttonDivide"
+                android:layout_weight="1"/>
 
             <Button
                 style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="match_parent"
-                android:text="@string/multiply_button"
-                android:id="@+id/buttonMultiply"
-                android:layout_gravity="center_horizontal"
+                android:text="@string/button_power"
+                android:id="@+id/buttonPower"
                 android:layout_weight="1"/>
 
         </TableRow>
@@ -182,6 +194,15 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:text="@string/button_zero"
+                android:id="@+id/buttonZero"
+                android:layout_weight="1"
+                android:singleLine="false"/>
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
                 android:text="@string/button_right_bracket"
                 android:id="@+id/buttonRightBracket"
                 android:layout_weight="1"/>
@@ -190,16 +211,9 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="@string/button_divide"
-                android:id="@+id/buttonDivide"
-                android:layout_weight="1"/>
-
-            <Button
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="fill_parent"
-                android:layout_height="match_parent"
-                android:text="@string/button_power"
-                android:id="@+id/buttonPower"
+                android:text="@string/multiply_button"
+                android:id="@+id/buttonMultiply"
+                android:layout_gravity="center_horizontal"
                 android:layout_weight="1"/>
 
             <Button

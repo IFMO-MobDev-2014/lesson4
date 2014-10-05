@@ -1,9 +1,8 @@
 package ru.ifmo.md.lesson4.expression;
 
 public final class Power extends BinaryOperator {
-    //TODO: javadoc
     public Power(Expression left, Expression right) {
-        super(left, right, "->");
+        super(left, right, "^");
     }
 
     @Override
