@@ -13,9 +13,13 @@
         android:gravity="end"
         android:longClickable="false"
         android:singleLine="true"
-        android:textSize="36dp"
-        android:textStyle="bold"
-        style="@android:style/TextAppearance.DeviceDefault.Widget.TextView" />
+        android:textSize="34dp"
+        android:textStyle="bold|normal"
+        style="@android:style/TextAppearance.Holo"
+        android:textIsSelectable="false"
+        android:password="false"
+        android:phoneNumber="false"
+        android:editable="false" />
 
     <LinearLayout
         android:orientation="horizontal"
@@ -32,7 +36,7 @@
         "
             android:onClick="buttonClick"
             android:text="C"
-            android:textSize="48dp" />
+            android:textSize="60dp" />
 
         <Button
             android:id="@+id/delete"
@@ -42,27 +46,27 @@
             android:layout_weight="1"
             android:onClick="buttonClick"
             android:text="←"
-            android:textSize="48dp" />
+            android:textSize="60dp" />
 
         <Button
-            android:id="@+id/lparent"
+            android:id="@+id/leftBracket"
             style="@android:style/ButtonBar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:onClick="buttonClick"
             android:text="("
-            android:textSize="48dp" />
+            android:textSize="60dp" />
 
         <Button
-            android:id="@+id/rparent"
+            android:id="@+id/rightBracket"
             style="@android:style/ButtonBar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:onClick="buttonClick"
             android:text=")"
-            android:textSize="48dp" />
+            android:textSize="60dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -79,7 +83,7 @@
             android:layout_weight="1"
             android:onClick="buttonClick"
             android:text="7"
-            android:textSize="48dp" />
+            android:textSize="60dp" />
 
         <Button
             android:id="@+id/eight"
@@ -89,7 +93,7 @@
             android:layout_weight="1"
             android:onClick="buttonClick"
             android:text="8"
-            android:textSize="48dp" />
+            android:textSize="60dp" />
 
         <Button
             android:id="@+id/nine"
@@ -99,7 +103,7 @@
             android:layout_weight="1"
             android:onClick="buttonClick"
             android:text="9"
-            android:textSize="48dp" />
+            android:textSize="60dp" />
 
         <Button
             android:id="@+id/divide"
@@ -109,7 +113,7 @@
             android:layout_weight="1"
             android:onClick="buttonClick"
             android:text="/"
-            android:textSize="48dp" />
+            android:textSize="60dp" />
 
     </LinearLayout>
 
@@ -128,7 +132,7 @@
             android:onClick="buttonClick"
 
             android:text="4"
-            android:textSize="48dp" />
+            android:textSize="60dp" />
 
         <Button
             android:id="@+id/five"
@@ -138,7 +142,7 @@
             android:layout_weight="1"
             android:onClick="buttonClick"
             android:text="5"
-            android:textSize="48dp" />
+            android:textSize="60dp" />
 
         <Button
             android:id="@+id/six"
@@ -148,7 +152,7 @@
             android:layout_weight="1"
             android:onClick="buttonClick"
             android:text="6"
-            android:textSize="48dp" />
+            android:textSize="60dp" />
 
         <Button
             android:id="@+id/times"
@@ -158,7 +162,7 @@
             android:layout_weight="1"
             android:onClick="buttonClick"
             android:text="*"
-            android:textSize="48dp" />
+            android:textSize="60dp" />
 
     </LinearLayout>
 
@@ -176,7 +180,7 @@
             android:layout_weight="1"
             android:onClick="buttonClick"
             android:text="1"
-            android:textSize="48dp" />
+            android:textSize="60dp" />
 
         <Button
             android:id="@+id/two"
@@ -186,7 +190,7 @@
             android:layout_weight="1"
             android:onClick="buttonClick"
             android:text="2"
-            android:textSize="48dp" />
+            android:textSize="60dp" />
 
         <Button
             android:id="@+id/three"
@@ -196,7 +200,7 @@
             android:layout_weight="1"
             android:onClick="buttonClick"
             android:text="3"
-            android:textSize="48dp" />
+            android:textSize="60dp" />
 
         <Button
             android:id="@+id/minus"
@@ -206,7 +210,7 @@
             android:layout_weight="1"
             android:onClick="buttonClick"
             android:text="-"
-            android:textSize="48dp" />
+            android:textSize="60dp" />
 
     </LinearLayout>
 
@@ -224,7 +228,7 @@
             android:layout_weight="1"
             android:onClick="buttonClick"
             android:text="."
-            android:textSize="48dp" />
+            android:textSize="60dp" />
 
         <Button
             android:id="@+id/zero"
@@ -234,7 +238,7 @@
             android:layout_weight="1"
             android:onClick="buttonClick"
             android:text="0"
-            android:textSize="48dp" />
+            android:textSize="60dp" />
 
         <Button
             android:id="@+id/equals"
@@ -244,7 +248,9 @@
             android:layout_weight="1"
             android:onClick="buttonClick"
             android:text="="
-            android:textSize="48dp" />
+            android:textSize="60dp"
+            android:singleLine="false"
+            android:textColor="#ffffa111" />
 
         <Button
             android:id="@+id/plus"
@@ -254,7 +260,7 @@
             android:layout_weight="1"
             android:onClick="buttonClick"
             android:text="+"
-            android:textSize="48dp" />
+            android:textSize="60dp" />
 
     </LinearLayout>
 

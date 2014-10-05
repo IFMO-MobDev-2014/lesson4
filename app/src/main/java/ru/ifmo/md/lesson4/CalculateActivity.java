@@ -8,91 +8,89 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class CalculateActivity extends Activity {
-    private String expression;
-    private CalculationEngine calculator;
-    private boolean errorState;
-
+    private String expr;
+    private CalculationEngine calculationEngine1;
+    private boolean error;
     private TextView TextView1;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.calculator);
-        this.expression = "";
-        this.calculator = CalculationEngineFactory.defaultEngine();
-        this.errorState = false;
-
-        this.TextView1 = (TextView) findViewById(R.id.TextView1);
+        expr = "";
+        calculationEngine1 = CalculationEngineFactory.defaultEngine();
+        error = false;
+        TextView1 = (TextView) findViewById(R.id.TextView1);
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        char keyName = (char) event.getUnicodeChar();
-        if (keyName == '0' || keyName == '1' || keyName == '2' || keyName == '3' || keyName == '4' ||
-                keyName == '5' || keyName == '6' || keyName == '7' || keyName == '8' || keyName == '9' ||
-                keyName == '+' || keyName == '-' || keyName == '*' || keyName == '/' || keyName == '.' ||
-                keyName == '(' || keyName == ')') {
-            this.expression = expression + keyName;
-            TextView1.setText(expression);
+        char nameOfKey = (char) event.getUnicodeChar();
+        if ((nameOfKey == '0') || (nameOfKey == '1') || (nameOfKey == '2') || (nameOfKey == '3') || (nameOfKey == '4') ||
+                (nameOfKey == '5') || (nameOfKey == '6') || (nameOfKey == '7') || (nameOfKey == '8') || (nameOfKey == '9') ||
+                (nameOfKey == '+') || (nameOfKey == '-') || (nameOfKey == '*') || (nameOfKey == '/') || (nameOfKey == '.') ||
+                (nameOfKey == '(') || (nameOfKey == ')')) {
+            expr += nameOfKey;
+            TextView1.setText(expr);
             return true;
-        } else if (keyCode == KeyEvent.KEYCODE_C) {
-            this.expression = "";
-            TextView1.setText("");
-            return true;
-        } else if (keyCode == KeyEvent.KEYCODE_DEL) {
-            if (!expression.isEmpty()) {
-                this.expression = expression.substring(0, expression.length() - 1);
-                TextView1.setText(expression);
+        } else {
+            if (keyCode == KeyEvent.KEYCODE_C) {
+                expr = "";
+                TextView1.setText("");
+                return true;
+            } else if (keyCode == KeyEvent.KEYCODE_DEL) {
+                if (!expr.isEmpty()) {
+                    expr = expr.substring(0, expr.length() - 1);
+                    TextView1.setText(expr);
+                }
+                return true;
+            } else if (keyCode == KeyEvent.KEYCODE_EQUALS) {
+                try {
+                    double result = calculationEngine1.calculate(expr);
+                    expr = Double.toString(result);
+                    TextView1.setText(expr);
+                    error = Double.isInfinite(result) || Double.isNaN(result);
+                } catch (CalculationException e) {
+                    expr = getString(R.string.errorMessage);
+                    TextView1.setText(getString(R.string.errorMessage));
+                    error = true;
+                }
+                return true;
             }
-            return true;
-        } else if (keyCode == KeyEvent.KEYCODE_EQUALS) {
-            try {
-                double result = calculator.calculate(expression);
-                this.expression = Double.toString(result);
-                TextView1.setText(expression);
-                errorState = Double.isInfinite(result) || Double.isNaN(result);
-            } catch (CalculationException e) {
-                this.expression = "Error";
-                TextView1.setText("Error");
-                errorState = true;
-            }
-            return true;
         }
 
         return super.onKeyDown(keyCode, event);
     }
 
     public void buttonClick(View v) {
-        Button button = (Button) v;
-        String buttonText = button.getText().toString();
-
-        if (errorState) {
-            this.expression = "";
+        Button button1 = (Button) v;
+        String buttonText = button1.getText().toString();
+        if (error) {
+            expr = "";
             TextView1.setText("");
-            errorState = false;
+            error = false;
         }
-
-        if (button.getId() == R.id.equals) {
+        if (button1.getId() == R.id.equals) {
             try {
-                double result = calculator.calculate(expression);
-                this.expression = Double.toString(result);
-                TextView1.setText(expression);
-                errorState = Double.isInfinite(result) || Double.isNaN(result);
+                double result = calculationEngine1.calculate(expr);
+                expr = Double.toString(result);
+                TextView1.setText(expr);
+                error = Double.isInfinite(result) || Double.isNaN(result);
             } catch (CalculationException e) {
-                this.expression = "Error";
-                TextView1.setText("Error");
-                errorState = true;
+                expr = getString(R.string.errorMessage);
+                TextView1.setText(getString(R.string.errorMessage));
+                error = true;
             }
-        } else if (button.getId() == R.id.clear) {
-            this.expression = "";
+        } else if (button1.getId() == R.id.clear) {
+            expr = "";
             TextView1.setText("");
-        } else if (button.getId() == R.id.delete) {
-            if (!expression.isEmpty()) {
-                this.expression = expression.substring(0, expression.length() - 1);
-                TextView1.setText(expression);
+        } else if (button1.getId() == R.id.delete) {
+            if (!expr.isEmpty()) {
+                expr = expr.substring(0, expr.length() - 1);
+                TextView1.setText(expr);
             }
         } else {
-            this.expression = expression + buttonText;
-            TextView1.setText(expression);
+            expr += buttonText;
+            TextView1.setText(expr);
         }
 
     }
