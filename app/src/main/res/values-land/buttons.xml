@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="buttons_in_row">5</integer>
+
+    <string-array name="basic_operations">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>+</item>
+        <item>-</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>*</item>
+        <item>/</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>%</item>
+        <item>^</item>
+        <item>.</item>
+        <item>0</item>
+        <item>(</item>
+        <item>)</item>
+        <item>=</item>
+    </string-array>
+
+    <string-array name="engineering_calculator">
+        <item>abs</item>
+        <item>e</item>
+        <item>pi</item>
+        <item>+</item>
+        <item>-</item>
+        <item>sin</item>
+        <item>cos</item>
+        <item>ln</item>
+        <item>*</item>
+        <item>/</item>
+        <item>asin</item>
+        <item>acos</item>
+        <item>tan</item>
+        <item>atan</item>
+        <item>^</item>
+        <item>sqrt</item>
+        <item>cbrt</item>
+        <item>(</item>
+        <item>)</item>
+        <item>=</item>
+    </string-array>
+</resources>
