@@ -1,23 +1,22 @@
 package ru.ifmo.md.lesson4;
 
 import android.app.Activity;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
+public class LandscapeFragment extends Fragment {
 
-public class AdvancedButtonsFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
 
-    public static AdvancedButtonsFragment newInstance() {
-        return new AdvancedButtonsFragment();
+    public static LandscapeFragment newInstance() {
+        LandscapeFragment fragment = new LandscapeFragment();
+        return fragment;
     }
-    public AdvancedButtonsFragment() {
-        // Required empty public constructor
+
+    public LandscapeFragment() {
     }
 
     @Override
@@ -28,19 +27,7 @@ public class AdvancedButtonsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        View v = inflater.inflate(R.layout.fragment_advanced_buttons, container, false);
-
-        for (int id : CalculatorActivity.advancedButtons) {
-            Button b = (Button) v.findViewById(id);
-            b.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    onButtonClicked(view.getId());
-                }
-            });
-        }
-
+        View v = inflater.inflate(R.layout.fragment_landscape, container, false);
         return  v;
     }
 
@@ -67,8 +54,10 @@ public class AdvancedButtonsFragment extends Fragment {
         mListener = null;
     }
 
+
     public interface OnFragmentInteractionListener {
         public void onButtonClicked(int id);
     }
+
 
 }
