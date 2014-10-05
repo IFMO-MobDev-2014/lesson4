@@ -27,10 +27,8 @@ public class DummyCalculateEngine implements CalculationEngine {
 
     double number() throws CalculationException {
         double first = 0;
-//        Log.i("LOG", String.valueOf(curPos));
-//        Log.i("LOG", String.valueOf(s.charAt(curPos)));
         if (!good())
-            return first;
+            throw new CalculationException("unknown symbol on position: " + Integer.toString(curPos));
 
         if (s.charAt(curPos) == '-') {
             nextLexem();
@@ -40,6 +38,8 @@ public class DummyCalculateEngine implements CalculationEngine {
             first = number();
         } else if (s.charAt(curPos) == '(') {
                 nextLexem();
+                if (!good())
+                    throw new CalculationException("expected ')' on position: " + Integer.toString(curPos));
                 first = expr();
                 if (good() && s.charAt(curPos) == ')') {
                     nextLexem();

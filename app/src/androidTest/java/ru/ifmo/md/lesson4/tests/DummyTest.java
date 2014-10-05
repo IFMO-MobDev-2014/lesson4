@@ -22,7 +22,7 @@ public class DummyTest {
     @Test
     public void testWhoppingComplex() {
         try {
-            Assert.assertEquals(10d, CalculationEngineFactory.defaultEngine().calculate("5+5"));
+            Assert.assertEquals(10d, CalculationEngineFactory.defaultEngine().calculate("5+2"));
         } catch (CalculationException e) {
             Assert.fail("Exception happened " + e);
         }

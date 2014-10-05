@@ -1,16 +1,15 @@
 package ru.ifmo.md.lesson4;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.InputType;
+import android.text.TextWatcher;
 import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 
 public class MyActivity extends Activity {
 
@@ -23,25 +22,24 @@ public class MyActivity extends Activity {
         setContentView(R.layout.activity_my);
         expr = (EditText) findViewById(R.id.inputExpression);
         result = (EditText) findViewById(R.id.result);
-    }
+        expr.setInputType(InputType.TYPE_NULL);
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.my, menu);
-        return true;
-    }
+        expr.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {}
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                try {
+                    result.setText(Double.toString(CalculationEngineFactory.defaultEngine().calculate(expr.getText().toString())));
+                } catch (CalculationException e) {
+                    result.setText("");
+                }
+            }
+        });
     }
 
     public void calculate(View view) {
@@ -49,25 +47,34 @@ public class MyActivity extends Activity {
         try {
             double resultValue = CalculationEngineFactory.defaultEngine().calculate(s);
             result.setText(Double.toString(resultValue));
+            expr.setText(result.getText());
         } catch(CalculationException e) {
-            Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG);
+            Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
         }
-//        result.setText("asdfasdf");
+        expr.setSelection(expr.length());
     }
 
     public void clickOnTextButton(View view) {
         Button a = (Button) view;
-        expr.setText(expr.getText() + a.getText().toString());
+        String str = expr.getText().toString();
+        String prefix = str.substring(0, expr.getSelectionStart());
+        String suffix = str.substring(expr.getSelectionStart());
+        int prevCursor = expr.getSelectionStart();
+        expr.setText(prefix + a.getText().toString() + suffix);
+        expr.setSelection(prevCursor + 1);
     }
 
     public void back(View view) {
         if (expr.getText().toString().isEmpty())
             return;
-        String s = expr.getText().toString();
-        s = s.substring(0, s.length() - 1);
-        expr.setText(s);
+        String str = expr.getText().toString();
+        String prefix = str.substring(0, expr.getSelectionStart() - 1);
+        String suffix = str.substring(expr.getSelectionStart());
+        int prevCursor = expr.getSelectionStart();
+        expr.setText(prefix + suffix);
+        expr.setSelection(prevCursor - 1);
     }
 
     public void cancel(View view) {
