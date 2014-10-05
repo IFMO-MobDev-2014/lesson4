@@ -22,11 +22,9 @@ public class IntelligentCalculateEngine implements CalculationEngine {
             try {
                 result = inputExpression.evaluate();
             } catch (EvaluationException e) {
-                Log.e("Exception during evaluation", e.getMessage());
                 throw new CalculationException();
             }
         } catch (ParserException e) {
-            Log.e("Parser exception", e.getMessage());
             throw new CalculationException();
         }
         return result;

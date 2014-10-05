@@ -7,6 +7,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.math.BigDecimal;
+
 import ru.ifmo.md.lesson4.logic.ExceptionsHandle.ParserException;
 import ru.ifmo.md.lesson4.logic.ExceptionsHandle.EvaluationException;
 import ru.ifmo.md.lesson4.logic.Expression;
@@ -43,7 +45,7 @@ public class MainActivity extends Activity {
     }
 
     private String getResultTextView() {
-        return (String) tvResult.getText();
+        return String.valueOf(tvResult.getText());
     }
 
     private void setResultTextView(String result) {
@@ -52,26 +54,26 @@ public class MainActivity extends Activity {
 
     public void onKeyboardClicked(View view) {
         int buttonID = view.getId();
-        String addSymbols;
+        String newSymbols;
         switch (buttonID) {
-            case R.id.buttonDigit0: addSymbols = "0"; break;
-            case R.id.buttonDigit1: addSymbols = "1"; break;
-            case R.id.buttonDigit2: addSymbols = "2"; break;
-            case R.id.buttonDigit3: addSymbols = "3"; break;
-            case R.id.buttonDigit4: addSymbols = "4"; break;
-            case R.id.buttonDigit5: addSymbols = "5"; break;
-            case R.id.buttonDigit6: addSymbols = "6"; break;
-            case R.id.buttonDigit7: addSymbols = "7"; break;
-            case R.id.buttonDigit8: addSymbols = "8"; break;
-            case R.id.buttonDigit9: addSymbols = "9"; break;
-            case R.id.buttonPoint:  addSymbols = "."; break;
-            case R.id.buttonOpen:   addSymbols = "("; break;
-            case R.id.buttonClose:  addSymbols = ")"; break;
-            case R.id.buttonPower:  addSymbols = "^"; break;
-            case R.id.buttonPlus:   addSymbols = "+"; break;
-            case R.id.buttonMinus:  addSymbols = "-"; break;
-            case R.id.buttonMultiply: addSymbols = "*"; break;
-            case R.id.buttonDivide: addSymbols = "/"; break;
+            case R.id.buttonDigit0: newSymbols = "0"; break;
+            case R.id.buttonDigit1: newSymbols = "1"; break;
+            case R.id.buttonDigit2: newSymbols = "2"; break;
+            case R.id.buttonDigit3: newSymbols = "3"; break;
+            case R.id.buttonDigit4: newSymbols = "4"; break;
+            case R.id.buttonDigit5: newSymbols = "5"; break;
+            case R.id.buttonDigit6: newSymbols = "6"; break;
+            case R.id.buttonDigit7: newSymbols = "7"; break;
+            case R.id.buttonDigit8: newSymbols = "8"; break;
+            case R.id.buttonDigit9: newSymbols = "9"; break;
+            case R.id.buttonPoint:  newSymbols = "."; break;
+            case R.id.buttonOpen:   newSymbols = "("; break;
+            case R.id.buttonClose:  newSymbols = ")"; break;
+            case R.id.buttonPower:  newSymbols = "^"; break;
+            case R.id.buttonPlus:   newSymbols = "+"; break;
+            case R.id.buttonMinus:  newSymbols = "-"; break;
+            case R.id.buttonMultiply: newSymbols = "*"; break;
+            case R.id.buttonDivide: newSymbols = "/"; break;
             case R.id.buttonDelete: {
                 if (deleteButtonAction == DeleteButtonAction.DELETE_LAST_SYMBOL) {
                     String current = getInputExpression();
@@ -103,11 +105,11 @@ public class MainActivity extends Activity {
                     setResultTextView(e.getMessage());
                     return;
                 }
-                setResultTextView(String.valueOf(result));
+                setResultTextView(BigDecimal.valueOf(result).toString());
                 return;
             }
             default: {
-                addSymbols = "0";
+                newSymbols = "0";
             }
         }
         if (deleteButtonAction == DeleteButtonAction.DELETE_EVERYTHING) {
@@ -120,8 +122,8 @@ public class MainActivity extends Activity {
             setInputExpression("0");
         }
         if (!getInputExpression().equals("0"))
-            addSymbols = getInputExpression() + addSymbols;
-        setInputExpression(addSymbols);
+            newSymbols = getInputExpression() + newSymbols;
+        setInputExpression(newSymbols);
     }
 
 }
