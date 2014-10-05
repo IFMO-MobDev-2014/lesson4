@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/calcResult"
+        android:layout_width="fill_parent"
+        android:layout_height="75dp"
+        android:layout_weight="0.64"
+        android:gravity="center"
+        android:textSize="35sp" />
+
+    <Button
+        android:layout_width="350dp"
+        android:layout_gravity="center"
+        android:layout_height="70dp"
+        android:id="@+id/equals"
+        android:text="="
+        android:textSize="50sp"
+        android:onClick="onButtonClick"/>
+
+    <LinearLayout
+        android:id="@+id/firstRow"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/seven"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text="7"
+            android:onClick="onButtonClick"/>
+
+        <Button
+            android:onClick="onButtonClick"
+            android:id="@+id/eight"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text="8" />
+
+        <Button
+            android:onClick="onButtonClick"
+            android:id="@+id/nine"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text="9" />
+
+        <Button
+            android:onClick="onButtonClick"
+            android:id="@+id/deleteAll"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text="C" />
+        <Button
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:id="@+id/deleteSymbol"
+            android:onClick="onButtonClick"
+            android:text="←"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/secondRow"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:onClick="onButtonClick">
+
+        <Button
+            android:onClick="onButtonClick"
+            android:id="@+id/four"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text="4" />
+
+        <Button
+            android:onClick="onButtonClick"
+            android:id="@+id/five"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text="5" />
+
+        <Button
+            android:onClick="onButtonClick"
+            android:id="@+id/six"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text="6" />
+
+        <Button
+            android:onClick="onButtonClick"
+            android:id="@+id/ob"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text="(" />
+        <Button
+            android:onClick="onButtonClick"
+            android:id="@+id/cb"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text=")" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/thirdRow"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:onClick="onButtonClick">
+
+        <Button
+            android:onClick="onButtonClick"
+            android:id="@+id/one"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text="1" />
+
+        <Button
+            android:onClick="onButtonClick"
+            android:id="@+id/two"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text="2" />
+
+        <Button
+            android:onClick="onButtonClick"
+            android:id="@+id/three"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text="3" />
+
+        <Button
+            android:onClick="onButtonClick"
+            android:id="@+id/divide"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text="/" />
+
+        <Button
+            android:onClick="onButtonClick"
+            android:id="@+id/multiply"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text="*" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/fourthRow"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:onClick="onButtonClick">
+
+
+        <Button
+            android:onClick="onButtonClick"
+            android:id="@+id/zero"
+            android:layout_width="140dp"
+            android:layout_height="70dp"
+            android:text="0" />
+
+        <Button
+            android:onClick="onButtonClick"
+            android:id="@+id/dot"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text="." />
+        <Button
+            android:onClick="onButtonClick"
+            android:id="@+id/subtract"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text="-" />
+        <Button
+            android:onClick="onButtonClick"
+            android:id="@+id/add"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text="+" />
+    </LinearLayout>
+
+
+</LinearLayout>
