@@ -1,7 +1,5 @@
 package ru.ifmo.md.lesson4;
 
-import junit.framework.Assert;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -34,10 +32,7 @@ public class RecursiveCalculator implements CalculationEngine {
     }
 
     private boolean isDigit(char c) {
-        if ((c >= '0' && c <= '9') || c == '.') {
-            return true;
-        }
-        return false;
+        return (c >= '0' && c <= '9') || c == '.';
     }
 
     private Constant getConstant(char c) throws CalculationException {
