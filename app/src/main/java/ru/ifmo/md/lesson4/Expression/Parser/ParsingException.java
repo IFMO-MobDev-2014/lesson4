@@ -1,6 +1,8 @@
 package ru.ifmo.md.lesson4.Expression.Parser;
 
-public class ParsingException extends Exception {
+import ru.ifmo.md.lesson4.CalculationException;
+
+public class ParsingException extends CalculationException {
     private Integer errPos;
     private String expected;
 

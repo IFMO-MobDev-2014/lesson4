@@ -26,8 +26,6 @@ public class ToughTest {
             Assert.assertEquals(10d, CalculationEngineFactory.defaultEngine().calculate("5+5"));
         } catch (CalculationException e) {
             Assert.fail("Exception happened " + e);
-        } catch (ParsingException e) {
-            Assert.fail("Seems like tests are written bad:\n" + e);
         }
     }
 }
