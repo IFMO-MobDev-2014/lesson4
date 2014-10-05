@@ -74,7 +74,7 @@ public class ExpressionParser {
     private static Expression getBracket() throws CalculationException {
         deleteSpaces();
         Expression res;
-        if (s.charAt(it) == '(') {
+        if (it < s.length() && s.charAt(it) == '(') {
             bracketsBalance++;
             it++;
             res = getExpression();
