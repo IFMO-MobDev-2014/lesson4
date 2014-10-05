@@ -55,7 +55,7 @@ public class CalculatorActivity extends Activity {
                 result.setText("");
             } else {
                 double num = calc.calculate(curExpr);
-                if(Double.isNaN(num)) {
+                if (Double.isNaN(num)) {
                     result.setText("NaN");
                 } else {
                     result.setText("=" + fmt.format(num));
@@ -74,7 +74,9 @@ public class CalculatorActivity extends Activity {
         } else if (button.getId() == R.id.clear) {
             curExpr = "";
         } else if (button.getId() == R.id.delete) {
-            curExpr = curExpr.substring(0, curExpr.length() - 1);
+            if (!curExpr.isEmpty()) {
+                curExpr = curExpr.substring(0, curExpr.length() - 1);
+            }
         } else {
             curExpr += buttonText;
         }
@@ -115,7 +117,9 @@ public class CalculatorActivity extends Activity {
             curExpr = "";
             handled = true;
         } else if (key == KeyEvent.KEYCODE_DEL) {
-            curExpr = curExpr.substring(0, curExpr.length() - 1);
+            if (!curExpr.isEmpty()) {
+                curExpr = curExpr.substring(0, curExpr.length() - 1);
+            }
             handled = true;
         } else if (key == KeyEvent.KEYCODE_EQUALS) {
             calculate();
