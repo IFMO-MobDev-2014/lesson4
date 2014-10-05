@@ -1,5 +1,7 @@
 package ru.ifmo.md.lesson4.tests;
 
+import android.util.Pair;
+
 import junit.framework.Assert;
 
 import org.junit.Before;
@@ -7,6 +9,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
+
+import java.util.Random;
 
 import ru.ifmo.md.lesson4.CalculationEngine;
 import ru.ifmo.md.lesson4.CalculationEngineFactory;
@@ -28,12 +32,14 @@ public class DummyTest {
 
     protected void assertEqual(String expr, double result) {
         try {
-            if (Math.abs(engine.calculate(expr) - result) < 1.E-9) {
+            if (engine.calculate(expr) == result || Math.abs(engine.calculate(expr) - result) < 1.E-6) {
                 return;
             }
+            Assert.fail(expr + " != " + result + ", diff: " + (engine.calculate(expr) - result));
         } catch (CalculationException e) {
+            Assert.fail("failed on " + expr);
         }
-        Assert.fail(expr + " != " + result);
+
     }
 
     @Before
@@ -80,6 +86,63 @@ public class DummyTest {
         assertEqual("-(+(-18.0/36*(10.0+13.0/36/16))+(-21.0/7*24+21.0*41+6.0))",
                 -(+(-18.0 / 36 * (10.0 + 13.0 / 36 / 16)) + (-21.0 / 7 * 24 + 21.0 * 41 + 6.0)));
 
+    }
+
+    static public Pair<String, Double> generateExpression(Random r, int maxDepth) {
+        --maxDepth;
+        int choice = r.nextInt(7);
+        if (maxDepth == 0 || choice == 0) {
+            // const
+            double num = r.nextInt(1000) / 10.0; // [0.0, 100.0], so that calculation wont explode
+            return new Pair<String, Double>(String.valueOf(num), num);
+        } else if (choice == 1) { // unary minus
+            Pair<String, Double> p = generateExpression(r, maxDepth);
+            return new Pair<String, Double>("-" + p.first, -p.second);
+        } else if (choice == 2) {
+            // unary plus
+            Pair<String, Double> p = generateExpression(r, maxDepth);
+            return new Pair<String, Double>("+" + p.first, p.second);
+
+        } else {
+            Pair<String, Double> e1 = generateExpression(r, maxDepth);
+            Pair<String, Double> e2 = generateExpression(r, maxDepth);
+            double result1 = e1.second, result2 = e2.second, result = 0.;
+            String op = "";
+            switch (choice) {
+                case 3:
+                    op = "-";
+                    result = result1 - result2;
+                    break;
+                case 4:
+                    op = "+";
+                    result = result1 + result2;
+                    break;
+                case 5:
+                    op = "*";
+                    result = result1 * result2;
+                    break;
+                case 6:
+                    op = "/";
+                    result = result1 / result2;
+                    break;
+                default:
+                    assert false;
+            }
+            return new Pair<String, Double>("(" + e1.first + op + e2.first + ")", result);
+        }
+    }
+
+    @Test
+    public void testRandomExpr() {
+        Random rand = new Random(2014);
+        final int numIterations = 100000, maxDepth = 15;
+        for (int i = 0; i != numIterations; i++) {
+            Pair<String, Double> expr = generateExpression(rand, maxDepth);
+            if (Double.isNaN(expr.second)) { // exploded
+                continue;
+            }
+            assertEqual(expr.first, expr.second);
+        }
     }
 
 }
