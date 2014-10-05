@@ -9,7 +9,10 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".MyActivity"
-            android:label="@string/title_activity_my" >
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_my"
+            android:configChanges="keyboardHidden|orientation|screenSize">
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

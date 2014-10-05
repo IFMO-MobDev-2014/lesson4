@@ -1,12 +1,13 @@
 package ru.ifmo.md.lesson4;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -22,14 +23,24 @@ public class MyActivity extends Activity {
         setContentView(R.layout.activity_my);
         expr = (EditText) findViewById(R.id.inputExpression);
         result = (EditText) findViewById(R.id.result);
-        expr.setInputType(InputType.TYPE_NULL);
+
+        expr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                InputMethodManager imm = (InputMethodManager)getSystemService(
+                        Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(expr.getWindowToken(), 0);
+            }
+        });
 
         expr.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {}
+            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {}
+            public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+            }
 
             @Override
             public void afterTextChanged(Editable editable) {
@@ -47,7 +58,7 @@ public class MyActivity extends Activity {
         try {
             double resultValue = CalculationEngineFactory.defaultEngine().calculate(s);
             result.setText(Double.toString(resultValue));
-            expr.setText(result.getText());
+            expr.setText(String.format("%f", Double.parseDouble(result.getText().toString())));
         } catch(CalculationException e) {
             Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0, 0);
