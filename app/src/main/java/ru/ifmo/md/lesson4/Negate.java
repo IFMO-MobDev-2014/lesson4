@@ -8,13 +8,13 @@ public class Negate implements Expression {
     Expression a;
 
     public Negate(Expression a) throws CalculationException {
-            if (a == null) {
-                throw new CalculationException();
-            }
-            this.a = a;
+        if (a == null) {
+            throw new CalculationException();
+        }
+        this.a = a;
     }
 
-    public double evaluate() throws CalculationException  {
-            return -a.evaluate();
+    public double evaluate() throws CalculationException {
+        return -a.evaluate();
     }
 }

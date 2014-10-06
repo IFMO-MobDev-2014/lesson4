@@ -15,6 +15,12 @@ import android.widget.Toast;
 
 public class CalculatorActivity extends Activity {
     EditText text;
+
+    public static void disableSoftInputFromAppearing(EditText editText) {
+        editText.setRawInputType(InputType.TYPE_CLASS_TEXT);
+        editText.setTextIsSelectable(true);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,14 +46,8 @@ public class CalculatorActivity extends Activity {
         });
     }
 
-    public static void disableSoftInputFromAppearing(EditText editText) {
-        editText.setRawInputType(InputType.TYPE_CLASS_TEXT);
-        editText.setTextIsSelectable(true);
-    }
-
-
     public void onClickText(View view) {
-        text.getText().insert(text.getSelectionStart(), ((Button)view).getText());
+        text.getText().insert(text.getSelectionStart(), ((Button) view).getText());
     }
 
     public void onClickCalculate(View view) {
@@ -56,10 +56,9 @@ public class CalculatorActivity extends Activity {
             double d = calc.calculate(text.getText().toString());
             text.getText().clear();
             String s;
-            if (d == (long)d) {
-                s = String.format("%d", (long)d);
-            }
-            else {
+            if (d == (long) d) {
+                s = String.format("%d", (long) d);
+            } else {
                 s = String.format("%13f", d);
             }
             text.getText().insert(0, s);
@@ -75,14 +74,12 @@ public class CalculatorActivity extends Activity {
 
     public void onClickDel(View view) {
         int pos = text.getSelectionStart();
-        if (text.getSelectionStart() != text.getText().length() ) {
+        if (text.getSelectionStart() != text.getText().length()) {
             text.setText(TextUtils.concat(text.getText().subSequence(0, text.getSelectionStart() - 1),
                     text.getText().subSequence(text.getSelectionStart(), text.getText().length())));
             text.setSelection(pos - 1);
-        }
-        else if (text.getText().length() == 0) {
-        }
-        else {
+        } else if (text.getText().length() == 0) {
+        } else {
             text.setText(text.getText().subSequence(0, text.getText().length() - 1));
             text.setSelection(pos - 1);
         }

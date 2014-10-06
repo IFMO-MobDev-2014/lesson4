@@ -11,49 +11,22 @@ public class ExpressionParser {
     static private Parser lex;
 
     static boolean isPartOfExp(char c) {
-        return (Character.isDigit(c) || (c == '.') ||  (c == '+') || (c == '-') || (c == '/') || (c == '*')||
+        return (Character.isDigit(c) || (c == '.') || (c == '+') || (c == '-') || (c == '/') || (c == '*') ||
                 (c == '(') || (c == ')'));
     }
 
-    static private class Parser {
-        private final String s;
-        private int start;
-
-        Parser(String s) {
-            this.s = s;
-            start = 0;
-        }
-
-        String next() {
-            if (start == s.length()) {
-                return "";
-            }
-            if (Character.isDigit(s.charAt(start)) || (s.charAt(start) == '.')) {
-                int j = start;
-                while (j + 1 < s.length() && (Character.isDigit(s.charAt(j + 1)) || (s.charAt(j+1) == '.'))) {
-                    j++;
-                }
-                int buff = start;
-                start = j + 1;
-                return s.substring(buff, j + 1);
-            }
-            start++;
-            return s.substring(start - 1, start);
-        }
-    }
-
     static private Expression parseValue() throws CalculationException, NumberFormatException {
-            String s = current;
-            if (s.length() == 0) {
-                throw new CalculationException();
-            }
-            if (s.charAt(0) >= '0' && s.charAt(0) <= '9') {
-                return new Const(Double.parseDouble(s));
-            } else if (s.equals("(")) {
-                return parseExpr();
-            } else {
-                throw new CalculationException();
-            }
+        String s = current;
+        if (s.length() == 0) {
+            throw new CalculationException();
+        }
+        if (s.charAt(0) >= '0' && s.charAt(0) <= '9') {
+            return new Const(Double.parseDouble(s));
+        } else if (s.equals("(")) {
+            return parseExpr();
+        } else {
+            throw new CalculationException();
+        }
     }
 
     static private Expression parseMultiplier() throws CalculationException {
@@ -73,7 +46,7 @@ public class ExpressionParser {
         while (true) {
             current = lex.next();
             String s = current;
-            if (!s.equals("*") && !s.equals("/") ) {
+            if (!s.equals("*") && !s.equals("/")) {
                 return left;
             }
             switch (s.charAt(0)) {
@@ -100,11 +73,9 @@ public class ExpressionParser {
             if (s.equals(")") || s.equals("")) {
                 checked = false;
                 return left;
-            }
-            else if (s.length() == 0) {
+            } else if (s.length() == 0) {
                 throw new CalculationException();
-            }
-            else if(s.charAt(0) == '+' || s.charAt(0) == '-') switch (s.charAt(0)) {
+            } else if (s.charAt(0) == '+' || s.charAt(0) == '-') switch (s.charAt(0)) {
                 case '+': {
                     left = new Add(left, parseSum());
                     checked = false;
@@ -127,11 +98,9 @@ public class ExpressionParser {
             char c = s.charAt(i);
             if (!isPartOfExp(c)) {
                 throw new CalculationException();
-            }
-            else if (c == '(') {
+            } else if (c == '(') {
                 stack++;
-            }
-            else if (c == ')') {
+            } else if (c == ')') {
                 stack--;
                 if (stack < 0) {
                     throw new CalculationException();
@@ -143,7 +112,7 @@ public class ExpressionParser {
                 }
             }
             if (i >= 1) {
-                if ((s.charAt(i) == '.') && (s.charAt(i - 1) == '.' )) {
+                if ((s.charAt(i) == '.') && (s.charAt(i - 1) == '.')) {
                     throw new CalculationException();
                 }
             }
@@ -154,5 +123,32 @@ public class ExpressionParser {
         s = s.replaceAll("!", "");
         lex = new Parser(s);
         return parseExpr();
+    }
+
+    static private class Parser {
+        private final String s;
+        private int start;
+
+        Parser(String s) {
+            this.s = s;
+            start = 0;
+        }
+
+        String next() {
+            if (start == s.length()) {
+                return "";
+            }
+            if (Character.isDigit(s.charAt(start)) || (s.charAt(start) == '.')) {
+                int j = start;
+                while (j + 1 < s.length() && (Character.isDigit(s.charAt(j + 1)) || (s.charAt(j + 1) == '.'))) {
+                    j++;
+                }
+                int buff = start;
+                start = j + 1;
+                return s.substring(buff, j + 1);
+            }
+            start++;
+            return s.substring(start - 1, start);
+        }
     }
 }

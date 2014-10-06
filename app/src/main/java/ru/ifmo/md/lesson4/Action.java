@@ -6,6 +6,7 @@ package ru.ifmo.md.lesson4;
 public abstract class Action implements Expression {
     private Expression a;
     private Expression b;
+
     public Action(Expression a, Expression b) {
         this.a = a;
         this.b = b;
