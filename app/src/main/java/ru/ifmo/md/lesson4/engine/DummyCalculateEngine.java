@@ -31,7 +31,7 @@ public class DummyCalculateEngine implements CalculationEngine {
             if (c == '+') {
                 res += rhs;
             } else {
-                res += rhs;
+                res -= rhs;
             }
         }
 
@@ -63,7 +63,7 @@ public class DummyCalculateEngine implements CalculationEngine {
 
         if (s[pos] == '-') {
             pos++;
-            return calculateTerm();
+            return -calculateTerm();
         }
 
         if (s[pos] == '(') {
@@ -85,8 +85,21 @@ public class DummyCalculateEngine implements CalculationEngine {
 
         StringBuilder builder = new StringBuilder();
         while (pos < s.length && (Character.isDigit(s[pos]) || s[pos] == '.' || s[pos] == 'E')) {
-            builder.append(s[pos]);
-            pos++;
+            if (s[pos] == 'E') {
+                if (pos + 1 >= s.length) {
+                    throw new UnexpectedEndException(pos + 1);
+                } else {
+                    builder.append(s[pos]);
+                    pos++;
+                    if (s[pos] == '+' || s[pos] == '-') {
+                        builder.append(s[pos]);
+                        pos++;
+                    }
+                }
+            } else {
+                builder.append(s[pos]);
+                pos++;
+            }
         }
 
         double res;
