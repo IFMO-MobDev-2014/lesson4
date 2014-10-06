@@ -91,15 +91,6 @@ public class CleverCalculationEngine implements CalculationEngine {
             } catch (NumberFormatException e) {
                 result = new UnaryMinus(getMul());
             }
-            /*
-            if (currentToken.matches("\\d+")) {
-                result = new Const(Long.parseLong("-" + currentToken));
-                next();
-            } else {
-                result = new UnaryMinus(getMul());
-            }
-            */
-
         } else if (currentToken.equals("$")) {
             throw new CalculationException("Unexpected end of expression");
         } else {
