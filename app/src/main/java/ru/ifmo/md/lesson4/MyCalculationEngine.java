@@ -27,6 +27,7 @@ public class MyCalculationEngine implements CalculationEngine {
                 while (last < s.length() && (s.charAt(last) >= '0' && s.charAt(last) <= '9' || s.charAt(last) == '.'))
                 last++;
                 res = Double.parseDouble(s.substring(tmp, last));
+                return -res;
             }
         }
         char c = s.charAt(last);
