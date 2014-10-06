@@ -1,5 +1,7 @@
 package ru.ifmo.md.lesson4;
 
+import android.util.Log;
+
 /**
  * Created by pokrasko on 06.10.14.
  */
@@ -104,6 +106,7 @@ public class SomeCalculationEngine implements CalculationEngine {
     }
 
     private static void operationToDo(char op) {
+
         while (!opStack.isEmpty() && (priority((Character) opStack.peek()) > priority(op)
             || !rightAssociation(op) && priority((Character) opStack.peek()) == priority(op))
             && opSize((Character) opStack.peek()) <= valStack.size()) {
@@ -137,7 +140,7 @@ public class SomeCalculationEngine implements CalculationEngine {
                 opStack.pop();
                 lastOp = OperatorType.OpType.RB;
             } else if (expression.charAt(i) == '*' || expression.charAt(i) == '/') {
-                if (expression.charAt(i) != '~' && lastOp != OperatorType.OpType.OP && lastOp != OperatorType.OpType.RB) {
+                if (lastOp != OperatorType.OpType.OP && lastOp != OperatorType.OpType.RB) {
                     throw new CalculationException("syntax exception");
                 }
                 operationToDo(expression.charAt(i));
@@ -158,7 +161,7 @@ public class SomeCalculationEngine implements CalculationEngine {
                     operationToDo('-');
                     lastOp = OperatorType.OpType.BO;
                 }
-            } else if (Character.isDigit(expression.charAt(i)) || expression.endsWith(expression)) {
+            } else if (Character.isDigit(expression.charAt(i)) || expression.charAt(i) == '.') {
                 if (lastOp == OperatorType.OpType.OP || lastOp == OperatorType.OpType.RB) {
                     throw new CalculationException("syntax exception");
                 }
@@ -194,6 +197,9 @@ public class SomeCalculationEngine implements CalculationEngine {
             throw new CalculationException("syntax exception");
         }
         while (!opStack.isEmpty()) {
+            if ((Character) opStack.peek() == '(') {
+                throw new CalculationException("syntax exception");
+            }
             getOperation();
         }
         return (Double) valStack.pop();
