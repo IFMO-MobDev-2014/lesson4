@@ -57,6 +57,8 @@ public class DummyTest {
         correctTestEvaluate("(5)", 5.0);
         correctTestEvaluate(Integer.toString(Integer.MIN_VALUE), Integer.MIN_VALUE);
         correctTestEvaluate("1-1", 0);
+        correctTestEvaluate("1 + - 1", 0);
+        correctTestEvaluate("0. + 1.", 1.0);
     }
 
     public void incorrectTestEvaluate(String s) {
@@ -79,5 +81,7 @@ public class DummyTest {
         incorrectTestEvaluate("(54)) * -1+(0");
         incorrectTestEvaluate("(1))");
         incorrectTestEvaluate("0 / 0");
+        incorrectTestEvaluate("1 - + 1");
+        incorrectTestEvaluate(".");
     }
 }

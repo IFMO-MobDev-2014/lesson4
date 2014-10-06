@@ -17,7 +17,7 @@ public class Variable<T extends MyNumber<T>> implements Expression3<T> {
             case "y": return y;
             case "z": return z;
         }
-        throw new ParseException("wrong variable name");
+        throw new ParseException("parse error");
     }
 
 }

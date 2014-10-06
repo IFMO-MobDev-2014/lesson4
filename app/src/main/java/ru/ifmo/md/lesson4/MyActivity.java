@@ -37,6 +37,8 @@ public class MyActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    Boolean cached = true;
+
     public void onClick(View view) {
         String button = (String)((Button)findViewById(view.getId())).getText();
         TextView text = (TextView)findViewById(R.id.textView);
@@ -52,6 +54,7 @@ public class MyActivity extends Activity {
             } catch (CalculationException e) {
                 text.setText(e.getMessage());
             }
+            cached = true;
         } else if (button.equals("del")) {
             CharSequence old = text.getText();
             old = old.subSequence(0, old.length() - 1);
@@ -59,14 +62,19 @@ public class MyActivity extends Activity {
                 old = "0";
             }
             text.setText(old);
+            cached = false;
         } else if (button.equals("C")) {
             text.setText("0");
+            cached = false;
         } else {
             if (text.getText().length() == 1 && text.getText().charAt(0) == '0' ||
-                    Character.isLetter(text.getText().charAt(0))) {
-                text.setText("");
+                    Character.isLetter(text.getText().charAt(0)) || cached) {
+                if (!Character.isDigit(text.getText().charAt(0)) || Character.isDigit(button.charAt(0))) {
+                    text.setText("");
+                }
             }
             text.append(button);
+            cached = false;
         }
     }
 }

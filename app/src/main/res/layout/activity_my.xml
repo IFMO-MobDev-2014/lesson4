@@ -221,4 +221,14 @@
         android:layout_alignTop="@+id/button4"
         android:layout_alignStart="@+id/button18" />
 
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="."
+        android:onClick="onClick"
+        android:id="@+id/button20"
+        android:layout_alignTop="@+id/button4"
+        android:layout_toEndOf="@+id/button4" />
+
 </RelativeLayout>

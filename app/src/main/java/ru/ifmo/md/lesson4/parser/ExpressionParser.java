@@ -1,5 +1,7 @@
 package ru.ifmo.md.lesson4.parser;
 
+import java.security.acl.LastOwnerException;
+
 import ru.ifmo.md.lesson4.parser.exceptions.MyException;
 import ru.ifmo.md.lesson4.parser.exceptions.ParseException;
 import ru.ifmo.md.lesson4.parser.expression.Const;
@@ -68,17 +70,23 @@ public class ExpressionParser<T extends MyNumber<T>> {
                     }
                     lastLexem = lexer.next();
                 } else {
-                if (isVariable(s)) {
-                    result = new Variable<>(s);
-                    lastLexem = lexer.next();
-                } else
-                    result = helper.applyFunction(s, parseExpr(h));
+                    if (isVariable(s)) {
+                        result = new Variable<>(s);
+                        lastLexem = lexer.next();
+                    } else {
+                        if (s.equals("-un")) {
+                            result = helper.applyFunction(s, parseExpr(h));
+                        } else {
+                            throw new ParseException("parse error");
+                        }
+                    }
                 }
 
                 return result;
             }
         } catch (ParseException e) {
-            throw new ParseException("parse error at " + lexer.getLast());
+            //throw new ParseException("parse error at " + lexer.getLast());
+            throw new ParseException("parse error");
         }
     }
 
@@ -87,7 +95,8 @@ public class ExpressionParser<T extends MyNumber<T>> {
         lexer = new Lexer(s);
         Expression3<T> result = parseExpr(0);
         if (!lastLexem.equals("")) {
-            throw new ParseException("parse fail at " + Integer.toString(lexer.getLast()));
+            //throw new ParseException("parse fail at " + Integer.toString(lexer.getLast()));
+            throw new ParseException("parse error");
         }
         return result;
     }
