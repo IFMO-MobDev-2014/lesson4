@@ -129,6 +129,12 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:text="." />
+        <Button
+            android:id="@+id/buttonC"
+            android:background="#ff7777"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text="C" />
 
     </LinearLayout>
 
@@ -156,6 +162,12 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:text=")" />
+        <Button
+            android:id="@+id/buttonClear"
+            android:background="#ff0000"
+            android:layout_width="140dp"
+            android:layout_height="70dp"
+            android:text="CLEAR" />
 
     </LinearLayout>
 
@@ -166,15 +178,9 @@
         <Button
             android:id="@+id/buttonEval"
             android:background="#ff0099"
-            android:layout_width="140dp"
+            android:layout_width="350dp"
             android:layout_height="70dp"
             android:text="=" />
     </LinearLayout>
-    <Button
-        android:id="@+id/buttonClear"
-        android:background="#ff0000"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:text="CLEAR" />
 
 </LinearLayout>

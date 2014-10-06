@@ -23,6 +23,7 @@ public class MainActivity extends Activity {
     private EditText editText;
     private Button buttonEval;
     private Button buttonClear;
+    private Button buttonC;
     private TextView textView;
     int[] idList = {R.id.button0, R.id.button1, R.id.button2, R.id.button3, R.id.button4,
             R.id.button5, R.id.button6, R.id.button7, R.id.button8, R.id.button9, R.id.buttonPlus,
@@ -56,7 +57,15 @@ public class MainActivity extends Activity {
 
         buttonEval = (Button) findViewById(R.id.buttonEval);
         buttonClear = (Button) findViewById(R.id.buttonClear);
+        buttonC = (Button) findViewById(R.id.buttonC);
         textView = (TextView) findViewById(R.id.textView);
+        buttonC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String cur = textView.getText().toString();
+                textView.setText(cur.substring(0, cur.length() - 1));
+            }
+        });
         buttonClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
