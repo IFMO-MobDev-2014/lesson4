@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 public class CalculatorActivity extends Activity {
     private String expression;
-    private CalculationEngine engine;
+    private AntonCalculateEngine engine;
 
     private TextView input;
     private TextView result;
@@ -21,10 +21,19 @@ public class CalculatorActivity extends Activity {
         setContentView(R.layout.activity_calculator);
 
         this.expression = "";
-        this.engine = CalculationEngineFactory.defaultEngine();
+        this.engine = new AntonCalculateEngine();
 
         this.input = (TextView) findViewById(R.id.input);
         this.result = (TextView) findViewById(R.id.result);
+
+        Button clearBtn = (Button) findViewById(R.id.clear);
+        clearBtn.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                onClear();
+                return true;
+            }
+        });
     }
 
     private void setExpression(String expression) {
@@ -38,7 +47,7 @@ public class CalculatorActivity extends Activity {
                 result.setText("=" + res);
             }
         } catch (CalculationException e) {
-            result.setText("...");
+            result.setText(expression.isEmpty() ? "" : "...");
         }
     }
 
@@ -50,6 +59,28 @@ public class CalculatorActivity extends Activity {
         if (!expression.isEmpty()) {
             setExpression(expression.substring(0, expression.length() - 1));
         }
+    }
+
+    private void onParentheses() {
+        AntonCalculateEngine.Lexem lastOp = engine.getLastOp();
+        String whatParenthesis = null;
+
+        if (lastOp == null) {
+            whatParenthesis = "(";
+        } else {
+            switch (lastOp) {
+                case LBRACKET:
+                case OPERATOR:
+                    whatParenthesis = "(";
+                    break;
+                case RBRACKET:
+                case OPERAND:
+                    whatParenthesis = ")";
+                    break;
+            }
+        }
+
+        setExpression(expression + whatParenthesis);
     }
 
     @Override
@@ -78,9 +109,9 @@ public class CalculatorActivity extends Activity {
         String buttonText = button.getText().toString();
 
         if (button.getId() == R.id.clear) {
-            onClear();
-        } else if (button.getId() == R.id.delete) {
             onDelete();
+        } else if (button.getId() == R.id.parentheses) {
+            onParentheses();
         } else {
             setExpression(expression + buttonText);
         }

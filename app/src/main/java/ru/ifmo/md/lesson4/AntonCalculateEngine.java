@@ -65,9 +65,11 @@ public class AntonCalculateEngine implements CalculationEngine {
         }
     }
 
+    private Lexem lastOp;
+
     @Override
     public double calculate(String expression) throws CalculationException {
-        Lexem lastOp = null;
+        lastOp = null;
         LinkedList<Double> st = new LinkedList<Double>();
         LinkedList<String> op = new LinkedList<String>();
 
@@ -174,5 +176,9 @@ public class AntonCalculateEngine implements CalculationEngine {
         } else {
             return st.removeLast();
         }
+    }
+
+    public Lexem getLastOp() {
+        return lastOp;
     }
 }
