@@ -14,6 +14,8 @@
         android:id="@+id/editText"
         android:focusableInTouchMode="false"
         android:focusable="false"
+        android:clickable="false"
+        android:textIsSelectable="true"
         android:inputType="text"
         android:maxLines="1"
         android:textSize="@dimen/huge_text"/>

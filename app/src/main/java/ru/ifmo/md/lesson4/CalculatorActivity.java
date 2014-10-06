@@ -1,5 +1,6 @@
 package ru.ifmo.md.lesson4;
 
+import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,6 +17,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.HashMap;
 
@@ -53,6 +55,7 @@ public class CalculatorActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
         getActionBar().hide();
 
@@ -91,7 +94,10 @@ public class CalculatorActivity extends FragmentActivity {
         switch (id) {
             case R.id.button_delete:
                 if (mText.length() > 0) {
-                    mText = mText.substring(0, mText.length() - 1);
+                    int len = 1;
+                    if (mText.endsWith("Infinity")) len = 8;
+                    else if (mText.endsWith("NaN")) len = 3;
+                    mText = mText.substring(0, mText.length() - len);
                 }
                 break;
             case R.id.button_delete_all:
@@ -104,6 +110,7 @@ public class CalculatorActivity extends FragmentActivity {
                 String tmp = text;
                 if (id == R.id.button_multiply) tmp = "*";
                 else if (id == R.id.button_divide) tmp = "/";
+                else if (id == R.id.button_minus) tmp = "-";
                 mText = mText + tmp;
                 break;
         }
@@ -112,12 +119,21 @@ public class CalculatorActivity extends FragmentActivity {
     }
 
     private void calculate() {
-
+        double result;
+        try {
+            result = CalculationEngineFactory.defaultEngine().calculate(mText);
+        } catch (CalculationException e) {
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            return;
+        }
+        mText = Double.toString(result);
+        setTextView();
+        mTextView.setSelection(0);
     }
 
     private void setTextView() {
-        mTextView.setText(mText.replace("*", "×").replace("/", "÷"));
-        mTextView.setSelection(mTextView.getText().length());
+        mTextView.setText(mText.replace("*", "×").replace("/", "÷")
+                .replace("Infinity", "∞"));
         mTextView.setCursorVisible(true);
     }
 
