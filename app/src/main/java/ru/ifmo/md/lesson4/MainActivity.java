@@ -1,13 +1,11 @@
 package ru.ifmo.md.lesson4;
 
 import android.app.Activity;
-import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.InputType;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -16,7 +14,6 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 import ru.ifmo.md.lesson4.parser.ExpressionParser;
 
@@ -26,12 +23,11 @@ import ru.ifmo.md.lesson4.parser.ExpressionParser;
 public class MainActivity extends Activity {
     ArrayList<Button> buttons = new ArrayList<Button>();
     EditText editText;
-    String s = "";
     CountDownTimer mTimer = null;
 
     @Override
     public Object onRetainNonConfigurationInstance() {
-        return s;
+        return editText.getText().toString();
     }
 
     @Override
@@ -49,8 +45,8 @@ public class MainActivity extends Activity {
 
         Object savedObject = getLastNonConfigurationInstance();
         if (savedObject != null) {
-            s = (String)savedObject;
-            editText.setText("");
+            String s = (String)savedObject;
+            editText.setText(s);
         }
 
         TableLayout layout = (TableLayout)findViewById(R.id.table);
@@ -75,8 +71,9 @@ public class MainActivity extends Activity {
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    System.out.println(button.getText() + "CLICKED");
+//                    System.out.println(button.getText() + "CLICKED");
                     int position = editText.getSelectionStart();
+                    String s = editText.getText().toString();
                     s = s.substring(0, position) + button.getText() + s.substring(position);
                     editText.setText(s);
                     editText.setSelection(position + 1);
@@ -88,6 +85,7 @@ public class MainActivity extends Activity {
         equalButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String s = editText.getText().toString();
                 if (s.length() == 0) {
                     return;
                 }
@@ -105,8 +103,7 @@ public class MainActivity extends Activity {
         clearButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                s = "";
-                editText.setText(s);
+                editText.setText("");
             }
         });
 
@@ -128,7 +125,7 @@ public class MainActivity extends Activity {
             public boolean onLongClick(View view) {
                 rect.set(view.getLeft(), view.getTop(), view.getRight(), view.getBottom());
                 System.out.println("TRARAR");
-                mTimer = new CountDownTimer(9999999, 200) {
+                mTimer = new CountDownTimer(9999999, 150) {
                     @Override
                     public void onTick(long l) {
                         int positionStart = editText.getSelectionStart();
@@ -166,12 +163,13 @@ public class MainActivity extends Activity {
     }
 
     private void deleteSymbol(int index) {
+        String s = editText.getText().toString();
         s = s.substring(0, index) + s.substring(index + 1, s.length());
         editText.setText(s);
         editText.setSelection(index);
     }
 
-    // delete substring [l; r)
+    // delete substring [l; r) from editText
     private void deleteSubstring(int l, int r) {
         if (r == 0) {
             return;
@@ -179,6 +177,7 @@ public class MainActivity extends Activity {
         if (l == r) {
             l--;
         }
+        String s = editText.getText().toString();
         s = s.substring(0, l) + s.substring(r, s.length());
         editText.setText(s);
         editText.setSelection(l);
