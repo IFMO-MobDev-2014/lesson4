@@ -25,7 +25,7 @@ public class MyTest {
             Assert.assertEquals(25d, CalculationEngineFactory.defaultEngine().calculate("(5+5) * 2 + 5"));
             Assert.assertEquals(5d, CalculationEngineFactory.defaultEngine().calculate(".4 + 4.6"));
             Assert.assertEquals(1152d, CalculationEngineFactory.defaultEngine().calculate("(223 + 374 - 21)  / 2 * 4"));
-            Assert.assertEquals(3d, CalculationEngineFactory.defaultEngine().calculate("2/2*3"));
+            Assert.assertEquals(5d, CalculationEngineFactory.defaultEngine().calculate("-   ( - 2) + 3"));
             Assert.assertEquals(-2d, CalculationEngineFactory.defaultEngine().calculate("2/ -1"));
             Assert.assertEquals(-253.5d, CalculationEngineFactory.defaultEngine().calculate("-255+(3/2)"));
             Assert.assertEquals(1475637d, CalculationEngineFactory.defaultEngine().calculate("(8873+321) * 321 / 2"));

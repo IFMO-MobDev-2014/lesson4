@@ -21,6 +21,9 @@ public class MyCalculationEngine implements CalculationEngine {
             throw new CalculationException("unexpected end of epression. \nExpected : operand");
         if (s.charAt(last) == '-') {
             last++;
+            deleteSpaces();
+            if (last >= s.length())
+                throw new CalculationException("unexpected end of epression. \nExpected : operand or brackets");
             char c = s.charAt(last);
             if (c >= '0' && c <= '9') {
                 int tmp = last;
@@ -28,6 +31,8 @@ public class MyCalculationEngine implements CalculationEngine {
                 last++;
                 res = Double.parseDouble(s.substring(tmp, last));
                 return -res;
+            } else {
+                return -brackets();
             }
         }
         char c = s.charAt(last);

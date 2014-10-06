@@ -100,11 +100,6 @@ public class MyActivity extends Activity {
                 editText.setSelection(editText.getText().toString().length());
             }
         });
-        try {
-            editText.setText("" +  CalculationEngineFactory.defaultEngine().calculate("5 + 15"));
-        } catch (CalculationException e) {
-            editText.setText(e.getMessage());
-        }
-
+        editText.setText("0");
     }
 }
