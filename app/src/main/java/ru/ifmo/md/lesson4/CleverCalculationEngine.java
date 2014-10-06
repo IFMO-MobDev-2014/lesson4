@@ -28,6 +28,9 @@ public class CleverCalculationEngine implements CalculationEngine {
         tokenizer = new StringTokenizer(expression, DELIMITERS, true);
         next();
         Expression exp = getExpr();
+        if (!currentToken.equals("$")) {
+            throw new CalculationException("Unexpected end of expression (at '" + currentToken + "'");
+        }
         return exp.evaluate();
     }
 
