@@ -11,8 +11,6 @@ import org.robolectric.annotation.Config;
 import ru.ifmo.md.lesson4.CalculationEngineFactory;
 import ru.ifmo.md.lesson4.CalculationException;
 
-//Sergey Budkov 2536
-
 @Config(emulateSdk = 18)
 @RunWith(RobolectricTestRunner.class)
 public class DummyTest {
