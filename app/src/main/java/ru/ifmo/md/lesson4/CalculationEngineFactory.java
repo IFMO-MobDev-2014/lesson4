@@ -6,7 +6,7 @@ public class CalculationEngineFactory {
 
     }
 
-    public static CalculationEngine defaultEngine() {
+    public static DummyCalculateEngine defaultEngine() {
         return new DummyCalculateEngine();
     }
 }
