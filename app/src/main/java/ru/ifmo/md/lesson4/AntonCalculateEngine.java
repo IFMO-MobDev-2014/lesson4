@@ -169,10 +169,10 @@ public class AntonCalculateEngine implements CalculationEngine {
         }
 
         if (st.isEmpty()) {
-            // ok, special case
-            return 0.0;
+            // empty expression is meaningless
+            throw new CalculationException();
+        } else {
+            return st.removeLast();
         }
-
-        return st.removeLast();
     }
 }

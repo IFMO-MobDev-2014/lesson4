@@ -62,6 +62,7 @@ public class DummyTest {
 
     @Test
     public void testParser() {
+        expectToFailOn("");
         expectToFailOn("0 0");
         expectToFailOn("()");
         expectToFailOn("((");
@@ -91,7 +92,6 @@ public class DummyTest {
         expectToFailOn("3.14zza");
         expectToFailOn("andrewzta");
 
-        shouldNotFailOn("");
         shouldNotFailOn("9.");
         shouldNotFailOn("7-.1");
         shouldNotFailOn("(--3)");

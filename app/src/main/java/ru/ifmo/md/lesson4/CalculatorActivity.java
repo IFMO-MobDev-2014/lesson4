@@ -10,9 +10,11 @@ import android.widget.TextView;
 public class CalculatorActivity extends Activity {
     private String expression;
     private CalculationEngine engine;
-    private boolean errorState;
 
+    private TextView input;
     private TextView result;
+
+    private static double eps = 1e-9;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,24 +22,23 @@ public class CalculatorActivity extends Activity {
 
         this.expression = "";
         this.engine = CalculationEngineFactory.defaultEngine();
-        this.errorState = false;
 
+        this.input = (TextView) findViewById(R.id.input);
         this.result = (TextView) findViewById(R.id.result);
     }
 
     private void setExpression(String expression) {
         this.expression = expression;
-        result.setText(expression);
-    }
-
-    private void onEquals() {
+        input.setText(expression);
         try {
-            double result = engine.calculate(expression);
-            setExpression(Double.toString(result));
-            errorState = Double.isInfinite(result) || Double.isNaN(result);
+            double res = engine.calculate(expression);
+            if (Math.abs(res - Math.floor(res)) <= eps) {
+                result.setText("=" + String.format("%.0f", res));
+            } else {
+                result.setText("=" + res);
+            }
         } catch (CalculationException e) {
-            setExpression("Error");
-            errorState = true;
+            result.setText("...");
         }
     }
 
@@ -51,17 +52,8 @@ public class CalculatorActivity extends Activity {
         }
     }
 
-    private void validateState() {
-        if (errorState) {
-            setExpression("");
-            errorState = false;
-        }
-    }
-
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        validateState();
-
         char keyName = (char) event.getUnicodeChar();
 
         if (keyName == '0' || keyName == '1' || keyName == '2' || keyName == '3' || keyName == '4' ||
@@ -76,9 +68,6 @@ public class CalculatorActivity extends Activity {
         } else if (keyCode == KeyEvent.KEYCODE_DEL) {
             onDelete();
             return true;
-        } else if (keyCode == KeyEvent.KEYCODE_EQUALS) {
-            onEquals();
-            return true;
         }
 
         return super.onKeyDown(keyCode, event);
@@ -88,11 +77,7 @@ public class CalculatorActivity extends Activity {
         Button button = (Button) v;
         String buttonText = button.getText().toString();
 
-        validateState();
-
-        if (button.getId() == R.id.equals) {
-            onEquals();
-        } else if (button.getId() == R.id.clear) {
+        if (button.getId() == R.id.clear) {
             onClear();
         } else if (button.getId() == R.id.delete) {
             onDelete();
