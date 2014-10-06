@@ -61,7 +61,8 @@ public class MainActivity extends Activity {
                     View viewInTableRow = ((TableRow)view).getChildAt(j);
                     if (viewInTableRow instanceof Button) {
                         Button button = ((Button)viewInTableRow);
-                        if (button.getId() != R.id.clearButton && button.getId() != R.id.equalButton) {
+                        if (button.getId() != R.id.clearButton && button.getId() != R.id.equalButton
+                                && button.getId() != R.id.eraseButton) {
                             buttons.add(button);
                         }
                     }
@@ -111,57 +112,75 @@ public class MainActivity extends Activity {
 
         final Button eraseButton = (Button)findViewById(R.id.eraseButton);
         eraseButton.setText("<-");
-//        eraseButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                int position = editText.getSelectionStart();
-//                if (position == 0) {
-//                    return;
-//                }
-//                s = s.substring(0, position - 1) + s.substring(position);
-//                editText.setText(s);
-//                editText.setSelection(position - 1);
-//            }
-//        });
+
+        eraseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int positionStart = editText.getSelectionStart();
+                int positionEnd = editText.getSelectionEnd();
+                deleteSubstring(positionStart, positionEnd);
+            }
+        });
 
         final Rect rect = new Rect(0, 0, 0, 0);
+        eraseButton.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                rect.set(view.getLeft(), view.getTop(), view.getRight(), view.getBottom());
+                System.out.println("TRARAR");
+                mTimer = new CountDownTimer(9999999, 200) {
+                    @Override
+                    public void onTick(long l) {
+                        int positionStart = editText.getSelectionStart();
+                        int positionEnd = editText.getSelectionEnd();
+                        deleteSubstring(positionStart, positionEnd);
+                    }
+                    @Override
+                    public void onFinish() {
+
+                    }
+                };
+                mTimer.start();
+                return true;
+            }
+        });
+
         eraseButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    rect.set(view.getLeft(), view.getTop(), view.getRight(), view.getBottom());
-                    System.out.println("TRARAR");
-//                    eraseButton.setBackgroundResource(android.R.drawable.btn_dropdown);
-                    mTimer = new CountDownTimer(9999999, 100) {
-                        @Override
-                        public void onTick(long l) {
-                            int position = editText.getSelectionStart();
-                            if (position == 0) {
-                                return;
-                            }
-                            s = s.substring(0, position - 1) + s.substring(position);
-                            editText.setText(s);
-                            editText.setSelection(position - 1);
-                        }
-                        @Override
-                        public void onFinish() {
-
-                        }
-                    };
-                    mTimer.start();
-                    return true;
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_MOVE) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_MOVE) {
                     if (!rect.contains(view.getLeft() + (int)motionEvent.getX(),
-                                       view.getTop() + (int)motionEvent.getY())) {
-                        mTimer.cancel();
-                        return true;
+                            view.getTop() + (int)motionEvent.getY())) {
+                        if (mTimer != null) {
+                            mTimer.cancel();
+                        }
                     }
                 } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    mTimer.cancel();
-                    return true;
+                    if (mTimer != null) {
+                        mTimer.cancel();
+                    }
                 }
                 return false;
             }
         });
+    }
+
+    private void deleteSymbol(int index) {
+        s = s.substring(0, index) + s.substring(index + 1, s.length());
+        editText.setText(s);
+        editText.setSelection(index);
+    }
+
+    // delete substring [l; r)
+    private void deleteSubstring(int l, int r) {
+        if (r == 0) {
+            return;
+        }
+        if (l == r) {
+            l--;
+        }
+        s = s.substring(0, l) + s.substring(r, s.length());
+        editText.setText(s);
+        editText.setSelection(l);
     }
 }
