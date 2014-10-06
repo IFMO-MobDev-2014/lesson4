@@ -5,5 +5,7 @@
     <string name="title_activity_main">Calculator</string>
     <string name="clear_sign">C</string>
     <string name="equal_sign">=</string>
+    <string name="error">Error!</string>
+    <string name="backspace_sign">del</string>
 
 </resources>

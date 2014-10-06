@@ -1,6 +1,7 @@
 package ru.ifmo.md.lesson4.ui;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -29,9 +30,20 @@ public class MainActivity extends Activity {
 
     public void onEqualClick(View view) {
         try {
-            inputField.setText(Double.toString(engine.calculate(inputField.getText().toString())));
+            inputField.setText(Double.toString(
+                    engine.calculate(inputField.getText().toString())));
         } catch (CalculationException e) {
-            inputField.setText(e.getMessage());
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(getString(R.string.error))
+                    .setMessage(e.getMessage());
+            builder.create().show();
+        }
+    }
+
+    public void onBackspaceClick(View view) {
+        String oldText = inputField.getText().toString();
+        if (oldText.length() > 0) {
+            inputField.setText(oldText.substring(0, oldText.length() - 1));
         }
     }
 }
