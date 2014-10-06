@@ -99,6 +99,10 @@ public class ExpressionParser {
     }
 
     private Expression3 parsePr0() throws ParsingException {
+        if(next().equals('+')) {
+            move();
+            return parsePr0();
+        }
         if (next().equals('-')) {
             move();
             return new UnaryMinus(parsePr0());
