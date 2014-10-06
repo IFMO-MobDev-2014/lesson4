@@ -88,6 +88,7 @@ public class CleverCalculationEngine implements CalculationEngine {
             try {
                 d = Double.parseDouble(currentToken);
                 result = new Const(d * -1);
+                next();
             } catch (NumberFormatException e) {
                 result = new UnaryMinus(getMul());
             }

@@ -82,21 +82,15 @@ public class CalculatorActivity extends FragmentActivity {
 
     private void buttonClicked(View view) {
         int id = view.getId();
-        String text = null;
-        for (Pair p : codes) {
-            int bId = (Integer)p.first;
-            int str = (Integer)p.second;
-            if (bId == id) {
-                text = getString(str);
-                break;
-            }
-        }
+        String text = ((Button)view).getText().toString();
         switch (id) {
             case R.id.button_delete:
                 if (mText.length() > 0) {
                     int len = 1;
                     if (mText.endsWith("Infinity")) len = 8;
+                    else if (mText.endsWith("-Infinity")) len = 9;
                     else if (mText.endsWith("NaN")) len = 3;
+                    else if (mText.endsWith("-NaN")) len = 4;
                     mText = mText.substring(0, mText.length() - len);
                 }
                 break;
@@ -115,7 +109,6 @@ public class CalculatorActivity extends FragmentActivity {
                 break;
         }
         setTextView();
-        Log.d("TAG", text);
     }
 
     private void calculate() {
@@ -123,7 +116,7 @@ public class CalculatorActivity extends FragmentActivity {
         try {
             result = CalculationEngineFactory.defaultEngine().calculate(mText);
         } catch (CalculationException e) {
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
             return;
         }
         mText = Double.toString(result);
@@ -132,8 +125,7 @@ public class CalculatorActivity extends FragmentActivity {
     }
 
     private void setTextView() {
-        mTextView.setText(mText.replace("*", "×").replace("/", "÷")
-                .replace("Infinity", "∞"));
+        mTextView.setText(mText.replace("*", "×").replace("/", "÷").replace("Infinity", "∞"));
         mTextView.setCursorVisible(true);
     }
 
