@@ -18,7 +18,7 @@ import static junit.framework.Assert.fail;
 @RunWith(RobolectricTestRunner.class)
 public class DummyTest {
     // Acceptable absolute error
-    public static final double EPS = 1e-9;
+    private static final double EPS = 1e-9;
 
     private CalculationEngine engine;
 
