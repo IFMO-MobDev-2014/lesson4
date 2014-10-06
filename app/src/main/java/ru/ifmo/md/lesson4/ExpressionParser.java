@@ -21,6 +21,9 @@ public class ExpressionParser implements CalculationEngine {
             }
             if (Character.isDigit(s.charAt(cur))) {
                 int j = cur;
+                if (j+1<s.length() && Character.isDigit(s.charAt(j+1)) && s.charAt(j) == '0') {
+                    throw new CalculationException("Incorrect expression");
+                }
                 while (j + 1 < s.length() && (Character.isDigit(s.charAt(j + 1)) || s.charAt(j+1) == '.')) {
                     if (s.charAt(j+1) == '.') {
                         if (!point) {
@@ -107,6 +110,7 @@ public class ExpressionParser implements CalculationEngine {
     }
     @Override
     public double calculate(String expr) throws CalculationException {
+        balance = 0;
         lex = new Lexer(expr);
         double result = parseExpr();
         if (balance!=0) {

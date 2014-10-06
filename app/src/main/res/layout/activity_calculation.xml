@@ -1,26 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content" android:layout_height="wrap_content"
     android:background="@drawable/backgr"
-    android:orientation="vertical"
-    android:weightSum="1">
+    >
 
-    <TextView
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/textView2"
-        android:textSize="40sp"
-        android:layout_weight="0.48"
+        android:id="@+id/button"
         android:layout_gravity="center_horizontal"
-        android:textColor="#ffffffff" />
+        android:layout_marginTop="157dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:textSize="30sp"
+        android:textColor="#ffffff" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="0.17">
+        android:layout_below="@+id/button"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="53dp">
 
         <Button
             android:layout_width="wrap_content"
@@ -29,7 +34,8 @@
             android:id="@+id/button55"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:onClick="clickButton" />
+            android:onClick="clickButton"
+            android:textSize="30sp" />
 
         <Button
             android:layout_width="wrap_content"
@@ -39,7 +45,9 @@
             android:layout_alignBottom="@+id/button55"
             android:layout_toLeftOf="@+id/button55"
             android:layout_toStartOf="@+id/button55"
-            android:onClick="clickButton" />
+            android:onClick="clickButton"
+            android:textColor="#ffffffff"
+            android:textSize="30sp" />
 
         <Button
             android:layout_width="wrap_content"
@@ -49,7 +57,8 @@
             android:layout_alignBottom="@+id/button55"
             android:layout_toRightOf="@+id/button55"
             android:layout_toEndOf="@+id/button55"
-            android:onClick="clickButton" />
+            android:onClick="clickButton"
+            android:textSize="30sp" />
 
         <Button
             android:layout_width="wrap_content"
@@ -59,7 +68,8 @@
             android:layout_below="@+id/button55"
             android:layout_toLeftOf="@+id/button57"
             android:layout_toStartOf="@+id/button57"
-            android:onClick="clickButton" />
+            android:onClick="clickButton"
+            android:textSize="30sp" />
 
         <Button
             android:layout_width="wrap_content"
@@ -69,7 +79,8 @@
             android:layout_alignBottom="@+id/button58"
             android:layout_toLeftOf="@+id/button58"
             android:layout_toStartOf="@+id/button58"
-            android:onClick="clickButton" />
+            android:onClick="clickButton"
+            android:textSize="30sp" />
 
         <Button
             android:layout_width="wrap_content"
@@ -79,7 +90,8 @@
             android:layout_alignBottom="@+id/button58"
             android:layout_toRightOf="@+id/button58"
             android:layout_toEndOf="@+id/button58"
-            android:onClick="clickButton" />
+            android:onClick="clickButton"
+            android:textSize="30sp" />
 
         <Button
             android:layout_width="wrap_content"
@@ -89,7 +101,8 @@
             android:layout_toStartOf="@+id/button60"
             android:layout_below="@+id/button58"
             android:layout_centerHorizontal="true"
-            android:onClick="clickButton" />
+            android:onClick="clickButton"
+            android:textSize="30sp" />
 
         <Button
             android:layout_width="wrap_content"
@@ -99,7 +112,8 @@
             android:layout_alignBottom="@+id/button61"
             android:layout_toLeftOf="@+id/button61"
             android:layout_toStartOf="@+id/button61"
-            android:onClick="clickButton" />
+            android:onClick="clickButton"
+            android:textSize="30sp" />
 
         <Button
             android:layout_width="wrap_content"
@@ -109,7 +123,8 @@
             android:layout_alignBottom="@+id/button61"
             android:layout_toRightOf="@+id/button61"
             android:layout_toEndOf="@+id/button61"
-            android:onClick="clickButton" />
+            android:onClick="clickButton"
+            android:textSize="30sp" />
 
         <Button
             android:layout_width="wrap_content"
@@ -118,7 +133,8 @@
             android:id="@+id/button64"
             android:layout_below="@+id/button61"
             android:layout_centerHorizontal="true"
-            android:onClick="clickButton" />
+            android:onClick="clickButton"
+            android:textSize="30sp" />
 
         <Button
             android:layout_width="wrap_content"
@@ -128,7 +144,9 @@
             android:layout_alignBottom="@+id/button64"
             android:layout_toLeftOf="@+id/button64"
             android:layout_toStartOf="@+id/button64"
-            android:onClick="clickButton" />
+            android:onClick="clickButton"
+            android:layout_below="@+id/button61"
+            android:textSize="30sp" />
 
         <Button
             android:layout_width="wrap_content"
@@ -138,7 +156,9 @@
             android:layout_alignBottom="@+id/button64"
             android:layout_toRightOf="@+id/button64"
             android:layout_toEndOf="@+id/button64"
-            android:onClick="clickButton" />
+            android:onClick="clickButton"
+            android:layout_below="@+id/button61"
+            android:textSize="30sp" />
 
         <Button
             android:layout_width="wrap_content"
@@ -148,7 +168,8 @@
             android:layout_above="@+id/button60"
             android:layout_toRightOf="@+id/button57"
             android:layout_toEndOf="@+id/button57"
-            android:onClick="clickButton" />
+            android:onClick="clickButton"
+            android:textSize="30sp" />
 
         <Button
             android:layout_width="wrap_content"
@@ -158,7 +179,8 @@
             android:layout_above="@+id/button63"
             android:layout_toRightOf="@+id/button60"
             android:layout_toEndOf="@+id/button60"
-            android:onClick="clickButton" />
+            android:onClick="clickButton"
+            android:textSize="30sp" />
 
         <Button
             android:layout_width="wrap_content"
@@ -168,7 +190,8 @@
             android:layout_above="@+id/button66"
             android:layout_toRightOf="@+id/button63"
             android:layout_toEndOf="@+id/button63"
-            android:onClick="clickButton" />
+            android:onClick="clickButton"
+            android:textSize="30sp" />
 
         <Button
             android:layout_width="wrap_content"
@@ -178,7 +201,8 @@
             android:layout_toEndOf="@+id/button66"
             android:layout_below="@+id/button80"
             android:layout_toRightOf="@+id/button66"
-            android:onClick="clickButton" />
+            android:onClick="clickButton"
+            android:textSize="30sp" />
 
         <Button
             android:layout_width="wrap_content"
@@ -188,7 +212,8 @@
             android:layout_above="@+id/button59"
             android:layout_toLeftOf="@+id/button56"
             android:layout_toStartOf="@+id/button56"
-            android:onClick="clickButton" />
+            android:onClick="clickButton"
+            android:textSize="30sp" />
 
         <Button
             android:layout_width="wrap_content"
@@ -198,7 +223,8 @@
             android:layout_above="@+id/button62"
             android:layout_toLeftOf="@+id/button59"
             android:layout_toStartOf="@+id/button59"
-            android:onClick="clickButton" />
+            android:onClick="clickButton"
+            android:textSize="30sp" />
 
         <Button
             android:layout_width="wrap_content"
@@ -208,7 +234,8 @@
             android:layout_above="@+id/button65"
             android:layout_toLeftOf="@+id/button62"
             android:layout_toStartOf="@+id/button62"
-            android:onClick="clickButton" />
+            android:onClick="clickButton"
+            android:textSize="30sp" />
 
         <Button
             android:layout_width="wrap_content"
@@ -219,7 +246,8 @@
             android:layout_below="@+id/button62"
             android:layout_alignLeft="@+id/button83"
             android:layout_alignStart="@+id/button83"
-            android:onClick="clickButton" />
+            android:onClick="clickButton"
+            android:textSize="30sp" />
     </RelativeLayout>
 
-</LinearLayout>
+</RelativeLayout>
