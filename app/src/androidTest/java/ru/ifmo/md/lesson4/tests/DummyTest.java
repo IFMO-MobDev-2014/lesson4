@@ -61,7 +61,7 @@ public class DummyTest {
             } catch (CalculationException e) {
                 Assert.fail("Exception happened " + e);
             }
-            Test t = genTest(i);
+            Test1 t = genTest(i);
             try {
                 Assert.assertEquals(true, Math.abs(CalculationEngineFactory.defaultEngine().calculate(t.str) - (t.ans)) < EPS);
             } catch (CalculationException e) {
@@ -70,45 +70,45 @@ public class DummyTest {
         }
     }
 
-    static class Test {
+    static class Test1 {
         String str;
         double ans;
-        Test(String str, double ans) {
+        Test1(String str, double ans) {
             this.str = str;
             this.ans = ans;
         }
     }
 
-    private Test genTest(int level) {
-        Test res = genTest(0);
+    private Test1 genTest(int level) {
+        Test1 res = genTest(0);
         if (level == 0) {
             double result = randomDouble();
-            return new Test(String.valueOf(result), result);
+            return new Test1(String.valueOf(result), result);
         } else {
             String s;
-            Test a = genTest(level - 1);
-            Test b = genTest(level - 1);
+            Test1 a = genTest(level - 1);
+            Test1 b = genTest(level - 1);
             int op = rnd.nextInt(4);
             switch (op) {
                 case 0:
                     s = a.str + "+" + b.str;
                     s = "(" + s + ")";
-                    res = new Test(s, a.ans + b.ans);
+                    res = new Test1(s, a.ans + b.ans);
                     break;
                 case 1:
                     s = a.str + "*" + b.str;
                     s = "(" + s + ")";
-                    res = new Test(s, a.ans * b.ans);
+                    res = new Test1(s, a.ans * b.ans);
                     break;
                 case 2:
                     s = a.str + "-" + b.str;
                     s = "(" + s + ")";
-                    res = new Test(s, a.ans - b.ans);
+                    res = new Test1(s, a.ans - b.ans);
                     break;
                 case 3:
                     s = a.str + "/" + b.str;
                     s = "(" + s + ")";
-                    res = new Test(s, a.ans / b.ans);
+                    res = new Test1(s, a.ans / b.ans);
                     break;
             }
         }
