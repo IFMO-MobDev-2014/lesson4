@@ -9,7 +9,6 @@ import android.view.View.OnLongClickListener
 import android.widget.{Button, TextView, Toast}
 import org.parboiled2.Parser.DeliveryScheme.Try
 
-import scala.annotation.switch
 import scala.util.{Failure, Success}
 
 class MainActivity extends Activity {
@@ -25,7 +24,9 @@ class MainActivity extends Activity {
     resources = getResources
     vib = cast[AnyRef, Vibrator](this.getSystemService(Context.VIBRATOR_SERVICE))
     cast[View, Button](findViewById(R.id.button2), null).setOnLongClickListener(new OnLongClickListener {
-        override def onLongClick(p1: View): Boolean = { vib.vibrate(10); clear(); true }
+      override def onLongClick(p1: View): Boolean = {
+        vib.vibrate(10); clear(); true
+      }
     })
     textView = cast[View, TextView](findViewById(R.id.calcTextField))
   }
@@ -39,15 +40,21 @@ class MainActivity extends Activity {
   // (sad)
   implicit def wrap[A](a: A): () => A = () => a
   def setTx(str: () => CharSequence) = {
-    if (clearNeeded) { clearNeeded = false; clear() }
+    if (clearNeeded) {
+      clearNeeded = false; clear()
+    }
     textView.setText(str())
   }
-  def addSymbol(str: String) = setTx({() => textView.getText + str})
-  def setTemp(str: String) = { setTx(str); clearNeeded = true }
+  def addSymbol(str: String) = setTx({ () => textView.getText + str})
+  def setTemp(str: String) = {
+    setTx(str); clearNeeded = true
+  }
   def clear(): Unit = setTx("")
   def removeSymbol() =
     setTx(if (!clearNeeded && textView.getText != "") textView.getText.subSequence(0, textView.getText.length - 1)
-    else {clearNeeded = false; ""})
+    else {
+      clearNeeded = false; ""
+    })
 
   // Unsafe with exceptions (uurgh!)
   @deprecated def evalJava(): Unit =
@@ -63,28 +70,15 @@ class MainActivity extends Activity {
         ""
     })
 
-  // That's disgusting. I've come up with no idea how to make it better though :c
-  // Please tell me if I miss something.
-  def onCalcButtonPress(view: View): Unit = (view.getId: @switch) match {
-    case R.id.button0 => addSymbol(resources.getString(R.string.button0))
-    case R.id.button1 => addSymbol(resources.getString(R.string.button1))
-    case R.id.button2 => removeSymbol()
-    case R.id.button3 => eval()
-    case R.id.button4 => addSymbol(resources.getString(R.string.button4))
-    case R.id.button5 => addSymbol(resources.getString(R.string.button5))
-    case R.id.button6 => addSymbol(resources.getString(R.string.button6))
-    case R.id.button7 => addSymbol(resources.getString(R.string.button7))
-    case R.id.button8 => addSymbol(resources.getString(R.string.button8))
-    case R.id.button9 => addSymbol(resources.getString(R.string.button9))
-    case R.id.button10 => addSymbol(resources.getString(R.string.button10))
-    case R.id.button11 => addSymbol(resources.getString(R.string.button11))
-    case R.id.button12 => addSymbol(resources.getString(R.string.button12))
-    case R.id.button13 => addSymbol(resources.getString(R.string.button13))
-    case R.id.button14 => addSymbol(resources.getString(R.string.button14))
-    case R.id.button15 => addSymbol(resources.getString(R.string.button15))
-    case R.id.button16 => addSymbol(resources.getString(R.string.button16))
-    case R.id.button17 => addSymbol(resources.getString(R.string.button17))
-    case R.id.button18 => addSymbol(resources.getString(R.string.button18))
-    case R.id.button19 => addSymbol(resources.getString(R.string.button19))
+  def onCalcButtonPress(view: View) = {
+    val viewCur = cast[View, Button](view)
+    val buttonEq = resources.getString(R.string.buttonEq)
+    val buttonDel = resources.getString(R.string.buttonDel)
+    if (viewCur != null) viewCur.getText match {
+      case `buttonEq` => eval()
+      case `buttonDel` => removeSymbol()
+      case a if a != "" => addSymbol(a.toString)
+      case _ =>
+    }
   }
 }
