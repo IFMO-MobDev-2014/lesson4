@@ -43,7 +43,7 @@ public class MyCalculationEngine implements CalculationEngine {
                         vals.push(ops.pop());
                 } else {
                     while (!ops.empty() && ((checkPriority(c[i]) <= checkPriority(ops.peek())))) {
-                        if ((c[i] != 'U') || ((ops.peek() != 'U') ))
+                        if ((c[i] != 'U') || ((ops.peek() != 'U')))
                             vals.push(ops.pop());
                         else
                             break;
@@ -69,7 +69,7 @@ public class MyCalculationEngine implements CalculationEngine {
         String[] rt = new String[re.length];
         while (k < re.length) {
             String m = new String();
-            while ((k < re.length) && ((Character.isDigit(re[k]) || (re[k] == '.') ))) {
+            while ((k < re.length) && ((Character.isDigit(re[k]) || (re[k] == '.')))) {
                 m = m + re[k];
                 k++;
             }
@@ -96,10 +96,9 @@ public class MyCalculationEngine implements CalculationEngine {
         Stack<Double> vars = new Stack<Double>();
         for (i = 0; i <= j; i++)
             if (rt[i].length() > 0)
-            if (Character.isDigit(rt[i].charAt(0)) || rt[i].length() > 1)
-                vars.push(Double.parseDouble(rt[i]));
-            else
-                {
+                if (Character.isDigit(rt[i].charAt(0)) || rt[i].length() > 1)
+                    vars.push(Double.parseDouble(rt[i]));
+                else {
                     double first = vars.pop();
                     switch (rt[i].charAt(0)) {
                         case '+':
@@ -125,7 +124,7 @@ public class MyCalculationEngine implements CalculationEngine {
         if (vars.empty() || vars.size() > 1)
             throw new CalculationException();
         return vars.pop();
-}
+    }
 
     static int checkPriority(char a) {
         if (a == '(')
