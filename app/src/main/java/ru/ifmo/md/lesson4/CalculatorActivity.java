@@ -17,12 +17,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.HashMap;
+
 
 public class CalculatorActivity extends FragmentActivity {
     private int mOrientation;
     private EditText mTextView;
+    private View.OnClickListener mListener;
+    private String mText = "";
 
-    public Pair[] codes = new Pair[]{
+    private Pair[] codes = new Pair[]{
             Pair.create(R.id.button_0, R.string.button_0),
             Pair.create(R.id.button_1, R.string.button_1),
             Pair.create(R.id.button_2, R.string.button_2),
@@ -39,33 +43,10 @@ public class CalculatorActivity extends FragmentActivity {
             Pair.create(R.id.button_divide, R.string.button_divide),
             Pair.create(R.id.button_equals, R.string.button_equals),
             Pair.create(R.id.button_point, R.string.button_point),
-            Pair.create(R.id.button_sin, R.string.button_sin),
-            Pair.create(R.id.button_cos, R.string.button_cos),
-            Pair.create(R.id.button_tan, R.string.button_tan),
-            Pair.create(R.id.button_ln, R.string.button_ln),
-            Pair.create(R.id.button_log, R.string.button_log),
-            Pair.create(R.id.button_pi, R.string.button_pi),
-            Pair.create(R.id.button_exp, R.string.button_exp),
-            Pair.create(R.id.button_power, R.string.button_power),
             Pair.create(R.id.button_op_bracket, R.string.button_op_bracket),
             Pair.create(R.id.button_cl_bracket, R.string.button_cl_bracket),
-            Pair.create(R.id.button_sqrt, R.string.button_sqrt)
-    };
-
-    public static final int[] advancedButtons = {
-            R.id.button_sin, R.id.button_cos, R.id.button_tan,
-            R.id.button_ln, R.id.button_log, R.id.button_fact,
-            R.id.button_pi, R.id.button_exp, R.id.button_power,
-            R.id.button_op_bracket, R.id.button_cl_bracket, R.id.button_sqrt
-    };
-
-    public static final int[] baseButtons = {
-            R.id.button_0, R.id.button_1, R.id.button_2,
-            R.id.button_3, R.id.button_4, R.id.button_5,
-            R.id.button_6, R.id.button_7, R.id.button_8,
-            R.id.button_9, R.id.button_plus, R.id.button_minus,
-            R.id.button_multiply, R.id.button_divide, R.id.button_equals,
-            R.id.button_point
+            Pair.create(R.id.button_delete, R.string.button_delete),
+            Pair.create(R.id.button_delete_all, R.string.button_delete_all),
     };
 
     @Override
@@ -83,6 +64,61 @@ public class CalculatorActivity extends FragmentActivity {
     private void setupViews() {
         mOrientation = getResources().getConfiguration().orientation;
         mTextView = (EditText) findViewById(R.id.editText);
+        mListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                buttonClicked(view);
+            }
+        };
+        for (Pair p : codes) {
+            int id = (Integer)p.first;
+            Button b = (Button) findViewById(id);
+            b.setOnClickListener(mListener);
+        }
+    }
+
+    private void buttonClicked(View view) {
+        int id = view.getId();
+        String text = null;
+        for (Pair p : codes) {
+            int bId = (Integer)p.first;
+            int str = (Integer)p.second;
+            if (bId == id) {
+                text = getString(str);
+                break;
+            }
+        }
+        switch (id) {
+            case R.id.button_delete:
+                if (mText.length() > 0) {
+                    mText = mText.substring(0, mText.length() - 1);
+                }
+                break;
+            case R.id.button_delete_all:
+                mText = "";
+                break;
+            case R.id.button_equals:
+                calculate();
+                return;
+            default:
+                String tmp = text;
+                if (id == R.id.button_multiply) tmp = "*";
+                else if (id == R.id.button_divide) tmp = "/";
+                mText = mText + tmp;
+                break;
+        }
+        setTextView();
+        Log.d("TAG", text);
+    }
+
+    private void calculate() {
+
+    }
+
+    private void setTextView() {
+        mTextView.setText(mText.replace("*", "×").replace("/", "÷"));
+        mTextView.setSelection(mTextView.getText().length());
+        mTextView.setCursorVisible(true);
     }
 
 

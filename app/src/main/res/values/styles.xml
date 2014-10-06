@@ -2,12 +2,24 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
-        <!--<item name="android:buttonStyle">@style/MyButton</item>-->
+        <item name="android:buttonStyle">@style/MyTransparentButton</item>
     </style>
 
-    <style name="MyButton" parent="@android:style/Widget.Button">
+    <style name="MyTransparentButton" parent="@android:style/Widget.Button">
         <item name="android:background">@drawable/button</item>
         <item name="android:textSize">@dimen/big_text</item>
     </style>
+
+    <style name="MyOrangeButton" parent="@android:style/Widget.Button">
+        <item name="android:background">@drawable/button_orange</item>
+        <item name="android:textSize">@dimen/big_text</item>
+    </style>
+
+    <style name="MyGrayButton" parent="@android:style/Widget.Button">
+        <item name="android:background">@drawable/button_gray</item>
+        <item name="android:textSize">@dimen/big_text</item>
+    </style>
+
+    <color name="MyLightGray">#E0E0E0</color>
 
 </resources>

@@ -7,13 +7,13 @@
     tools:context="ru.ifmo.md.lesson4.CalculatorActivity">
 
     <EditText
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:gravity="right"
         android:id="@+id/editText"
         android:focusableInTouchMode="false"
         android:focusable="false"
-        android:editable="false"
         android:inputType="text"
         android:maxLines="1"
         android:textSize="@dimen/huge_text"/>
@@ -36,6 +36,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:id="@+id/button_op_bracket"
                 android:text="@string/button_op_bracket"/>
             <Button
@@ -51,6 +52,7 @@
                 android:id="@+id/button_delete"
                 android:text="@string/button_delete"/>
             <Button
+
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -85,6 +87,7 @@
                 android:id="@+id/button_9"
                 android:text="@string/button_9"/>
             <Button
+                style="@style/MyGrayButton"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -119,6 +122,7 @@
                 android:id="@+id/button_6"
                 android:text="@string/button_6"/>
             <Button
+                style="@style/MyGrayButton"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -153,6 +157,7 @@
                 android:id="@+id/button_3"
                 android:text="@string/button_3"/>
             <Button
+                style="@style/MyGrayButton"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -181,12 +186,14 @@
                 android:id="@+id/button_0"
                 android:text="@string/button_0"/>
             <Button
+                style="@style/MyOrangeButton"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:id="@+id/button_equals"
                 android:text="@string/button_equals"/>
             <Button
+                style="@style/MyGrayButton"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
