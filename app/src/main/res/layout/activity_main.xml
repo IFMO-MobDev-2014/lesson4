@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:weightSum="1">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="right"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/input"
+            android:layout_gravity="center_horizontal|right"
+            android:text="0"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Result:"
+            android:id="@+id/textView"
+            android:textColor="#ff646464"
+            android:layout_marginLeft="15dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="0"
+            android:id="@+id/result_view"
+            android:layout_marginLeft="5dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:weightSum="1"
+        android:layout_marginTop="20dp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="0dp"
+            android:layout_marginLeft="10dp">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="center_horizontal">
+
+                <Button
+                    android:layout_width="70dp"
+                    android:layout_height="60dp"
+                    android:text="1"
+                    android:id="@+id/digit1"
+                    android:onClick="addElement"/>
+
+                <Button
+                    android:layout_width="70dp"
+                    android:layout_height="60dp"
+                    android:text="2"
+                    android:id="@+id/digit2"
+                    android:onClick="addElement"/>
+
+                <Button
+                    android:layout_width="70dp"
+                    android:layout_height="60dp"
+                    android:text="3"
+                    android:id="@+id/digit3"
+                    android:onClick="addElement"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/tableRow">
+
+                <Button
+                    android:layout_width="70dp"
+                    android:layout_height="60dp"
+                    android:text="4"
+                    android:id="@+id/digit4"
+                    android:onClick="addElement"/>
+
+                <Button
+                    android:layout_width="70dp"
+                    android:layout_height="60dp"
+                    android:text="5"
+                    android:id="@+id/digit5"
+                    android:onClick="addElement"/>
+
+                <Button
+                    android:layout_width="70dp"
+                    android:layout_height="60dp"
+                    android:text="6"
+                    android:id="@+id/digit6"
+                    android:onClick="addElement"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/tableRow2">
+
+                <Button
+                    android:layout_width="70dp"
+                    android:layout_height="60dp"
+                    android:text="7"
+                    android:id="@+id/digit7"
+                    android:onClick="addElement"/>
+
+                <Button
+                    android:layout_width="70dp"
+                    android:layout_height="60dp"
+                    android:text="8"
+                    android:id="@+id/digit8"
+                    android:onClick="addElement"/>
+
+                <Button
+                    android:layout_width="70dp"
+                    android:layout_height="60dp"
+                    android:text="9"
+                    android:id="@+id/digit9"
+                    android:onClick="addElement"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/tableRow3"
+                android:onClick="">
+
+                <Button
+                    android:layout_width="70dp"
+                    android:layout_height="60dp"
+                    android:text="0"
+                    android:id="@+id/digit0"
+                    android:onClick="addElement"/>
+
+                <Button
+                    android:layout_width="70dp"
+                    android:layout_height="60dp"
+                    android:text="."
+                    android:id="@+id/dot"
+                    android:onClick="addElement"/>
+
+                <Button
+                    android:layout_width="70dp"
+                    android:layout_height="60dp"
+                    android:text="C"
+                    android:id="@+id/clear"
+                    android:onClick="onClearClick"/>
+            </TableRow>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="100dp"
+            android:layout_height="240dp"
+            android:layout_marginLeft="30dp">
+
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="48dp"
+                android:text="+"
+                android:id="@+id/plus"
+                android:onClick="addElement"/>
+
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="48dp"
+                android:text="-"
+                android:id="@+id/minus"
+                android:onClick="addElement"/>
+
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="48dp"
+                android:text="*"
+                android:id="@+id/multiply"
+                android:onClick="addElement"/>
+
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="48dp"
+                android:text="/"
+                android:id="@+id/divide"
+                android:onClick="addElement"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="48dp">
+
+                <Button
+                    android:layout_width="50dp"
+                    android:layout_height="48dp"
+                    android:text="("
+                    android:id="@+id/open"
+                    android:onClick="addElement"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=")"
+                    android:id="@+id/close"
+                    android:onClick="addElement"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
