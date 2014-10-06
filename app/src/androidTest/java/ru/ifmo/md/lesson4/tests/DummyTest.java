@@ -5,11 +5,15 @@ import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-//import org.robolectric.RobolectricTestRunner;
-//import org.robolectric.annotation.Config;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import ru.ifmo.md.lesson4.CalculationEngineFactory;
 import ru.ifmo.md.lesson4.CalculationException;
+
+@Config(emulateSdk = 18)
+@RunWith(RobolectricTestRunner.class)
+
 
 //@Config(emulateSdk = 18)
 //@RunWith(RobolectricTestRunner.class)
