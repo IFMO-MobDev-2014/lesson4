@@ -60,7 +60,7 @@ public class CalculatorActivity extends Activity {
                 s = String.format("%d", (long)d);
             }
             else {
-                s = String.valueOf(d);
+                s = String.format("%13f", d);
             }
             text.getText().insert(0, s);
         } catch (CalculationException e) {
@@ -78,8 +78,13 @@ public class CalculatorActivity extends Activity {
         if (text.getSelectionStart() != text.getText().length() ) {
             text.setText(TextUtils.concat(text.getText().subSequence(0, text.getSelectionStart() - 1),
                     text.getText().subSequence(text.getSelectionStart(), text.getText().length())));
+            text.setSelection(pos - 1);
         }
-        else text.setText(text.getText().subSequence(0, text.getText().length() - 1));
-        text.setSelection(pos - 1);
+        else if (text.getText().length() == 0) {
+        }
+        else {
+            text.setText(text.getText().subSequence(0, text.getText().length() - 1));
+            text.setSelection(pos - 1);
+        }
     }
 }

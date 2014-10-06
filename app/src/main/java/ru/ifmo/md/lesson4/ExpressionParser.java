@@ -142,6 +142,11 @@ public class ExpressionParser {
                     throw new CalculationException();
                 }
             }
+            if (i >= 1) {
+                if ((s.charAt(i) == '.') && (s.charAt(i - 1) == '.' )) {
+                    throw new CalculationException();
+                }
+            }
         }
         if (stack > 0) {
             throw new CalculationException();
