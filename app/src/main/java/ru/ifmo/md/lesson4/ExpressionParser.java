@@ -1,9 +1,9 @@
 package ru.ifmo.md.lesson4;
 
 public class ExpressionParser implements CalculationEngine {
-
     static private String current;
     static private Lexer lex;
+    static int balance;
 
     static private class Lexer {
         private final String s;
@@ -14,13 +14,19 @@ public class ExpressionParser implements CalculationEngine {
             cur = 0;
         }
 
-        String next() {
+        String next() throws CalculationException {
+            boolean point = false;
             if (cur == s.length()) {
                 return "";
             }
             if (Character.isDigit(s.charAt(cur))) {
                 int j = cur;
-                while (j + 1 < s.length() && Character.isDigit(s.charAt(j + 1))) {
+                while (j + 1 < s.length() && (Character.isDigit(s.charAt(j + 1)) || s.charAt(j+1) == '.')) {
+                    if (s.charAt(j+1) == '.') {
+                        if (!point) {
+                            point = true;
+                        } else throw new CalculationException("Incorrect expression");
+                    }
                     j++;
                 }
                 int buff = cur;
@@ -36,19 +42,23 @@ public class ExpressionParser implements CalculationEngine {
         if (current.charAt(0) >= '0' && current.charAt(0) <= '9') {
             return Double.parseDouble(current);
         } else if (current.equals("(")) {
+            balance++;
             return parseExpr();
         } else {
-            throw new CalculationException();
+            throw new CalculationException("Incorrect expression");
         }
     }
 
     static private double parseMultiplier() throws CalculationException {
         current = lex.next();
         if (current.equals("")) {
-            throw new CalculationException();
+            throw new CalculationException("Incorrect expression");
         }
         if (current.equals("-")) {
             return -parseMultiplier();
+        }
+        if (current.equals("+")) {
+            return Math.abs(parseMultiplier());
         }
         return parseValue();
     }
@@ -64,7 +74,11 @@ public class ExpressionParser implements CalculationEngine {
                 left = left * parseMultiplier();
             }
             if (current.equals("/")) {
-                left = left / parseMultiplier();
+                double right = parseMultiplier();
+                if (right == 0) {
+                    throw new CalculationException("Division by zero");
+                } else
+                left = left / right;
             }
         }
     }
@@ -72,7 +86,11 @@ public class ExpressionParser implements CalculationEngine {
     static private double parseExpr() throws CalculationException {
         double left = parseSum();
         while (true) {
-            if (current.equals(")") || current.equals("")) {
+            if (current.equals(")")) {
+                balance--;
+                return left;
+            }
+            if (current.equals("")) {
                 return left;
             }
             switch (current.charAt(0)) {
@@ -88,8 +106,12 @@ public class ExpressionParser implements CalculationEngine {
         }
     }
     @Override
-    public double calculate(String s) throws CalculationException {
-        lex = new Lexer(s);
-        return parseExpr();
+    public double calculate(String expr) throws CalculationException {
+        lex = new Lexer(expr);
+        double result = parseExpr();
+        if (balance!=0) {
+            throw new CalculationException("Incorrect expression");
+        } else
+        return result;
     }
 }
