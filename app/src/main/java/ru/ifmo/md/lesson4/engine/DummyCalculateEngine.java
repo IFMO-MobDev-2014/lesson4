@@ -1,7 +1,5 @@
 package ru.ifmo.md.lesson4.engine;
 
-import android.util.Log;
-
 import ru.ifmo.md.lesson4.exception.CalculationException;
 import ru.ifmo.md.lesson4.exception.UnexpectedEndException;
 import ru.ifmo.md.lesson4.exception.UnexpectedSymbolException;
@@ -81,12 +79,12 @@ public class DummyCalculateEngine implements CalculationEngine {
             return res;
         }
 
-        if (!Character.isDigit(s[pos]) && s[pos] != '.') {
+        if (!Character.isDigit(s[pos])) {
             throw new UnexpectedSymbolException("number", Character.toString(s[pos]), startPos);
         }
 
         StringBuilder builder = new StringBuilder();
-        while (pos < s.length && (Character.isDigit(s[pos]) || s[pos] == '.')) {
+        while (pos < s.length && (Character.isDigit(s[pos]) || s[pos] == '.' || s[pos] == 'E')) {
             builder.append(s[pos]);
             pos++;
         }
@@ -94,7 +92,6 @@ public class DummyCalculateEngine implements CalculationEngine {
         double res;
         String operand = builder.toString();
         try {
-            Log.d("APP", operand);
             res = Double.parseDouble(operand);
         } catch (NumberFormatException e) {
             throw new UnexpectedSymbolException("number", operand, startPos);
