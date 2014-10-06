@@ -142,6 +142,7 @@ public class ExpressionParser {
     public static Expression parse(String input) throws CalculationException {
         s = input;
         it = 0;
+        bracketsBalance = 0;
         Expression res = getExpression();
         return res;
     }
