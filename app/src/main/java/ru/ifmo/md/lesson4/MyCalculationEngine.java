@@ -48,6 +48,7 @@ public class MyCalculationEngine implements CalculationEngine {
             if (sign == '*') {
                 cur1.acc = cur1.acc * cur2.acc;
             } else if (sign == '/') {
+                if (Math.abs(cur2.acc) < 1E-9) throw new CalculationException();
                 cur1.acc = cur1.acc / cur2.acc;
             } else throw new CalculationException();
             cur1.rest = cur2.rest;
