@@ -14,19 +14,21 @@ public class DummyCalculateEngine implements CalculationEngine {
 
     double number() throws CalculationException {
         String num = "";
+        if (lexeme.charAt(nextperm) == '.') {
+            throw new CalculationException("Incorrect expression(numbers must not begin at point)");
+        }
         while ((lexeme.charAt(nextperm) >= '0' && lexeme.charAt(nextperm) <= '9') || (lexeme.charAt(nextperm) == '.')) {
             num += lexeme.charAt(nextperm);
             nextperm++;
         }
-//        Log.d("Dummy", "num="+num);
         if (num.isEmpty()) {
-            throw new CalculationException("Incorrect expression");
+            throw new CalculationException("Incorrect expression(incorrect number)");
         }
         double res;
         try {
             res = Double.parseDouble(num);
         } catch (Exception e) {
-            throw new CalculationException("Incorrect expression");
+            throw new CalculationException("Incorrect expression(incorrect number)");
         }
         return res;
     }
@@ -37,7 +39,7 @@ public class DummyCalculateEngine implements CalculationEngine {
             nextperm++;
             ans = expr();
             if (lexeme.charAt(nextperm) != ')') {
-                throw new CalculationException("Incorrect expression");
+                throw new CalculationException("Incorrect expression(no closed bracket)");
             }
             nextperm++;
         } else {
@@ -69,25 +71,25 @@ public class DummyCalculateEngine implements CalculationEngine {
 
     double expr() throws CalculationException {
         double ans = summand();
-//        Log.d("Dummy", "ans1="+ans);
         while ((lexeme.charAt(nextperm) == PLUS) || (lexeme.charAt(nextperm) == SUB)) {
             nextperm++;
             if (lexeme.charAt(nextperm - 1) == PLUS) {
                 ans += summand();
-//                Log.d("Dummy", "ans2="+ans);
             } else {
                 ans -= summand();
             }
-        }
-        if (lexeme.charAt(nextperm) != '$') {
-            throw new CalculationException("Incorrect expression");
         }
         return ans;
     }
     @Override
     public double calculate(String expression) throws CalculationException {
         nextperm = 0;
-        lexeme = expression.replaceAll("\\s+", " ").concat("$");
-        return expr();
+        lexeme = expression.replaceAll("\\s+", "").concat("$");
+//        Log.d("exp", lexeme);
+        double res = expr();
+        if (lexeme.charAt(nextperm) != '$') {
+            throw new CalculationException("Incorrect expression(no closed bracket)");
+        }
+        return res;
     }
 }

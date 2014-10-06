@@ -75,7 +75,6 @@ public class MainActivity extends Activity {
                 } catch (CalculationException e) {
                     textView.setText(e.getMessage());
                     first = true;
-//                    e.printStackTrace();
                 }
             }
         });
