@@ -47,13 +47,7 @@
                 android:id="@+id/button_mul"
                 android:layout_column="8"
                 android:layout_weight="1"/>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="del"
-                android:id="@+id/button_del"
-                android:layout_column="8"
-                android:layout_weight="1"/>
+
         </TableRow>
         <TableRow
             android:layout_width="fill_parent"
@@ -87,13 +81,7 @@
                 android:id="@+id/button_div"
                 android:layout_column="8"
                 android:layout_weight="1"/>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="C"
-                android:id="@+id/button_clear"
-                android:layout_column="8"
-                android:layout_weight="1"/>
+
         </TableRow>
 
         <TableRow
@@ -126,13 +114,6 @@
                 android:layout_height="wrap_content"
                 android:text="+"
                 android:id="@+id/button_plus"
-                android:layout_column="8"
-                android:layout_weight="1"/>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="."
-                android:id="@+id/button_point"
                 android:layout_column="8"
                 android:layout_weight="1"/>
         </TableRow>
@@ -169,15 +150,41 @@
                 android:id="@+id/button_minus"
                 android:layout_column="8"
                 android:layout_weight="1"/>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="="
-                android:id="@+id/button_equal"
-                android:layout_column="8"
-                android:layout_weight="1"/>
-        </TableRow>
 
+        </TableRow>
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="←"
+            android:id="@+id/button_del"
+            android:layout_column="8"
+            android:layout_weight="1"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="."
+            android:id="@+id/button_point"
+            android:layout_column="8"
+            android:layout_weight="1"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="C"
+            android:id="@+id/button_clear"
+            android:layout_column="8"
+            android:layout_weight="1"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="="
+            android:id="@+id/button_equal"
+            android:layout_column="8"
+            android:layout_weight="1"/>
+        </TableRow>
     </TableLayout>
 
 </LinearLayout>

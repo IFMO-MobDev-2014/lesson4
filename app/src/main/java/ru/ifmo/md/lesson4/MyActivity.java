@@ -81,7 +81,7 @@ public class MyActivity extends Activity {
         button[18].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (editText.getText().toString().length() == 0)
+                if (editText.getText().toString().length() == 0 || editText.getSelectionStart() == 0)
                     return;
                 int a = editText.getSelectionStart();
                 editText.setText(editText.getText().toString().substring(0, editText.getSelectionStart() - 1)  +
@@ -97,6 +97,7 @@ public class MyActivity extends Activity {
                 } catch (CalculationException e) {
                     editText.setText(e.getMessage());
                 }
+                editText.setSelection(editText.getText().toString().length());
             }
         });
         try {
