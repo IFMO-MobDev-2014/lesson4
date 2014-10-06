@@ -1,3 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Lesson4</string>
+    <string name="title_activity_calculator">Calculator</string>
+
+    <string name="syntax_error">Unexpected \'%1$c\' at position %2$d</string>
+    <string name="arithmetic_error">Arithmetic error</string>
 </resources>
