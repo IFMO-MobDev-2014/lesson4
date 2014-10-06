@@ -55,7 +55,7 @@ public class ExpressionParser {
                         " minus at position" + it + "not found");
             }
             char c = s.charAt(it);
-            if (c >= '0' && c <= '9') {
+            if (c >= '0' && c <= '9' || c == '.') {
                 return new Const(getNumber(isNegative));
             } else {
                 if (isNegative) {
@@ -64,7 +64,7 @@ public class ExpressionParser {
                     return new UnaryPlus(getBracket());
                 }
             }
-        } else if (curSymbol >= '0' && curSymbol <= '9') {
+        } else if (curSymbol >= '0' && curSymbol <= '9' || curSymbol == '.') {
             return new Const(getNumber(false));
         } else {
             throw new CalculationException("Parsing error: Unknown symbol " + curSymbol + " of operand");

@@ -108,8 +108,7 @@ public class MainActivity extends Activity {
         });
 
         final Button eraseButton = (Button)findViewById(R.id.eraseButton);
-        eraseButton.setText("<-");
-
+        eraseButton.setText("←");
         eraseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -162,14 +161,7 @@ public class MainActivity extends Activity {
         });
     }
 
-    private void deleteSymbol(int index) {
-        String s = editText.getText().toString();
-        s = s.substring(0, index) + s.substring(index + 1, s.length());
-        editText.setText(s);
-        editText.setSelection(index);
-    }
-
-    // delete substring [l; r) from editText
+    // deletes substring [l; r) or symbol (l-1) if l == r from editText
     private void deleteSubstring(int l, int r) {
         if (r == 0) {
             return;
