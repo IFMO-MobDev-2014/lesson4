@@ -1,5 +1,7 @@
 package ru.ifmo.md.lesson4;
 
+import ru.ifmo.md.lesson4.engine.EngineeringCalculationEngine;
+
 public class CalculationEngineFactory {
 
     private CalculationEngineFactory() {
@@ -7,6 +9,6 @@ public class CalculationEngineFactory {
     }
 
     public static CalculationEngine defaultEngine() {
-        return new ArithmeticCalculationEngine();
+        return new EngineeringCalculationEngine();
     }
 }
