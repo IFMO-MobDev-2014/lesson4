@@ -10,7 +10,6 @@ import org.robolectric.annotation.Config;
 
 import ru.ifmo.md.lesson4.CalculationEngineFactory;
 import ru.ifmo.md.lesson4.CalculationException;
-import ru.ifmo.md.lesson4.Expression.Parser.ParsingException;
 
 @Config(emulateSdk = 18)
 @RunWith(RobolectricTestRunner.class)
@@ -21,9 +20,10 @@ public class ToughTest {
     }
 
     @Test
-    public void testWhoppingComplex() {
+    public void testSomeExpressions() {
         try {
             Assert.assertEquals(10d, CalculationEngineFactory.defaultEngine().calculate("5+5"));
+            Assert.assertEquals(1234d, CalculationEngineFactory.defaultEngine().calculate("((((   10 ) * (5 + (5))) * 10 + 5*4    *10  + 68/2))"));
         } catch (CalculationException e) {
             Assert.fail("Exception happened " + e);
         }

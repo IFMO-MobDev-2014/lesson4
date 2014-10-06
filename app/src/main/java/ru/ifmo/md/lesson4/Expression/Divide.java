@@ -1,6 +1,7 @@
 package ru.ifmo.md.lesson4.Expression;
 
 import ru.ifmo.md.lesson4.CalculationException;
+import ru.ifmo.md.lesson4.Expression.Exceptions.DivisionByZeroException;
 
 public class Divide extends BinaryExpression3 {
     @Override
@@ -14,6 +15,9 @@ public class Divide extends BinaryExpression3 {
 
     @Override
     protected double operation(double a, double b) throws CalculationException {
+        if(b == 0) {
+            throw new DivisionByZeroException();
+        }
         return a / b;
     }
 }

@@ -4,17 +4,20 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import ru.ifmo.md.lesson4.Expression.Exceptions.DivisionByZeroException;
 import ru.ifmo.md.lesson4.Expression.Parser.ParsingException;
 
 public class CalculatorActivity extends Activity {
 
     CalculationEngine calc;
     EditText exprField;
+    boolean wasError = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +31,21 @@ public class CalculatorActivity extends Activity {
             exprField.setRawInputType(InputType.TYPE_CLASS_TEXT);
             exprField.setTextIsSelectable(true);
         }
+        exprField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(wasError) {
+                    exprField.getText().clear();
+                    wasError = false;
+                }
+            }
+        });
     }
 
     public void makeCalculations(View view) {
@@ -37,7 +55,8 @@ public class CalculatorActivity extends Activity {
             exprField.setText(Double.toString(res));
             exprField.setSelection(exprField.getText().length());
         } catch (CalculationException e) {
-            exprField.setText("INVALID");
+            exprField.setText("Error");
+            wasError = true;
         }
     }
 
