@@ -3,29 +3,20 @@ package ru.ifmo.md.lesson4;
 /**
  * Created by eugene on 10/5/14.
  */
-public class Parse implements Runnable {
-    private int curPos = -1;
-    private String s;
-    public double result;
-    public String exception = "";
-    public Thread t;
+public class Parse {
+    private static int curPos;
+    private static String s;
 
-    Parse(String expression) {
-        t = new Thread(this, "parse Thread");
-        s = expression;
-        t.start();
-    }
-
-    private boolean good() {
+    private static boolean good() {
         return curPos < s.length();
     }
 
-    private void nextLexem() {
+    private static void nextLexem() {
         curPos++;
         for (;good() && Character.isWhitespace(s.charAt(curPos)); curPos++);
     }
 
-    private String getDigits() {
+    private static String getDigits() {
         String temp = "";
         for (;good() && Character.isDigit(s.charAt(curPos)); curPos++) {
             temp = temp + s.charAt(curPos);
@@ -34,7 +25,7 @@ public class Parse implements Runnable {
         return temp;
     }
 
-    private double number() throws CalculationException {
+    private static double number() throws CalculationException {
         double first = 0;
         if (!good())
             throw new CalculationException("unknown symbol on position: " + Integer.toString(curPos));
@@ -46,15 +37,15 @@ public class Parse implements Runnable {
             nextLexem();
             first = number();
         } else if (s.charAt(curPos) == '(') {
+            nextLexem();
+            if (!good())
+                throw new CalculationException("expected ')' on position: " + Integer.toString(curPos));
+            first = expr();
+            if (good() && s.charAt(curPos) == ')') {
                 nextLexem();
-                if (!good())
-                    throw new CalculationException("expected ')' on position: " + Integer.toString(curPos));
-                first = expr();
-                if (good() && s.charAt(curPos) == ')') {
-                    nextLexem();
-                } else {
-                    throw new CalculationException("expected ')' on position: " + Integer.toString(curPos));
-                }
+            } else {
+                throw new CalculationException("expected ')' on position: " + Integer.toString(curPos));
+            }
         } else if (Character.isDigit(s.charAt(curPos))) {
             String parseNumber = getDigits();
             nextLexem();
@@ -70,7 +61,7 @@ public class Parse implements Runnable {
         return first;
     }
 
-    private double term() throws CalculationException {
+    private static double term() throws CalculationException {
         double first = number();
         while (good()) {
             if (s.charAt(curPos) == '*') {
@@ -86,7 +77,7 @@ public class Parse implements Runnable {
         return first;
     }
 
-    private double expr() throws CalculationException {
+    private static double expr() throws CalculationException {
         double first = term();
         while (good()) {
             if (s.charAt(curPos) == '+') {
@@ -102,15 +93,13 @@ public class Parse implements Runnable {
         return first;
     }
 
-    @Override
-    public void run() {
+    public static double calculate(String expression) throws CalculationException {
+        curPos = -1;
+        s = expression;
         nextLexem();
-        try {
-            result = expr();
-            if (good())
-                throw new CalculationException("unknown symbol on position: " + curPos);
-        } catch (CalculationException e) {
-            exception = e.getMessage();
-        }
+        double result = expr();
+        if (good())
+            throw new CalculationException("unknown symbol on position: " + curPos);
+        return result;
     }
 }

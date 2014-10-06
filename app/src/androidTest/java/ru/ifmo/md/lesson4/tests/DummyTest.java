@@ -19,11 +19,12 @@ import ru.ifmo.md.lesson4.CalculationException;
 @Config(emulateSdk = 18)
 @RunWith(RobolectricTestRunner.class)
 public class DummyTest {
-    private final static double eps = 1e-5;
-    private final static int CNT_TEST = (int) 1e4;
+    private static final double eps = 0.1;
+    private static final int CNT_TEST = (int) 1e5;
+    private static final int LENGTH_EXPR = 4;
     private static final int CNT_UNARY = 100;
+    private static final String atoms = "+-*/";
     private Random rand = new Random();
-    public static final String atoms = "+-*/";
 
     @Before
     public void setup() {
@@ -34,6 +35,8 @@ public class DummyTest {
     public void testWhoppingComplex() {
         try {
             Assert.assertEquals(10d, CalculationEngineFactory.defaultEngine().calculate("5+5"));
+            Assert.assertTrue(isEqual(-6.453416149d, CalculationEngineFactory.defaultEngine().calculate("2 * (8 + 9) / 1.4 - 35 + 98 / 23")));
+            Assert.assertTrue(isEqual(1086314046.741260458d, CalculationEngineFactory.defaultEngine().calculate("8923*123123-21313/143+(123123 * 0.123123 / 234)-12312398")));
         } catch (CalculationException e) {
             Assert.fail("Exception happened " + e);
         }
@@ -76,7 +79,7 @@ public class DummyTest {
     }
 
     boolean isEqual(double x1, double x2) {
-        return Math.abs(x1 - x2) < eps;
+        return Math.abs(x1 - x2) <= eps;
     }
 
     @Test
@@ -97,37 +100,36 @@ public class DummyTest {
         }
     }
 
-//    @Test
-//    public void hard() {
-//        Pair<String, Double> x;
-//        int id = Math.abs(rand.nextInt());
-//        Pair<String, Double> res = generateUnary(atoms.charAt(id % 2));
-//        String first = res.first;
-//        Double second = res.second;
-//
-//        for (int i = 0; i < CNT_TEST; i++) {
-//            id = Math.abs(rand.nextInt());
-//            char atom = atoms.charAt(id % 4);
-//
-//            id = Math.abs(rand.nextInt());
-//            x = generateExpr(atoms.charAt(id % 4));
-//            first = '(' + first + ')' + atom + '(' + x.first + ')';
-//            second = retRes(second, x.second, atom);
-//        }
-//
-//        try {
-////            if (!isEqual(second, CalculationEngineFactory.defaultEngine().calculate(first)))
-////                throw new CalculationException();
-//            Assert.assertTrue(isEqual(second, CalculationEngineFactory.defaultEngine().calculate(first)));
-//        } catch (CalculationException e) {
-//                Assert.fail("Exception happened " + e);
-//
-////            try {
-////                Assert.fail("Exception happened " + first + "  " + second + "   " + CalculationEngineFactory.defaultEngine().calculate(first));
-////            } catch (CalculationException e1) {
-////                e1.printStackTrace();
-////            }
-//        }
-//    }
+    @Test
+    public void hard() {
+        Pair<String, Double> x;
+        int id = Math.abs(rand.nextInt());
+        Pair<String, Double> res = generateUnary(atoms.charAt(id % 2));
+        String first = res.first;
+        Double second = res.second;
 
+        for (int i = 0; i < LENGTH_EXPR / 2; i++) {
+            id = Math.abs(rand.nextInt());
+            char atom = atoms.charAt(id % 4);
+
+            id = Math.abs(rand.nextInt());
+            x = generateExpr(atoms.charAt(id % 4));
+            first = '(' + first + ')' + atom + '(' + x.first + ')';
+            second = retRes(second, x.second, atom);
+        }
+
+        try {
+//            if (!isEqual(second, CalculationEngineFactory.defaultEngine().calculate(first)))
+//                throw new CalculationException();
+                        Assert.assertTrue(isEqual(second, CalculationEngineFactory.defaultEngine().calculate(first)));
+        } catch (Throwable e) {
+                            Assert.fail("Exception happened " + e);
+            //
+//            try {
+//                Assert.fail("Exception happened " + first + "  " + second + "   " + CalculationEngineFactory.defaultEngine().calculate(first));
+//            } catch (CalculationException e1) {
+//                e1.printStackTrace();
+//            }
+        }
+    }
 }
