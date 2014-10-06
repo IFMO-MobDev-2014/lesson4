@@ -8,7 +8,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:background="#ff000000">
 
         <EditText
             android:layout_width="fill_parent"
@@ -23,13 +24,25 @@
             android:textStyle="bold|normal|italic"
             android:textSize="50dp" />
 
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:text="Press any key to start"
+            android:id="@+id/answer"
+            android:textSize="20dp"
+            android:layout_below="@+id/text"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:textColor="#ffff9218" />
+
         <TableLayout
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/text"
+            android:layout_height="wrap_content"
             android:background="#ff000000"
-            android:id="@+id/table_layout">
+            android:id="@+id/table_layout"
+            android:layout_below="@+id/answer"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
 
             <TableRow
                 android:layout_width="fill_parent"
@@ -122,6 +135,16 @@
                     android:layout_height="wrap_content"
                     android:text="-"
                     android:id="@+id/buttonSub" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ANS"
+                    android:id="@+id/buttonAns"
+                    android:layout_below="@+id/table_layout"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_column="5" />
             </TableRow>
 
             <TableRow
@@ -182,8 +205,10 @@
                     android:layout_height="wrap_content"
                     android:text="="
                     android:id="@+id/buttonEq" />
+
             </TableRow>
 
         </TableLayout>
+
     </RelativeLayout>
 </LinearLayout>

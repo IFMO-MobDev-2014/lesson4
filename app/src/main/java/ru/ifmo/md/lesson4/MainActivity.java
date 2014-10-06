@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 /**
  * Created by gshark on 05.10.14.
@@ -31,8 +32,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
     Button buttonDot;
     Button buttonBeg;
     Button buttonEnd;
+    Button buttonAns;
 
     EditText text;
+    TextView ans;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,8 +61,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
         buttonEnd = (Button) findViewById(R.id.buttonEnd);
         buttonEq = (Button) findViewById(R.id.buttonEq);
         buttonDot = (Button) findViewById(R.id.buttonDot);
+        buttonAns = (Button) findViewById(R.id.buttonAns);
 
         text = (EditText) findViewById(R.id.text);
+        ans = (TextView) findViewById(R.id.answer);
 
         button0.setOnClickListener(this);
         button1.setOnClickListener(this);
@@ -81,9 +86,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
         buttonDot.setOnClickListener(this);
         buttonC.setOnClickListener(this);
         buttonDel.setOnClickListener(this);
+        buttonAns.setOnClickListener(this);
     }
 
     String curText = "";
+    String curAns = "";
+    boolean ansIsNumber = false;
+
 
     @Override
     public void onClick(View view) {
@@ -147,10 +156,22 @@ public class MainActivity extends Activity implements View.OnClickListener {
             case R.id.buttonC:
                 curText = "";
                 break;
+            case R.id.buttonAns:
+                if (ansIsNumber) {
+                    curText += curAns;
+                }
+                break;
             case R.id.buttonEq:
-                curText = "Res";
+                ansIsNumber = true;
+                try {
+                    curAns = String.valueOf(CalculationEngineFactory.defaultEngine().calculate(curText));
+                } catch (CalculationException e) {
+                    curAns = e.getMessage();
+                    ansIsNumber = false;
+                }
                 break;
         }
         text.setText(curText.substring(Math.max(0, curText.length() - 9), curText.length()));
+        ans.setText(curAns);
     }
 }

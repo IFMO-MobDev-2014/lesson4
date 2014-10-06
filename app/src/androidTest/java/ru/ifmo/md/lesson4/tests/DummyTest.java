@@ -8,6 +8,8 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
+import java.util.Random;
+
 import ru.ifmo.md.lesson4.CalculationEngineFactory;
 import ru.ifmo.md.lesson4.CalculationException;
 
@@ -19,6 +21,13 @@ public class DummyTest {
         //do whatever is necessary before every test
     }
 
+    Random rnd = new Random();
+
+    double randomDouble() {
+        return rnd.nextDouble();
+    }
+
+    final double EPS = 1e-9;
     @Test
     public void testWhoppingComplex() {
         try {
@@ -26,5 +35,41 @@ public class DummyTest {
         } catch (CalculationException e) {
             Assert.fail("Exception happened " + e);
         }
+
+        for (int i = 0; i < 10; i++) {
+            double a = randomDouble();
+            double b = randomDouble();
+            String sa = Double.toString(a);
+            String sb = Double.toString(b);
+            try {
+                Assert.assertEquals(true, Math.abs(CalculationEngineFactory.defaultEngine().calculate(sa + " +" + sb) - (a + b)) < EPS);
+            } catch (CalculationException e) {
+                Assert.fail("Exception happened " + e);
+            }
+            try {
+                Assert.assertEquals(true, Math.abs(CalculationEngineFactory.defaultEngine().calculate(sa + "*" + sb) - (a * b)) < EPS);
+            } catch (CalculationException e) {
+                Assert.fail("Exception happened " + e);
+            }
+            try {
+                Assert.assertEquals(true, Math.abs(CalculationEngineFactory.defaultEngine().calculate(sa + " -" + sb) - (a - b)) < EPS);
+            } catch (CalculationException e) {
+                Assert.fail("Exception happened " + e);
+            }
+            try {
+                Assert.assertEquals(true, Math.abs(CalculationEngineFactory.defaultEngine().calculate(sa + "/ " + sb) - (a / b)) < EPS);
+            } catch (CalculationException e) {
+                Assert.fail("Exception happened " + e);
+            }
+        }
     }
+
+    /*static class Test {
+        String str;
+        double ans;
+        Test(String str, double ans) {
+
+        }
+    }
+    private*/
 }
