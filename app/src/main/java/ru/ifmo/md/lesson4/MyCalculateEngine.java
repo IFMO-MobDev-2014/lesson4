@@ -60,7 +60,6 @@ public class MyCalculateEngine implements CalculationEngine {
                         }
                     }
                 }
-                System.out.println("Str: "+Double.parseDouble(s.substring(l, r + 1)));
                 try {
                     return Double.parseDouble(s.substring(l, r + 1));
                 } catch (NumberFormatException e) {
