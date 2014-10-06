@@ -17,7 +17,7 @@ import java.util.Random;
 @Config(emulateSdk = 18)
 @RunWith(RobolectricTestRunner.class)
 public class CalculatorEngineTest {
-    private static final int FOR_TEST = 1000;
+    private static final int FOR_TEST = 100; // I'm litte afraid of overflow difference in scala and java 
     private CalculationEngine engine;
     private Random rand;
 
