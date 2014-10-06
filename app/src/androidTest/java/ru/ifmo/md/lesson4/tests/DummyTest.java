@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
+import ru.ifmo.md.lesson4.CalculationEngine;
 import ru.ifmo.md.lesson4.CalculationEngineFactory;
 import ru.ifmo.md.lesson4.CalculationException;
 
@@ -26,5 +27,25 @@ public class DummyTest {
         } catch (CalculationException e) {
             Assert.fail("Exception happened " + e);
         }
+    }
+
+
+    private void testEq(double expected, String expression) {
+        try {
+            Assert.assertEquals(expected, CalculationEngineFactory.defaultEngine().calculate(expression));
+        } catch (CalculationException e) {
+            Assert.fail("Exception happened " + e + " for expression: " + e.toString());
+        }
+    }
+
+    @Test
+    public void simpleTests() {
+        testEq(2d, "1+1");
+        testEq(3d, "1.+2");
+        testEq(0d, "-1+1");
+        testEq(6d, "2+2*2");
+        testEq(6d, "15-(3*3)");
+        testEq(12d, "2*2+24/3");
+        testEq(100d, "100000/1000");
     }
 }
