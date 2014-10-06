@@ -34,7 +34,6 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile 'junit:junit:4.10'
     androidTestCompile 'org.robolectric:robolectric:2.3'
-    compile files('build/jav8-jsr223-linux-amd64-0.6.jar')
 }
 
 androidTest {
