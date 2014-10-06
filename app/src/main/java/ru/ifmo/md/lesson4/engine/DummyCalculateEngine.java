@@ -3,6 +3,8 @@ package ru.ifmo.md.lesson4.engine;
 import android.util.Log;
 
 import ru.ifmo.md.lesson4.exception.CalculationException;
+import ru.ifmo.md.lesson4.exception.UnexpectedEndException;
+import ru.ifmo.md.lesson4.exception.UnexpectedSymbolException;
 
 public class DummyCalculateEngine implements CalculationEngine {
 
@@ -15,8 +17,8 @@ public class DummyCalculateEngine implements CalculationEngine {
         pos = 0;
 
         double res = calculateSum();
-        if (pos > s.length) {
-            throw new CalculationException();
+        if (pos < s.length) {
+            throw new UnexpectedSymbolException("end", new String(s).substring(pos), pos);
         }
 
         return res;
@@ -55,8 +57,10 @@ public class DummyCalculateEngine implements CalculationEngine {
     }
 
     private double calculateTerm() throws CalculationException {
+        int startPos = pos;
+
         if (pos >= s.length) {
-            throw new CalculationException();
+            throw new UnexpectedEndException(pos);
         }
 
         if (s[pos] == '-') {
@@ -68,17 +72,17 @@ public class DummyCalculateEngine implements CalculationEngine {
             pos++;
             double res = calculateSum();
             if (pos >= s.length) {
-                throw new CalculationException();
+                throw new UnexpectedEndException(pos);
             }
             if (s[pos] != ')') {
-                throw new CalculationException();
+                throw new UnexpectedSymbolException(")", Character.toString(s[pos]), pos);
             }
             pos++;
             return res;
         }
 
         if (!Character.isDigit(s[pos]) && s[pos] != '.') {
-            throw new CalculationException();
+            throw new UnexpectedSymbolException("number", Character.toString(s[pos]), startPos);
         }
 
         StringBuilder builder = new StringBuilder();
@@ -88,11 +92,12 @@ public class DummyCalculateEngine implements CalculationEngine {
         }
 
         double res;
+        String operand = builder.toString();
         try {
-            Log.d("APP", builder.toString());
-            res = Double.parseDouble(builder.toString());
+            Log.d("APP", operand);
+            res = Double.parseDouble(operand);
         } catch (NumberFormatException e) {
-            throw new CalculationException();
+            throw new UnexpectedSymbolException("number", operand, startPos);
         }
 
         return res;
