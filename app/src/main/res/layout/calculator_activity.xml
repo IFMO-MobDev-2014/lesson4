@@ -7,7 +7,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="70dp"
         android:orientation="horizontal"
         android:id="@+id/linearLayout"
         android:layout_above="@+id/linearLayout2"
@@ -61,23 +61,25 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="--"
-            android:id="@+id/backBtn"
+            android:text="-"
+            android:id="@+id/minusBtn"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:onClick="goClick"
             android:layout_weight="1" />
+
     </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="70dp"
         android:id="@+id/linearLayout2"
         android:layout_above="@+id/linearLayout3"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="false">
 
         <Button
             android:layout_width="match_parent"
@@ -115,8 +117,8 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="-"
-            android:id="@+id/minusBtn"
+            android:text="*"
+            android:id="@+id/mulBtn"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
@@ -126,19 +128,20 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="."
-            android:id="@+id/dotBtn"
+            android:text="/"
+            android:id="@+id/divBtn"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:onClick="goClick"
             android:layout_weight="1" />
+
     </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="70dp"
         android:id="@+id/linearLayout3"
         android:layout_above="@+id/linearLayout4"
         android:layout_alignParentLeft="true"
@@ -180,8 +183,8 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="*"
-            android:id="@+id/mulBtn"
+            android:text="."
+            android:id="@+id/dotBtn"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
@@ -198,12 +201,13 @@
             android:layout_below="@+id/linearLayout2"
             android:layout_toRightOf="@+id/linearLayout3"
             android:layout_weight="1" />
+
     </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="70dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -245,8 +249,8 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="/"
-            android:id="@+id/divBtn"
+            android:text="--"
+            android:id="@+id/backBtn"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
@@ -260,21 +264,59 @@
             android:id="@+id/clrBtn"
             android:layout_weight="1"
             android:onClick="goClick" />
+
     </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="200dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_above="@+id/linearLayout">
+        android:id="@+id/linearLayout5"
+        android:layout_alignParentStart="false">
 
         <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:id="@+id/editView"
-            android:textSize="60dp" />
+            android:textSize="30sp"
+            android:gravity="center"
+            android:textStyle="normal" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_above="@+id/linearLayout"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="false"
+        android:layout_below="@+id/linearLayout5">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="LEFT"
+            android:id="@+id/prevBtn"
+            android:layout_weight="0.755"
+            android:onClick="goClick" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="RIGHT"
+            android:id="@+id/nextBtn"
+            android:layout_weight="0.755"
+            android:onClick="goClick" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="END"
+            android:id="@+id/endBtn"
+            android:layout_weight="1.01"
+            android:onClick="goClick" />
     </LinearLayout>
 
 

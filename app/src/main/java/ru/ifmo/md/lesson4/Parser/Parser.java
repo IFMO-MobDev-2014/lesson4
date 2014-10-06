@@ -44,13 +44,15 @@ public class Parser {
         return e;
     }
     private static Expression parseN() throws CalculationException {
-        if (str.charAt(point) == '-') {
+        if (point < str.length() && str.charAt(point) == '-') {
             point++;
             return new Negate(parseC());
         }
         return parseC();
     }
     private static Expression parseC() throws CalculationException{
+        if (point == str.length())
+            throw new CalculationException();
         if (str.charAt(point) == '(') {
             point++;
             Expression e = parseE();
@@ -59,6 +61,8 @@ public class Parser {
             point++;
             return e;
         }
+        if (!Character.isDigit(str.charAt(point)))
+            throw new CalculationException();
         String num = "";
         while (point < str.length() && ((str.charAt(point) >= '0' && str.charAt(point) <= '9') || str.charAt(point) == '.'))
             num += str.charAt(point++);

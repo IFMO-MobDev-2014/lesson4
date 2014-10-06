@@ -1,6 +1,9 @@
 package ru.ifmo.md.lesson4.tests;
 
+import android.util.Log;
+
 import junit.framework.Assert;
+import junit.framework.TestCase;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -63,7 +66,7 @@ public class DummyTest {
                 break;
             case 1:
                 op = "-";
-                ans = new Pair("(" + l.expr + ")" + op + "(" + r.expr + ")", r.val - l.val);
+                ans = new Pair("(" + l.expr + ")" + op + "(" + r.expr + ")", l.val - r.val);
                 break;
             case 2:
                 op = "*";
@@ -71,26 +74,35 @@ public class DummyTest {
                 break;
             case 3:
                 op = "/";
-                ans = new Pair("(" + l.expr + ")" + op + "(" + r.expr + ")", r.val / l.val);
+                ans = new Pair("(" + l.expr + ")" + op + "(" + r.expr + ")", l.val / r.val);
                 break;
         }
         return ans;
     }
-
+    CalculationEngine calculator = CalculationEngineFactory.defaultEngine();
     @Test
-    public void lightTest() {
-        CalculationEngine calculator = CalculationEngineFactory.defaultEngine();
-        for (int i = 10; i <= 20; i++) {
+    public void testLightTest() {
+        for (int i = 10; i <= 100; i++) {
             Pair p = genRandomExpr(i);
             double my = 0;
-            System.out.println(p.expr);
             try {
                 my = calculator.calculate(p.expr);
                 Assert.assertEquals(p.val, my, 1e-9);
             } catch (CalculationException e) {
-                Assert.assertEquals(Double.isInfinite(p.val), true);
+                Assert.assertEquals(Double.isInfinite(p.val) || Double.isInfinite(-p.val), true);
             }
         }
+        Assert.assertEquals(isIncorrect("(adee)"), true);
+        Assert.assertEquals(isIncorrect("(1+)"), true);
+        Assert.assertEquals(isIncorrect("(---)"), true);
+    }
+    public boolean isIncorrect(String expr) {
+        try {
+            calculator.calculate(expr);
+        } catch (CalculationException e) {
+            return true;
+        }
+        return false;
     }
 
 }
