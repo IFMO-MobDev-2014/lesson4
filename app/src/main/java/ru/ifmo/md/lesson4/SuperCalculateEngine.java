@@ -134,6 +134,8 @@ public class SuperCalculateEngine implements CalculationEngine {
 
     @Override
     public double calculate(String expression) throws CalculationException {
+        if (clearSpaces(expression).isEmpty())
+            return 0;
         ParseResult p = expr(expression);
         if (clearSpaces(p.s).isEmpty())
             return p.v;
