@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import parser.DivisionByZeroException;
+
 public class CalculatorActivity extends Activity {
 
     EditText field;
@@ -57,8 +59,10 @@ public class CalculatorActivity extends Activity {
     public void onClickCalculate(View button) {
         try {
             field.setText(Double.toString(CalculationEngineFactory.defaultEngine().calculate(field.getText().toString())));
+        } catch (DivisionByZeroException e) {
+            field.setText("Error: division by zero. Press C.");
         } catch (CalculationException e) {
-            field.setText("Invalid input. Press C to clear and try again.");
+            field.setText("Error: invalid input. Press C.");
         }
     }
 

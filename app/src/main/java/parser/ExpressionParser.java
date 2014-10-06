@@ -34,13 +34,17 @@ public class ExpressionParser {
         }
     }
 
-    static private Expression3 parseValue() throws DivisionByZeroException, CalculationException {
+    static private Expression3 parseValue() throws CalculationException {
         String s = current;
         if (s.length() == 0) {
             throw new CalculationException();
         }
         if (s.charAt(0) >= '0' && s.charAt(0) <= '9') {
-            return new Const(Double.parseDouble(s));
+            try {
+                return new Const(Double.parseDouble(s));
+            } catch (Exception e) {
+                throw new CalculationException();
+            }
         } else if (s.equals("(")) {
             return parseExpr();
         } else {
@@ -48,7 +52,7 @@ public class ExpressionParser {
         }
     }
 
-    static private Expression3 parseMultiplier() throws DivisionByZeroException, CalculationException {
+    static private Expression3 parseMultiplier() throws CalculationException {
         current = lex.next();
         if (current.equals("")) {
             throw new CalculationException();
@@ -59,7 +63,7 @@ public class ExpressionParser {
         return parseValue();
     }
 
-    static private Expression3 parseSum() throws DivisionByZeroException, CalculationException {
+    static private Expression3 parseSum() throws CalculationException {
         Expression3 left = parseMultiplier();
         while (true) {
             current = lex.next();
@@ -79,7 +83,7 @@ public class ExpressionParser {
         }
     }
 
-    static private Expression3 parseExpr() throws DivisionByZeroException, CalculationException {
+    static private Expression3 parseExpr() throws CalculationException {
         Expression3 left = parseSum();
         while (true) {
             if (current.equals(")") || current.equals("")) {
@@ -98,7 +102,7 @@ public class ExpressionParser {
         }
     }
 
-    static public Expression3 parse(String s) throws CalculationException, DivisionByZeroException {
+    static public Expression3 parse(String s) throws CalculationException {
         int stack = 0;
         for (int i = 0; i < s.length(); i++) {
             if (s.charAt(i) == '!' && i > 0 && i < s.length() - 1) {

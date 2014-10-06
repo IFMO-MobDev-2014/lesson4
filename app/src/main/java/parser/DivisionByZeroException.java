@@ -1,7 +1,9 @@
 package parser;
 
-public class DivisionByZeroException extends Exception{
+import ru.ifmo.md.lesson4.CalculationException;
+
+public class DivisionByZeroException extends CalculationException{
     public DivisionByZeroException() {
-        super("division by zero");
+        super();
     }
 }

@@ -1,6 +1,5 @@
 package ru.ifmo.md.lesson4;
 
-import parser.DivisionByZeroException;
 import parser.ExpressionParser;
 
 /**
@@ -10,10 +9,7 @@ import parser.ExpressionParser;
 public class MagicCalculationEngine implements CalculationEngine {
 
     public double calculate(String expression) throws CalculationException {
-        try {
-            return ExpressionParser.parse(expression).evaluate(0, 0, 0);
-        } catch (DivisionByZeroException e) {
-            return Double.NaN;
-        }
+        return ExpressionParser.parse(expression).evaluate(0, 0, 0);
     }
+
 }
