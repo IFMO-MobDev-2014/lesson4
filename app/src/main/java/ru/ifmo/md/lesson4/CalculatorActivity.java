@@ -3,6 +3,7 @@ package ru.ifmo.md.lesson4;
 import android.app.Activity;
 import android.os.Bundle;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -46,7 +47,7 @@ public class CalculatorActivity extends Activity {
 
 
     public void onClickText(View view) {
-        text.getText().insert(text.getText().length(), ((Button)view).getText());
+        text.getText().insert(text.getSelectionStart(), ((Button)view).getText());
     }
 
     public void onClickCalculate(View view) {
@@ -70,5 +71,15 @@ public class CalculatorActivity extends Activity {
 
     public void onClickClear(View view) {
         text.setText("");
+    }
+
+    public void onClickDel(View view) {
+        int pos = text.getSelectionStart();
+        if (text.getSelectionStart() != text.getText().length() ) {
+            text.setText(TextUtils.concat(text.getText().subSequence(0, text.getSelectionStart() - 1),
+                    text.getText().subSequence(text.getSelectionStart(), text.getText().length())));
+        }
+        else text.setText(text.getText().subSequence(0, text.getText().length() - 1));
+        text.setSelection(pos - 1);
     }
 }
