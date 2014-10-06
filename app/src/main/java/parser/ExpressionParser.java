@@ -20,9 +20,9 @@ public class ExpressionParser {
             if (cur == s.length()) {
                 return "";
             }
-            if (Character.isDigit(s.charAt(cur))) {
+            if (Character.isDigit(s.charAt(cur)) || (s.charAt(cur) == '.')) {
                 int j = cur;
-                while (j + 1 < s.length() && Character.isDigit(s.charAt(j + 1))) {
+                while (j + 1 < s.length() && (Character.isDigit(s.charAt(j + 1)) || (s.charAt(j+1) == '.'))) {
                     j++;
                 }
                 int buff = cur;
@@ -36,14 +36,15 @@ public class ExpressionParser {
 
     static private Expression3 parseValue() throws DivisionByZeroException, CalculationException {
         String s = current;
-        if (Character.isDigit(current.charAt(0))) {
-            return new Const(Integer.parseInt(current));
-        } else if (current.charAt(0) >= 'x' && current.charAt(0) <= 'z') {
-            return new Variable(current);
-        } else if (current.equals("(")) {
+        if (s.length() == 0) {
+            throw new CalculationException();
+        }
+        if (s.charAt(0) >= '0' && s.charAt(0) <= '9') {
+            return new Const(Double.parseDouble(s));
+        } else if (s.equals("(")) {
             return parseExpr();
         } else {
-           throw new CalculationException();
+            throw new CalculationException();
         }
     }
 
@@ -98,7 +99,6 @@ public class ExpressionParser {
     }
 
     static public Expression3 parse(String s) throws CalculationException, DivisionByZeroException {
-        s = s.replaceAll("\\s+", "!");
         int stack = 0;
         for (int i = 0; i < s.length(); i++) {
             if (s.charAt(i) == '!' && i > 0 && i < s.length() - 1) {
@@ -126,7 +126,6 @@ public class ExpressionParser {
         if (stack != 0) {
             throw new CalculationException();
         }
-        s = s.replaceAll("!", "");
         lex = new Lexer(s);
         return parseExpr();
     }
