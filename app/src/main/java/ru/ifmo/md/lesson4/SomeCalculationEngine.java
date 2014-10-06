@@ -50,7 +50,7 @@ public class SomeCalculationEngine implements CalculationEngine {
     private static OperatorType.OpType lastOp;
 
     private static boolean rightAssociation(char op) {
-        return op == '$';
+        return op == '$' || op == '#';
     }
 
     private static int priority(char op) {
@@ -58,7 +58,7 @@ public class SomeCalculationEngine implements CalculationEngine {
             return 0;
         } else if (op == '*' || op == '/') {
             return 1;
-        } else if (op == '$') {
+        } else if (op == '$' || op == '#') {
             return 2;
         } else {
             return -1;
@@ -68,7 +68,7 @@ public class SomeCalculationEngine implements CalculationEngine {
     private static int opSize(char op) {
         if (op == '+' || op == '-' || op == '*' || op == '/') {
             return 2;
-        } else if (op == '$') {
+        } else if (op == '$'|| op == '#') {
             return 1;
         } else {
             return 0;
@@ -85,6 +85,8 @@ public class SomeCalculationEngine implements CalculationEngine {
             second = (Double) valStack.pop();
             if (op == '$') {
                 valStack.push(-second);
+            } else if (op == '#') {
+                valStack.push(second);
             }
             if (opSize(op) > 1) {
                 first = (Double) valStack.pop();
@@ -134,14 +136,20 @@ public class SomeCalculationEngine implements CalculationEngine {
                 }
                 opStack.pop();
                 lastOp = OperatorType.OpType.RB;
-            } else if (expression.charAt(i) == '+' || expression.charAt(i) == '*' || expression.charAt(i) == '/') {
-                if (expression.charAt(i) == '~' && (lastOp == OperatorType.OpType.OP ||lastOp == OperatorType.OpType.RB)) {
-                    throw new CalculationException("syntax exception");
-                } else if (expression.charAt(i) != '~' && lastOp != OperatorType.OpType.OP && lastOp != OperatorType.OpType.RB) {
+            } else if (expression.charAt(i) == '*' || expression.charAt(i) == '/') {
+                if (expression.charAt(i) != '~' && lastOp != OperatorType.OpType.OP && lastOp != OperatorType.OpType.RB) {
                     throw new CalculationException("syntax exception");
                 }
                 operationToDo(expression.charAt(i));
                 lastOp = OperatorType.OpType.BO;
+            } else if (expression.charAt(i) == '+') {
+                if (lastOp != OperatorType.OpType.OP && lastOp != OperatorType.OpType.RB) {
+                    operationToDo('#');
+                    lastOp = OperatorType.OpType.UO;
+                } else {
+                    operationToDo('+');
+                    lastOp = OperatorType.OpType.BO;
+                }
             } else if (expression.charAt(i) == '-') {
                 if (lastOp != OperatorType.OpType.OP && lastOp != OperatorType.OpType.RB) {
                     operationToDo('$');
@@ -150,7 +158,7 @@ public class SomeCalculationEngine implements CalculationEngine {
                     operationToDo('-');
                     lastOp = OperatorType.OpType.BO;
                 }
-            } else if (Character.isDigit(expression.charAt(i))) {
+            } else if (Character.isDigit(expression.charAt(i)) || expression.endsWith(expression)) {
                 if (lastOp == OperatorType.OpType.OP || lastOp == OperatorType.OpType.RB) {
                     throw new CalculationException("syntax exception");
                 }

@@ -58,7 +58,6 @@ public class CalcActivity extends Activity {
             expr = result.getText().toString();
         }
         evaluated = false;
-        Log.i("OK", " OK");
 
         int id = button.getId();
         switch (id) {
@@ -73,10 +72,14 @@ public class CalcActivity extends Activity {
                 } else if (expr.endsWith(".")) {
                     dot = false;
                 }
+                evaluated = false;
                 expr = expr.substring(0, expr.length());
                 break;
             case R.id.eval:
                 try {
+                    if (evaluated) {
+                        return;
+                    }
                     res = engine.calculate(expr);
                     result.setText(res.toString());
                     evaluated = true;
@@ -105,7 +108,6 @@ public class CalcActivity extends Activity {
                 dot = false;
                 break;
             case R.id.add:
-                Log.i("OK", " OKa");
                 if (expr.length() > 0 && (expr.endsWith(")") || Character.isDigit(expr.charAt(expr.length() - 1)))) {
                     expr += "+";
                 }
