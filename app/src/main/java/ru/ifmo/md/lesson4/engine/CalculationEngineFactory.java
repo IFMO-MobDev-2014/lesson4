@@ -1,4 +1,4 @@
-package ru.ifmo.md.lesson4;
+package ru.ifmo.md.lesson4.engine;
 
 public class CalculationEngineFactory {
 

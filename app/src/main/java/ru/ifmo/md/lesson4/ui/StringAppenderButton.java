@@ -1,4 +1,4 @@
-package ru.ifmo.md.lesson4;
+package ru.ifmo.md.lesson4.ui;
 
 import android.app.Activity;
 import android.content.Context;
@@ -7,6 +7,8 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import ru.ifmo.md.lesson4.R;
 
 /**
  * Appends string to input field when clicked.

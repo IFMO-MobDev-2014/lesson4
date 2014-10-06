@@ -1,9 +1,14 @@
-package ru.ifmo.md.lesson4;
+package ru.ifmo.md.lesson4.ui;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+
+import ru.ifmo.md.lesson4.R;
+import ru.ifmo.md.lesson4.engine.CalculationEngine;
+import ru.ifmo.md.lesson4.engine.CalculationEngineFactory;
+import ru.ifmo.md.lesson4.exception.CalculationException;
 
 public class MainActivity extends Activity {
     private TextView inputField;
@@ -26,7 +31,7 @@ public class MainActivity extends Activity {
         try {
             inputField.setText(Double.toString(engine.calculate(inputField.getText().toString())));
         } catch (CalculationException e) {
-            e.printStackTrace();
+            inputField.setText(e.getMessage());
         }
     }
 }

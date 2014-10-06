@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="ru.ifmo.md.lesson4.MainActivity">
+    tools:context="ru.ifmo.md.lesson4.ui.MainActivity">
 
     <TextView
         android:id="@+id/inputField"
@@ -28,37 +28,37 @@
         android:layout_alignParentRight="true"
         android:columnCount="4">
 
-        <ru.ifmo.md.lesson4.StringAppenderButton app:value="/" />
+        <ru.ifmo.md.lesson4.ui.StringAppenderButton app:value="/" />
 
-        <ru.ifmo.md.lesson4.StringAppenderButton app:value="1" />
+        <ru.ifmo.md.lesson4.ui.StringAppenderButton app:value="1" />
 
-        <ru.ifmo.md.lesson4.StringAppenderButton app:value="2" />
+        <ru.ifmo.md.lesson4.ui.StringAppenderButton app:value="2" />
 
-        <ru.ifmo.md.lesson4.StringAppenderButton app:value="3" />
+        <ru.ifmo.md.lesson4.ui.StringAppenderButton app:value="3" />
 
-        <ru.ifmo.md.lesson4.StringAppenderButton app:value="*" />
+        <ru.ifmo.md.lesson4.ui.StringAppenderButton app:value="*" />
 
-        <ru.ifmo.md.lesson4.StringAppenderButton app:value="4" />
+        <ru.ifmo.md.lesson4.ui.StringAppenderButton app:value="4" />
 
-        <ru.ifmo.md.lesson4.StringAppenderButton app:value="5" />
+        <ru.ifmo.md.lesson4.ui.StringAppenderButton app:value="5" />
 
-        <ru.ifmo.md.lesson4.StringAppenderButton app:value="6" />
+        <ru.ifmo.md.lesson4.ui.StringAppenderButton app:value="6" />
 
-        <ru.ifmo.md.lesson4.StringAppenderButton app:value="-" />
+        <ru.ifmo.md.lesson4.ui.StringAppenderButton app:value="-" />
 
-        <ru.ifmo.md.lesson4.StringAppenderButton app:value="7" />
+        <ru.ifmo.md.lesson4.ui.StringAppenderButton app:value="7" />
 
-        <ru.ifmo.md.lesson4.StringAppenderButton app:value="8" />
+        <ru.ifmo.md.lesson4.ui.StringAppenderButton app:value="8" />
 
-        <ru.ifmo.md.lesson4.StringAppenderButton app:value="9" />
+        <ru.ifmo.md.lesson4.ui.StringAppenderButton app:value="9" />
 
-        <ru.ifmo.md.lesson4.StringAppenderButton app:value="+" />
+        <ru.ifmo.md.lesson4.ui.StringAppenderButton app:value="+" />
 
-        <ru.ifmo.md.lesson4.StringAppenderButton app:value="0" />
+        <ru.ifmo.md.lesson4.ui.StringAppenderButton app:value="0" />
 
-        <ru.ifmo.md.lesson4.StringAppenderButton app:value="(" />
+        <ru.ifmo.md.lesson4.ui.StringAppenderButton app:value="(" />
 
-        <ru.ifmo.md.lesson4.StringAppenderButton app:value=")" />
+        <ru.ifmo.md.lesson4.ui.StringAppenderButton app:value=")" />
 
         <Button
             android:onClick="onClearClick"
