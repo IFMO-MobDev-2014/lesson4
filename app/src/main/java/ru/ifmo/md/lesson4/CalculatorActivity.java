@@ -18,13 +18,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 
-public class CalculatorActivity extends FragmentActivity
-    implements BaseButtonsFragment.OnFragmentInteractionListener,
-               AdvancedButtonsFragment.OnFragmentInteractionListener,
-               LandscapeFragment.OnFragmentInteractionListener {
+public class CalculatorActivity extends FragmentActivity {
     private int mOrientation;
-    private ViewPager mViewPager = null;
-    private PagerAdapter mAdapter = null;
     private EditText mTextView;
 
     public Pair[] codes = new Pair[]{
@@ -87,50 +82,8 @@ public class CalculatorActivity extends FragmentActivity
 
     private void setupViews() {
         mOrientation = getResources().getConfiguration().orientation;
-        mViewPager = (ViewPager) findViewById(R.id.viewPager);
-        if (mOrientation == Configuration.ORIENTATION_PORTRAIT) {
-            mAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager());
-            mViewPager.setAdapter(mAdapter);
-        } else if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
-
-        }
-
         mTextView = (EditText) findViewById(R.id.editText);
     }
 
-    @Override
-    public void onButtonClicked(int id) {
-        for (Pair p : codes) {
-            if (id == (Integer)p.first) {
-                String operation = getString((Integer)p.second);
-                Log.d("TAG", operation);
-                mTextView.append(operation);
-            }
-        }
-    }
-
-    private class MyFragmentPagerAdapter extends FragmentPagerAdapter {
-
-        public MyFragmentPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            switch (position) {
-                case 0:
-                    return BaseButtonsFragment.newInstance();
-                case 1:
-                    return AdvancedButtonsFragment.newInstance();
-                default:
-                    return null;
-            }
-        }
-
-        @Override
-        public int getCount() {
-            return 2;
-        }
-    }
 
 }
