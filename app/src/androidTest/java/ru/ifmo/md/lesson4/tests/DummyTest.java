@@ -59,6 +59,9 @@ public class DummyTest {
         try {
             Assert.assertEquals(4d, CalculationEngineFactory.defaultEngine().calculate("((2+2))-0/(--2)*555"), 0.002d);
             Assert.assertEquals(-8.45d, CalculationEngineFactory.defaultEngine().calculate("---(--(-(3 + 5.5)/-2)+-1) - 5.2"), 0.002d);
+            Assert.assertEquals(3901.85926d,CalculationEngineFactory.defaultEngine().calculate("39.548976*98.65892"), 0.000002d);
+            Assert.assertEquals(7d,CalculationEngineFactory.defaultEngine().calculate("3.33 + 3.67"), 0.000002d);
+            Assert.assertEquals(1d,CalculationEngineFactory.defaultEngine().calculate("1/4 + 3/4"), 0.002d);
         } catch (Exception e) {
             Assert.fail("Exception happened " + e);
         }
