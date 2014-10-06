@@ -18,6 +18,9 @@ public class MyCalculationEngine implements CalculationEngine{
                 if (c == '(') {
                     oper.push('(');
                     unary = true;
+                    if(i == expression.length() - 1 || expression.charAt(i + 1) == ')') {
+                        throw new CalculationException("Empty brackets");
+                    }
                 } else if (c == ')') {
                     if(oper.isEmpty())
                     {
