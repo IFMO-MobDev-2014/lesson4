@@ -48,11 +48,7 @@ public class MyActivity extends Activity {
 
         if (button.equals("=")) {
             try {
-                CharSequence seq = text.getText();
-                String expression = "";
-                for (int i = 0; i < seq.length(); i++) {
-                    expression += seq.charAt(i);
-                }
+                String expression = text.getText().toString();
                 text.setText(Double.toString(CalculationEngineFactory.defaultEngine().calculate(expression)));
             } catch (CalculationException e) {
                 text.setText("Error");
