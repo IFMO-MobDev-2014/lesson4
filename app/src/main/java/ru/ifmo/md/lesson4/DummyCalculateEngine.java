@@ -88,7 +88,7 @@ public class DummyCalculateEngine implements CalculationEngine {
 //        Log.d("exp", lexeme);
         double res = expr();
         if (lexeme.charAt(nextperm) != '$') {
-            throw new CalculationException("Incorrect expression(no closed bracket)");
+            throw new CalculationException("Incorrect expression");
         }
         return res;
     }

@@ -11,6 +11,8 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
+import java.util.Random;
+
 import ru.ifmo.md.lesson4.CalculationEngineFactory;
 import ru.ifmo.md.lesson4.CalculationException;
 import ru.ifmo.md.lesson4.DummyCalculateEngine;
@@ -24,7 +26,6 @@ public class DummyTest extends TestCase{
         //do whatever is necessary before every test
 
     }
-    DummyCalculateEngine expression = new DummyCalculateEngine();
 
     @Test
     public void testWhoppingComplex() {
@@ -67,6 +68,8 @@ public class DummyTest extends TestCase{
         testFAIL(".0.");
         testFAIL("(78+8)(77-8)");
     }
+
+
 
     public void testOK(String test, double res) {
         try {
