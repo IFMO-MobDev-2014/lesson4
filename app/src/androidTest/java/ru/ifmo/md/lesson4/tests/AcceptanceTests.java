@@ -1,7 +1,10 @@
 package ru.ifmo.md.lesson4.tests;
 
+import android.util.Log;
+
 import junit.framework.Assert;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
@@ -19,7 +22,7 @@ public class AcceptanceTests {
             CalculationEngineFactory.defaultEngine().calculate(expression);
             Assert.fail("Successfully evaluate " + expression);
         } catch (CalculationException e) {
-            Assert.fail("Exception happened " + e);
+            Log.d("Test", "Successfully fail");
         }
     }
 
