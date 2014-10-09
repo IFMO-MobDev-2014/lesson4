@@ -45,7 +45,7 @@ public class CalculatorActivity extends FragmentActivity {
             } catch (CalculationException e) {
                 Toast.makeText(this, String.format(getString(R.string.syntax_error)
                         , e.getExpression().charAt(e.getPosition()),
-                        e.getPosition()), Toast.LENGTH_LONG).show();
+                        e.getPosition() + 1), Toast.LENGTH_LONG).show();
                 return;
             } catch (ArithmeticException e) {
                 Toast.makeText(this, getString(R.string.arithmetic_error), Toast.LENGTH_LONG).show();
