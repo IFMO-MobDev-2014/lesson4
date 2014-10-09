@@ -25,6 +25,7 @@ public class DummyTest {
             Assert.assertEquals(10d, CalculationEngineFactory.defaultEngine().calculate("5+5"));
         } catch (CalculationException e) {
             Assert.fail("Exception happened " + e);
+
         }
     }
 }
