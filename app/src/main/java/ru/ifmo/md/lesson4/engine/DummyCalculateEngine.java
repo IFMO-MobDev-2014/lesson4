@@ -1,7 +1,7 @@
 package ru.ifmo.md.lesson4.engine;
 
 import ru.ifmo.md.lesson4.CalculationEngine;
-import ru.ifmo.md.lesson4.exception.CalculationException;
+import ru.ifmo.md.lesson4.CalculationException;
 import ru.ifmo.md.lesson4.exception.UnexpectedEndException;
 import ru.ifmo.md.lesson4.exception.UnexpectedSymbolException;
 

@@ -1,7 +1,7 @@
-package ru.ifmo.md.lesson4.exception;
+package ru.ifmo.md.lesson4;
 
 public class CalculationException extends Exception {
-    CalculationException(String detailMessage) {
+    public CalculationException(String detailMessage) {
         super(detailMessage);
     }
 }

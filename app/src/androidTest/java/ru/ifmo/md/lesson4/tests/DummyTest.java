@@ -8,7 +8,7 @@ import org.robolectric.annotation.Config;
 
 import ru.ifmo.md.lesson4.CalculationEngine;
 import ru.ifmo.md.lesson4.CalculationEngineFactory;
-import ru.ifmo.md.lesson4.exception.CalculationException;
+import ru.ifmo.md.lesson4.CalculationException;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;

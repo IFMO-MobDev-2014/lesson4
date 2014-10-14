@@ -8,8 +8,8 @@ import android.widget.TextView;
 
 import ru.ifmo.md.lesson4.CalculationEngine;
 import ru.ifmo.md.lesson4.CalculationEngineFactory;
+import ru.ifmo.md.lesson4.CalculationException;
 import ru.ifmo.md.lesson4.R;
-import ru.ifmo.md.lesson4.exception.CalculationException;
 
 public class MainActivity extends Activity {
     private TextView inputField;
