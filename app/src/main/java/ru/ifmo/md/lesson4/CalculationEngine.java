@@ -1,4 +1,4 @@
-package ru.ifmo.md.lesson4.engine;
+package ru.ifmo.md.lesson4;
 
 import ru.ifmo.md.lesson4.exception.CalculationException;
 

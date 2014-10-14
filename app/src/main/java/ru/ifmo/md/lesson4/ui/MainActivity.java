@@ -6,9 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import ru.ifmo.md.lesson4.CalculationEngine;
+import ru.ifmo.md.lesson4.CalculationEngineFactory;
 import ru.ifmo.md.lesson4.R;
-import ru.ifmo.md.lesson4.engine.CalculationEngine;
-import ru.ifmo.md.lesson4.engine.CalculationEngineFactory;
 import ru.ifmo.md.lesson4.exception.CalculationException;
 
 public class MainActivity extends Activity {

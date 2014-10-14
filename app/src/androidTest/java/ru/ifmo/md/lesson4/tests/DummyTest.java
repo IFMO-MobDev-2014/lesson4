@@ -6,8 +6,8 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
-import ru.ifmo.md.lesson4.engine.CalculationEngine;
-import ru.ifmo.md.lesson4.engine.CalculationEngineFactory;
+import ru.ifmo.md.lesson4.CalculationEngine;
+import ru.ifmo.md.lesson4.CalculationEngineFactory;
 import ru.ifmo.md.lesson4.exception.CalculationException;
 
 import static junit.framework.Assert.assertEquals;
