@@ -5,4 +5,5 @@ public class DummyCalculateEngine implements CalculationEngine {
     public double calculate(String expression) throws CalculationException {
         return 10;
     }
+
 }
