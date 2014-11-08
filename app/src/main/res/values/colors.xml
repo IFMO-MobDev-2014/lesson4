@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="borderColor">#ffc0c0c0</color>
+    <color name="darkButton">#3c3c3c</color>
+    <color name="primaryButton">#ff22caff</color>
+    <color name="opButton">#ffffd457</color>
+</resources>
