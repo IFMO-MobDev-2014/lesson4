@@ -81,6 +81,11 @@ public class AcceptanceTests {
     }
 
     @Test
+    public void testInvalidExpression9() {
+        testInvalidExpression(null);
+    }
+
+    @Test
     public void testValidExpression1() {
         testValidExpression(2, "1+1");
     }
@@ -89,7 +94,6 @@ public class AcceptanceTests {
     public void testValidExpression2() {
         testValidExpression(1.05, "(0.1+0.005)/0.1");
     }
-
 
     @Test
     public void testValidExpression3() {
