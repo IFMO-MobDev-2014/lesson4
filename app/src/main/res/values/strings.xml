@@ -1,3 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">My Application</string>
+
+    <string name="app_name">CustomCalc</string>
+    <string name="title_activity_calculator_main">CustomCalc</string>
+    <string name="calc_error">Error</string>
+    <string name="calc_positive_infinity">∞</string>
+    <string name="calc_negative_infinity">-∞</string>
+    <string name="calc_nan">NaN</string>
+
 </resources>
