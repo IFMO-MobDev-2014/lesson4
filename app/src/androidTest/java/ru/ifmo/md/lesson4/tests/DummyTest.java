@@ -3,7 +3,6 @@ package ru.ifmo.md.lesson4.tests;
 import junit.framework.Assert;
 import junit.framework.TestCase;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
@@ -33,7 +32,7 @@ public class DummyTest extends TestCase {
         } catch (CalculationException e) {
             return;
         }
-        Assert.fail(expr + " doesn't fail, but failed!");
+        Assert.fail(expr + " must failed, but doesn't failed!");
     }
 
     public void expectNotFail(String expr) {
@@ -83,6 +82,8 @@ public class DummyTest extends TestCase {
         expectFail("*10*30-4");
         expectFail("(*-.)");
         expectFail("1-3(4)");
+        expectFail("--5");
+        expectFail("------5");
 
         expectNotFail("439043+++++--++--++-30+8");
         expectNotFail("20");

@@ -125,9 +125,9 @@ public class CalculatorEngine implements CalculationEngine {
             return false;
         try {
             double res = Double.parseDouble(num);
+            return res >= 0;
         } catch (Exception e) {
             return false;
         }
-        return true;
     }
 }
