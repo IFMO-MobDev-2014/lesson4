@@ -38,4 +38,5 @@ dependencies {
 
 androidTest {
     include '**/*Test.class'
+    include '**/*Tests.class'
 }
