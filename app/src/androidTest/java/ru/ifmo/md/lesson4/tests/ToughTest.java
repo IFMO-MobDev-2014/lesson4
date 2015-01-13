@@ -33,4 +33,29 @@ public class ToughTest {
             Assert.fail("Exception happened " + e);
         }
     }
+
+    @Test(expected = CalculationException.class)
+    public void testException1() throws CalculationException {
+        CalculationEngineFactory.defaultEngine().calculate("()");
+    }
+
+    @Test(expected = CalculationException.class)
+    public void testException2() throws CalculationException {
+        CalculationEngineFactory.defaultEngine().calculate("1+4*3+");
+    }
+
+    @Test(expected = CalculationException.class)
+    public void testException3() throws CalculationException {
+        CalculationEngineFactory.defaultEngine().calculate("--(5-4)+*2");
+    }
+
+    @Test(expected = CalculationException.class)
+    public void testException4() throws CalculationException {
+        CalculationEngineFactory.defaultEngine().calculate("--(5-4)+2*(23");
+    }
+
+    @Test(expected = CalculationException.class)
+    public void testException5() throws CalculationException {
+        CalculationEngineFactory.defaultEngine().calculate("421341234.1234e12.243+112");
+    }
 }

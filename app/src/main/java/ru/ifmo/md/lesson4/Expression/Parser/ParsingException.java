@@ -14,10 +14,10 @@ public class ParsingException extends CalculationException {
         super(
                 "Parsing error in expression \"" + exp +
                         "\" on position " + errPos + ":\n\t" +
-                        "Invalid symbol \"" + exp.charAt(errPos) + "\",\n\t" +
+                        "Invalid symbol \"" + exp.charAt(Math.min(exp.length() - 1, errPos)) + "\",\n\t" +
                         expected + " expected."
         );
-        this.errPos = errPos;
+        this.errPos = Math.min(exp.length() - 1, errPos);
         this.expected = expected;
     }
 }

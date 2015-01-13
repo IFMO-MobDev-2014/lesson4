@@ -59,11 +59,15 @@ public class ExpressionParser {
     }
 
     public Expression3 parse(String s) throws ParsingException {
-        input = s;
-        curPos = 0;
-        Expression3 exp = parsePr2();
-        expect(null);
-        return exp;
+        try {
+            input = s;
+            curPos = 0;
+            Expression3 exp = parsePr2();
+            expect(null);
+            return exp;
+        } catch (NullPointerException e) {
+            throw new ParsingException(input, 0, "Input must be incorrect");
+        }
     }
 
     private Expression3 parsePr2() throws ParsingException {
