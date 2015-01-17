@@ -133,6 +133,9 @@ public class DummyCalculateEngine implements CalculationEngine {
 
     @Override
     public double calculate(String expression) throws CalculationException {
+        if (expression == null) {
+            throw new EmptyExpressionException("Expression is equal to null");
+        }
         if (expression.equals("")) {
             throw new EmptyExpressionException("Cannot parse empty expression");
         }

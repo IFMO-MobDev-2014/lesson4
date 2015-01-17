@@ -55,6 +55,12 @@ public class DummyTest {
             } catch (CalculationException e) {
 
             }
+            try {
+                double x = CalculationEngineFactory.defaultEngine().calculate(null);
+                Assert.fail("Fail to fail :(");
+            } catch (CalculationException e) {
+
+            }
         } catch (CalculationException e) {
             Assert.fail("Exception happened " + e);
         }
