@@ -3,44 +3,26 @@ package ru.ifmo.md.lesson4;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-
-import java.util.Arrays;
-import java.util.List;
+import android.widget.*;
 
 public class MainActivity extends Activity {
-    DummyCalculateEngine parser;
-    List<Character> isSign = Arrays.asList('+', '-', '*', '/');
+    int i;
     String expression = "";
-    int i, openBrackets = 0;
-    boolean mathSign = false;
-    boolean digitSign = false;
     TextView text;
 
     private void addDigit(int num) {
-        if (!digitSign) {
-            if (expression.length() == 0 || expression.charAt(expression.length() - 1) != ')') {
-                expression += num;
-            } else {
-                expression = expression.substring(0, expression.length() - 1) + num + ")";
-            }
-            mathSign = false;
-            text.setText(expression);
-        }
+        expression+=num;
+        text.setText(expression);
     }
 
     private void addSign(char sign) {
-        if (!mathSign) {
-            expression += sign;
-            text.setText(expression);
-            mathSign = true;
-            digitSign = false;
-        }
-
+        expression+=sign;
+        text.setText(expression);
     }
 
-    public void onCreate(Bundle savedInstanceState) {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
@@ -65,60 +47,40 @@ public class MainActivity extends Activity {
         Button rightBracket = (Button) findViewById(R.id.rightBracket);
         Button clearField = (Button) findViewById(R.id.clear);
         Button delToken = (Button) findViewById(R.id.delete);
-        Button calculate = (Button) findViewById(R.id.calculation);
         text = (TextView) findViewById(R.id.textView);
+        text.setText(expression);
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (expression.length() != 0) {
                     addSign('+');
-                }
             }
         });
 
         subtract.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (expression.length() != 0) {
                     addSign('-');
-                }
             }
         });
 
         multiply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (expression.length() != 0) {
                     addSign('*');
-                }
             }
         });
 
         divide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (expression.length() != 0) {
                     addSign('/');
-                }
-            }
-        });
-
-        dot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (expression.length() > 0 && Character.isDigit(expression.charAt(expression.length() - 1))) {
-                    expression += ".";
-                    mathSign = true;
-                    text.setText(expression);
-                }
             }
         });
 
         for (i = 0; i < 10; i++) {
             digit[i].setOnClickListener(new View.OnClickListener() {
                 final int x = i;
-
                 @Override
                 public void onClick(View v) {
                     addDigit(x);
@@ -129,54 +91,32 @@ public class MainActivity extends Activity {
         leftBracket.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (expression.length() == 0 ||
-                        isSign.contains(expression.charAt(expression.length() - 1)) || expression.charAt(expression.length() - 1) == '(') {
-                    openBrackets++;
-                    expression += "(";
-                    text.setText(expression);
-                    mathSign = true;
-                    digitSign = false;
-                }
+                addSign('(');
             }
         });
 
         rightBracket.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (openBrackets > 0 &&
-                        (Character.isDigit(expression.charAt(expression.length() - 1)) || expression.charAt(expression.length() - 1) == ')')) {
-                    openBrackets--;
-                    expression += ")";
-                    digitSign = true;
-                    mathSign = false;
-                    text.setText(expression);
-                }
+               addSign(')');
             }
         });
 
         delToken.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!expression.isEmpty()) {
-                    char c = expression.charAt(expression.length() - 1);
-                    expression = expression.substring(0, expression.length() - 1);
-                    if (c == ')')
-                        openBrackets++;
-                    else if (c == '(')
-                        openBrackets--;
-                    else if (isSign.contains(c)) {
-                        mathSign = false;
-                        if (expression.length() == 0 || Character.isDigit(expression.length() - 1))
-                            digitSign = false;
-                        else if (expression.charAt(expression.length() - 1) == ')') {
-                            int j = expression.length() - 1;
-                            while (j >= 0 && Character.isDigit(expression.charAt(j))) j--;
-                            if (j >= 1 && expression.charAt(j) == '-' && expression.charAt(j - 1) == '(')
-                                digitSign = false;
-                        }
-                    }
-                    text.setText(expression);
-                }
+                StringBuilder sb = new StringBuilder(expression);
+                sb.deleteCharAt(expression.length()-1);
+
+                expression = sb.toString();
+                text.setText(expression);
+            }
+        });
+
+        dot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    addSign('.');
             }
         });
 
@@ -184,38 +124,20 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 expression = "";
-                openBrackets = 0;
-                digitSign = false;
-                mathSign = false;
                 text.setText(expression);
             }
         });
 
-        parser = CalculationEngineFactory.defaultEngine();
-        calculate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    for (int i = 0; i < openBrackets; i++)
-                        expression += ")";
-                    expression = Double.toString(parser.calculate(expression));
-
-                    if (expression.charAt(expression.length() - 1) == '0') {
-                        expression = expression.substring(0, expression.length() - 2);
-                    }
-
-                    text.setText(expression);
-
-                } catch (CalculationException e) {
-                    text.setText(e.getMessage());
-                    expression = "";
-                } catch (Exception e) {
-                    expression = "";
-                    text.setText(" unparsable :(");
-                }
-                mathSign = false;
-            }
-        });
-
     }
+
+    public void result(View v){
+        try {
+            final double ans = CalculationEngineFactory.defaultEngine().calculate(expression);
+            text.setText(String.valueOf(ans));
+            expression = "";
+        } catch (CalculationException e){
+            Toast.makeText(this, "Exception", Toast.LENGTH_LONG).show();
+        }
+    }
+
 }

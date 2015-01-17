@@ -1,106 +1,256 @@
 package ru.ifmo.md.lesson4;
+import java.math.BigDecimal;
 
 public class DummyCalculateEngine implements CalculationEngine {
 
-    public class Symbol {
+    String expression, operator;
+    Expr answer;
+    int pos;
 
-        String str;
-        double d;
+    abstract class Operators implements Expr {
+        protected Expr first;
+        protected Expr second;
 
-        public Symbol(double d, String str) {
-
-            this.str = str;
-            this.d = d;
-
+        protected Operators(Expr first, Expr second) {
+            this.first = first;
+            this.second = second;
         }
+
+        public BigDecimal eval() throws Exception {
+            return calc(first.eval(), second.eval());
+        }
+
+        protected abstract BigDecimal calc(BigDecimal first, BigDecimal second) throws Exception;
+    }
+
+    interface Expr {
+        BigDecimal eval() throws Exception;
+    }
+
+    public class operatorAdd extends Operators {
+        public operatorAdd(Expr first, Expr second) {
+            super(first, second);
+        }
+
+        public BigDecimal calc(BigDecimal first, BigDecimal second) {
+            return first.add(second);
+        }
+    }
+
+    public class operatorSub extends Operators {
+        public operatorSub(Expr first, Expr second) {
+            super(first, second);
+        }
+
+        protected BigDecimal calc(BigDecimal first, BigDecimal second) {
+            return first.subtract(second);
+        }
+    }
+
+    public class operatorMul extends Operators {
+        public operatorMul(Expr first, Expr second) {
+            super(first, second);
+        }
+
+        protected BigDecimal calc(BigDecimal first, BigDecimal second) {
+            return first.multiply(second);
+        }
+    }
+
+    public class Division extends Operators {
+        public Division(Expr first, Expr second) {
+            super(first, second);
+        }
+
+        public BigDecimal calc(BigDecimal first, BigDecimal second) throws Exception {
+            BigDecimal small = new BigDecimal("0.0000000001");
+            if (second.abs().min(small) == second.abs())
+                throw new Exception();
+            return first.divide(second, BigDecimal.ROUND_HALF_EVEN)
+                    .setScale(30, BigDecimal.ROUND_HALF_EVEN);
+        }
+    }
+
+    public class Const implements Expr {
+        public final BigDecimal value;
+
+        public Const(BigDecimal value) {
+            this.value = value.setScale(30, BigDecimal.ROUND_HALF_EVEN);
+        }
+
+        public BigDecimal eval() {
+            return value;
+        }
+    }
+
+    public Expr Parser(String expression) throws Exception {
+        this.expression = expression;
+        pos = 0;
+        operator = "";
+        isValid();
+        next();
+        return AddDiv();
+    }
+
+    void isValid() throws Exception {
+        int brNum = 0;
+        if (expression.length() == 0)
+            throw new Exception();
+        if (expression.charAt(0) == '/' || expression.charAt(0) == '*')
+            throw new Exception();
+        if (expression.charAt(0) == '-' || expression.charAt(0) == '+')
+            expression = "0" + expression;
+        for (int i = 0; i < expression.length(); i++) {
+            if (expression.charAt(i) == ')')
+                brNum--;
+            if (expression.charAt(i) == '(')
+                brNum++;
+            if (brNum < 0)
+                throw new Exception();
+        }
+        if (brNum != 0)
+            throw new Exception();
+        if (Character.isDigit(expression.charAt(expression.length() - 1)) == false
+                && expression.charAt(expression.length() - 1) != '.'
+                && expression.charAt(expression.length() - 1) != ')')
+            throw new Exception();
+    }
+
+    Expr MulDiv() throws Exception {
+        Expr var = brackets();
+        while (operator.equals("*") || operator.equals("/")) {
+            String obr = operator;
+            boolean negative = false;
+            next();
+            while (operator.equals("+") || operator.equals("-")) {
+                if (operator.equals("-"))
+                    negative = !negative;
+                next();
+            }
+            if (operator.equals("*") || operator.equals("/") || operator.equals(")"))
+                throw new Exception();
+            if (negative == true) {
+                operator = "-" + operator;
+                answer = new Const(new BigDecimal(operator));
+            }
+            if (obr.equals("*")) {
+                var = new operatorMul(var, brackets());
+            }
+            if (obr.equals("/")) {
+                var = new Division(var, brackets());
+            }
+        }
+        return var;
+    }
+
+
+    Expr AddDiv() throws Exception {
+        Expr var = MulDiv();
+        while (operator.equals("+") || operator.equals("-")) {
+            boolean negative = false;
+            while (operator.equals("+") || operator.equals("-")) {
+                if (operator.equals("-"))
+                    negative = !negative;
+                next();
+            }
+            if (operator.equals("*") || operator.equals("/") || operator.equals(")"))
+                throw new Exception();
+            if (negative == false) {
+                var = new operatorAdd(var, MulDiv());
+            }
+            if (negative == true) {
+                var = new operatorSub(var, MulDiv());
+            }
+        }
+        return var;
 
     }
 
-    private Symbol addition(String expression) throws CalculationException {
-
-        Symbol current = multiplication(expression);
-        double d = current.d;
-
-        while (current.str.length() > 0) {
-            if (!(current.str.charAt(0) == '+' || current.str.charAt(0) == '-')) {
-                break;
+    Expr brackets() throws Exception {
+        Expr var;
+        if (operator.equals("(")) {
+            next();
+            boolean negative = false;
+            while (operator.equals("+") || operator.equals("-")) {
+                if (operator.equals("-"))
+                    negative = !negative;
+                next();
             }
+            if (operator.equals("*") || operator.equals("/"))
+                throw new Exception();
+            if (operator.equals(")"))
+                throw new Exception();
 
-            char sign = current.str.charAt(0);
-            String nextLine = current.str.substring(1);
+            if (Character.isDigit(operator.charAt(0)) && negative == true)
+                answer = new Const(new BigDecimal("-" + operator));
+            if (Character.isDigit(operator.charAt(0)) && negative == false)
+                answer = new Const(new BigDecimal("+" + operator));
 
-            current = multiplication(nextLine);
-            if (sign == '+') {
-                d += current.d;
-            } else {
-                d -= current.d;
+            if (negative == true && operator.equals("("))
+                var = new operatorSub(new Const(new BigDecimal("0")), AddDiv());
+            else
+                var = AddDiv();
+            if (operator.equals(")")) {
+                next();
+                if (operator.equals("(") || Character.isDigit(operator.charAt(0)))
+                    var = new operatorMul(var, AddDiv());
             }
+        } else {
+            var = answer;
+            String prev = operator;
+            next();
+            if (Character.isDigit(prev.charAt(0)) && operator.equals("("))
+                var = new operatorMul(var, AddDiv());
+
         }
-        return new Symbol(d, current.str);
+        return var;
     }
 
-    private Symbol multiplication(String expression) throws CalculationException {
-        Symbol current = brackets(expression);
-        double d = current.d;
-        while (true) {
-            if (current.str.length() == 0) {
-                return current;
-            }
-            char sign = current.str.charAt(0);
-            if (sign != '*' && sign != '/') {
-                return current;
-            }
-
-            String next = current.str.substring(1);
-            Symbol right = brackets(next);
-
-            if (sign == '*') {
-                d *= right.d;
-            } else {
-                if (right.d == 0) {
-                    throw new CalculationException();
+    void next() throws Exception {
+        operator = "";
+        boolean morePoints = false;
+        if (pos == expression.length()) {
+            operator = "!";
+            return;
+        }
+        if (expression.charAt(pos) == '(') operator = "(";
+        if (expression.charAt(pos) == ')') operator = ")";
+        if (expression.charAt(pos) == '+') operator = "+";
+        if (expression.charAt(pos) == '-') operator = "-";
+        if (expression.charAt(pos) == '*') operator = "*";
+        if (expression.charAt(pos) == '/') operator = "/";
+        if (operator.length() > 0) {
+            pos++;
+            return;
+        }
+        while (Character.isDigit(expression.charAt(pos)) || expression.charAt(pos) == '.') {
+            if (expression.charAt(pos) == '.') {
+                if (morePoints == true) {
+                    throw new Exception();
                 }
-                d /= right.d;
-
+                morePoints = true;
             }
-
-            current = new Symbol(d, right.str);
+            operator += expression.charAt(pos);
+            pos++;
+            if (pos == expression.length()) break;
         }
-    }
-
-    private Symbol brackets(String expression) throws CalculationException {
-
-        if (expression.charAt(0) == '(') {
-            Symbol symbol = addition(expression.substring(1));
-            if (!symbol.str.isEmpty() && symbol.str.charAt(0) == ')') {
-                symbol.str = symbol.str.substring(1);
-            }
-            return symbol;
-        }
-        return digit(expression);
-    }
-
-    private Symbol digit(String expression) {
-
-        boolean negative = false;
-
-        if (expression.charAt(0) == '-') {
-            negative = true;
-            expression = expression.substring(1);
-        }
-
-        int i = 0;
-        while (i < expression.length() && (Character.isDigit(expression.charAt(i)) || expression.charAt(i) == '.')) {
-            i++;
-        }
-
-        double number = (negative) ? (-Double.parseDouble(expression.substring(0, i))) : Double.parseDouble(expression.substring(0, i));
-
-        return new Symbol(number, expression.substring(i));
+        if (morePoints == true && operator.length() == 1)
+            throw new Exception();
+        if (operator.charAt(operator.length() - 1) == '.')
+            operator = operator + "0";
+        if (operator.charAt(0) == '.')
+            operator = "0" + operator;
+        answer = new Const(new BigDecimal(operator));
     }
 
     @Override
     public double calculate(String expression) throws CalculationException {
-        return addition(expression.replace(" ", "")).d;
+        String a;
+        try {
+            a = Parser(expression).eval().toString();
+        } catch (Exception e) {
+            throw new CalculationException();
+        }
+        return Double.parseDouble(a);
     }
 }

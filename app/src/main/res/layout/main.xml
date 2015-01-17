@@ -77,7 +77,6 @@
         <Button
             android:id="@+id/delete"
             android:layout_width="wrap_content"
-
             android:layout_height="fill_parent"
             android:layout_gravity="center_horizontal|top"
             android:layout_marginBottom="2dp"
@@ -145,7 +144,6 @@
         <Button
             android:id="@+id/clear"
             android:layout_width="wrap_content"
-
             android:layout_height="fill_parent"
             android:layout_gravity="center_horizontal|top"
             android:layout_marginBottom="2dp"
@@ -211,7 +209,6 @@
             android:text="*" />
 
         <Button
-
             android:id="@+id/rightBracket"
             android:layout_width="wrap_content"
             android:layout_marginBottom="2dp"
@@ -271,9 +268,9 @@
         android:orientation="horizontal">
 
         <Button
+            android:onClick="result"
             android:id="@+id/calculation"
             android:layout_width="wrap_content"
-
             android:layout_height="fill_parent"
             android:layout_gravity="center_horizontal|top"
             android:layout_marginRight="2dp"
@@ -295,4 +292,3 @@
 
     </LinearLayout>
 </LinearLayout>
-
