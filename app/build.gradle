@@ -4,7 +4,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'org.robolectric:robolectric-gradle-plugin:0.14.+'
+        classpath 'org.robolectric.gradle:gradle-android-test-plugin:0.10.0'
     }
 }
 
@@ -24,7 +24,7 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            runProguard false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
