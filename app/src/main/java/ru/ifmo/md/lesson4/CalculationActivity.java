@@ -15,7 +15,6 @@ import java.text.DecimalFormat;
 public class CalculationActivity extends Activity {
 
     Button textView;
-    // A little cheat for nice showing text. I couldn't create TextView with transparent background.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
