@@ -6,7 +6,11 @@ public class CalculationEngineFactory {
 
     }
 
-    public static CalculationEngine defaultEngine() {
+    /*public static CalculationEngine defaultEngine() {
         return new DummyCalculateEngine();
+    }*/
+
+    public static CalculationEngine defaultEngine() {
+        return new ProCalculationEngine();
     }
 }
