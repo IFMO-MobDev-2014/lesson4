@@ -139,7 +139,7 @@ public class ProCalculationEngine implements CalculationEngine {
             String str = (String) input.removeFirst();
             char c = str.charAt(0);
             if (isIdent(c)) {
-                    stack.addLast(Double.parseDouble(str));
+                stack.addLast(Double.parseDouble(str));
             } else if (isOperator(c)) {
                 int nargs = opArgumentCount(c);
                 if (stack.size() < nargs) {
@@ -174,6 +174,8 @@ public class ProCalculationEngine implements CalculationEngine {
         return (Double) stack.removeLast();
     }
     private String doGood(String expression) throws CalculationException {
+        if (expression == null || expression.equals(""))
+            throw new CalculationException("Error: Empty input");
         char[] arrexpr = expression.toCharArray();
         int whitespaces = 0;
         for (int i = 0; i < arrexpr.length; i++) {
@@ -217,4 +219,4 @@ public class ProCalculationEngine implements CalculationEngine {
         return execute(shuntingYard(doGood(expression)));
     }
 
- }
+}
