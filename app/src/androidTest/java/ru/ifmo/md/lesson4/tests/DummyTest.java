@@ -1,14 +1,13 @@
 package ru.ifmo.md.lesson4.tests;
 
+import android.util.Log;
+
 import junit.framework.Assert;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
-
-import java.util.Random;
 
 import ru.ifmo.md.lesson4.CalculationEngineFactory;
 import ru.ifmo.md.lesson4.CalculationException;
@@ -16,102 +15,159 @@ import ru.ifmo.md.lesson4.CalculationException;
 @Config(emulateSdk = 18)
 @RunWith(RobolectricTestRunner.class)
 public class DummyTest {
-    @Before
-    public void setup() {
-        //do whatever is necessary before every test
-    }
 
-    Random rnd = new Random();
+    private static final double EPS = 0.0001;
 
-    double randomDouble() {
-        return rnd.nextDouble();
-    }
-
-    final double EPS = 1e-9;
-    @Test
-    public void testWhoppingComplex() {
+    private static void testInvalidExpression(String expression) {
         try {
-            Assert.assertEquals(10d, CalculationEngineFactory.defaultEngine().calculate("5+5"));
+            CalculationEngineFactory.defaultEngine().calculate(expression);
+            Assert.fail("Successfully evaluate " + expression);
+        } catch (CalculationException e) {
+            Log.d("Test", "Successfully fail");
+        }
+    }
+
+    private static void assertEquals(double expected, double actual) {
+        Assert.assertTrue(Math.abs(expected - actual) < EPS);
+    }
+
+    private static void testValidExpression(double expected, String expression) {
+        try {
+            double result = CalculationEngineFactory.defaultEngine().calculate(expression);
+            assertEquals(expected, result);
         } catch (CalculationException e) {
             Assert.fail("Exception happened " + e);
         }
+    }
 
-        for (int i = 0; i < 10; i++) {
-            double a = randomDouble();
-            double b = randomDouble();
-            String sa = Double.toString(a);
-            String sb = Double.toString(b);
-            try {
-                Assert.assertEquals(true, Math.abs(CalculationEngineFactory.defaultEngine().calculate(sa + " +" + sb) - (a + b)) < EPS);
-            } catch (CalculationException e) {
-                Assert.fail("Exception happened " + e);
-            }
-            try {
-                Assert.assertEquals(true, Math.abs(CalculationEngineFactory.defaultEngine().calculate(sa + "*" + sb) - (a * b)) < EPS);
-            } catch (CalculationException e) {
-                Assert.fail("Exception happened " + e);
-            }
-            try {
-                Assert.assertEquals(true, Math.abs(CalculationEngineFactory.defaultEngine().calculate(sa + " -" + sb) - (a - b)) < EPS);
-            } catch (CalculationException e) {
-                Assert.fail("Exception happened " + e);
-            }
-            try {
-                Assert.assertEquals(true, Math.abs(CalculationEngineFactory.defaultEngine().calculate(sa + "/ " + sb) - (a / b)) < EPS);
-            } catch (CalculationException e) {
-                Assert.fail("Exception happened " + e);
-            }
-            Test1 t = genTest(i);
-            try {
-                Assert.assertEquals(true, Math.abs(CalculationEngineFactory.defaultEngine().calculate(t.str) - (t.ans)) < EPS);
-            } catch (CalculationException e) {
-                Assert.fail("Exception happened " + e);
-            }
+    @Test
+    public void testInvalidExpression1() {
+        testInvalidExpression(")");
+    }
+
+    @Test
+    public void testInvalidExpression2() {
+        testInvalidExpression("(");
+    }
+
+    @Test
+    public void testInvalidExpression3() {
+        testInvalidExpression("()");
+    }
+
+    @Test
+    public void testInvalidExpression4() {
+        testInvalidExpression("-");
+    }
+
+    @Test
+    public void testInvalidExpression5() {
+        testInvalidExpression("1//5");
+    }
+
+    @Test
+    public void testInvalidExpression6() {
+        testInvalidExpression("");
+    }
+
+    @Test
+    public void testInvalidExpression7() {
+        testInvalidExpression("1+1+1/");
+    }
+
+    @Test
+    public void testInvalidExpression8() {
+        testInvalidExpression("1+1+()");
+    }
+
+    @Test
+    public void testInvalidExpression9() {
+        testInvalidExpression(null);
+    }
+
+    @Test
+    public void testValidExpression1() {
+        testValidExpression(2, "1+1");
+    }
+
+    @Test
+    public void testValidExpression2() {
+        testValidExpression(1.05, "(0.1+0.005)/0.1");
+    }
+
+    @Test
+    public void testValidExpression3() {
+        testValidExpression(0, "((0.1+0.005)*0.0)");
+    }
+
+    @Test
+    public void testValidExpression4() {
+        testValidExpression(0.1, "(0.1+0.005*0.0)");
+    }
+
+    @Test
+    public void testValidExpression5() {
+        testValidExpression(1, "1");
+    }
+
+    @Test
+    public void testValidExpression6() {
+        testValidExpression(-1, "-1");
+    }
+
+    @Test
+    public void testValidExpression7() {
+        testValidExpression(42, "(((42)))");
+    }
+
+    @Test
+    public void testValidExpression8() {
+        testValidExpression(-42, "((-(42)))");
+    }
+
+    @Test
+    public void testValidExpression9() {
+        testValidExpression(0.2, "1/1/5");
+    }
+
+    @Test
+    public void testValidExpression10() {
+        testValidExpression(50, "10/(1/5)");
+    }
+
+    @Test
+    public void testValidExpression11() {
+        testValidExpression(1.05, "(0.1+0.005)/0.1");
+    }
+
+
+    @Test
+    public void testDivisionByZero1() {
+        try {
+            double result = CalculationEngineFactory.defaultEngine().calculate("-1/0");
+            Assert.assertEquals(Double.NEGATIVE_INFINITY, result);
+        } catch (CalculationException e) {
+            Log.d("Test", "Valid Failure");
         }
     }
 
-    static class Test1 {
-        String str;
-        double ans;
-        Test1(String str, double ans) {
-            this.str = str;
-            this.ans = ans;
+    @Test
+    public void testDivisionByZero2() {
+        try {
+            double result = CalculationEngineFactory.defaultEngine().calculate("1/(10-10)");
+            Assert.assertEquals(Double.POSITIVE_INFINITY, result);
+        } catch (CalculationException e) {
+            Log.d("Test", "Valid Failure");
         }
     }
 
-    private Test1 genTest(int level) {
-        Test1 res = genTest(0);
-        if (level == 0) {
-            double result = randomDouble();
-            return new Test1(String.valueOf(result), result);
-        } else {
-            String s;
-            Test1 a = genTest(level - 1);
-            Test1 b = genTest(level - 1);
-            int op = rnd.nextInt(4);
-            switch (op) {
-                case 0:
-                    s = a.str + "+" + b.str;
-                    s = "(" + s + ")";
-                    res = new Test1(s, a.ans + b.ans);
-                    break;
-                case 1:
-                    s = a.str + "*" + b.str;
-                    s = "(" + s + ")";
-                    res = new Test1(s, a.ans * b.ans);
-                    break;
-                case 2:
-                    s = a.str + "-" + b.str;
-                    s = "(" + s + ")";
-                    res = new Test1(s, a.ans - b.ans);
-                    break;
-                case 3:
-                    s = a.str + "/" + b.str;
-                    s = "(" + s + ")";
-                    res = new Test1(s, a.ans / b.ans);
-                    break;
-            }
+    @Test
+    public void testDivisionByZero3() {
+        try {
+            double result = CalculationEngineFactory.defaultEngine().calculate("(10-10)/(10-10)");
+            Assert.assertTrue(Double.isNaN(result));
+        } catch (CalculationException e) {
+            Log.d("Test", "Valid Failure");
         }
-        return res;
     }
 }
