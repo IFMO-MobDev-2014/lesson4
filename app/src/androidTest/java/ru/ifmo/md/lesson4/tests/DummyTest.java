@@ -27,8 +27,4 @@ public class DummyTest {
             Assert.fail("Exception happened " + e);
         }
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> aa1abad81687c79e37ccbd0aec782e36f808139a
