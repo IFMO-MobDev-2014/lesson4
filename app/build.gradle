@@ -1,3 +1,15 @@
+<<<<<<< HEAD
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 21
+    buildToolsVersion "21.1.2"
+
+    defaultConfig {
+        applicationId "ru.ifmo.md.lesson4"
+        minSdkVersion 13
+        targetSdkVersion 21
+=======
 buildscript {
 
     repositories {
@@ -19,12 +31,17 @@ android {
         applicationId "ru.ifmo.md.lesson4"
         minSdkVersion 15
         targetSdkVersion 20
+>>>>>>> aa1abad81687c79e37ccbd0aec782e36f808139a
         versionCode 1
         versionName "1.0"
     }
     buildTypes {
         release {
+<<<<<<< HEAD
+            minifyEnabled false
+=======
             runProguard false
+>>>>>>> aa1abad81687c79e37ccbd0aec782e36f808139a
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -32,6 +49,20 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+<<<<<<< HEAD
+    compile 'com.android.support:appcompat-v7:21.0.3'
+    compile 'junit:junit:4.12'
+    compile 'org.robolectric:robolectric:2.4'
+}
+
+android {
+    packagingOptions {
+        exclude 'LICENSE.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+    }
+=======
     androidTestCompile 'junit:junit:4.10'
     androidTestCompile 'org.robolectric:robolectric:2.3'
 }
@@ -39,4 +70,5 @@ dependencies {
 androidTest {
     include '**/*Test.class'
     include '**/*Tests.class'
+>>>>>>> aa1abad81687c79e37ccbd0aec782e36f808139a
 }
