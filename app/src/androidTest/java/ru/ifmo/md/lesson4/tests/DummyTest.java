@@ -8,8 +8,6 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
-import java.util.Random;
-
 import ru.ifmo.md.lesson4.CalculationEngine;
 import ru.ifmo.md.lesson4.CalculationEngineFactory;
 import ru.ifmo.md.lesson4.CalculationException;
@@ -18,7 +16,6 @@ import ru.ifmo.md.lesson4.CalculationException;
 @RunWith(RobolectricTestRunner.class)
 public class DummyTest {
     private static double eps = 1e-9;
-    private static Random rng = new Random(58L);
 
     private CalculationEngine engine;
 
@@ -90,14 +87,5 @@ public class DummyTest {
         shouldReturn(-.00001, "2e-5/  -  2.000000000000");
 
         shouldReturn(Double.NEGATIVE_INFINITY, "-25/(21-7*3)");
-    }
-
-    @Test
-    public void testRandomArithmetic() {
-        RandomTestGenerator testGen = new RandomTestGenerator(rng);
-        for (int i = 0; i < 20; i++) {
-            RandomTestGenerator.TestCase test = testGen.generateExpression(i);
-            shouldReturn(test.result, test.expression);
-        }
     }
 }
