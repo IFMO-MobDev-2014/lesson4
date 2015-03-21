@@ -1,4 +1,4 @@
-package ru.ifmo.md.lesson4;
+package com.example.alex.lesson4;
 
 public class CalculationException extends Exception {
 }

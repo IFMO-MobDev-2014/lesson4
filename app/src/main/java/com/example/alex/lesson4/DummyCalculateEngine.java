@@ -1,4 +1,6 @@
-package ru.ifmo.md.lesson4;
+package com.example.alex.lesson4;
+
+import com.example.alex.lesson4.CalculationEngine;
 
 public class DummyCalculateEngine implements CalculationEngine {
     @Override
