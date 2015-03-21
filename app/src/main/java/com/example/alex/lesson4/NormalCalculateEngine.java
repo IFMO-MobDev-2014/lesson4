@@ -153,7 +153,6 @@ public class NormalCalculateEngine implements CalculationEngine {
     private static String check(String expr) throws CalculationException {
         StringBuffer h = new StringBuffer();
         Log.i("Start ",expr);
-       // boolean k = true;
         if (expr.charAt(0) == '.' || expr.charAt(expr.length() - 1) == '.'){
             CalculationException e = new CalculationException();
             throw (e);
@@ -168,10 +167,6 @@ public class NormalCalculateEngine implements CalculationEngine {
             if (expr.charAt(i) == '-' && expr.charAt(i + 1) == '-' && expr.charAt(i + 2) == '-') {
                 CalculationException e = new CalculationException();
                 throw (e);
-                /*h.append("-");
-                i++;
-                t=false;
-                continue;*/
             } else {
                 if ((Character.isDigit(expr.charAt(i)) || expr.charAt(i) == '.') && expr.charAt(i + 1) == '(') {
                     CalculationException e = new CalculationException();
